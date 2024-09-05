@@ -136,6 +136,12 @@ edu:AbductiveReasoning rdf:type owl:NamedIndividual ,
                        edu:partOfAbility edu:NonDeductiveReasoning .
 
 
+###  http://edugraph.org/edu#ActiveVocabulary
+edu:ActiveVocabulary rdf:type owl:NamedIndividual ,
+                              :Ability ;
+                     edu:partOfAbility edu:LingusticArticulation .
+
+
 ###  http://edugraph.org/edu#AdaptiveCreativity
 edu:AdaptiveCreativity rdf:type owl:NamedIndividual ,
                                 :Ability ;
@@ -165,10 +171,34 @@ edu:Articulation rdf:type owl:NamedIndividual ,
                  edu:partOfAbility edu:Expression .
 
 
+###  http://edugraph.org/edu#ArtisticInterpretation
+edu:ArtisticInterpretation rdf:type owl:NamedIndividual ,
+                                    :Ability ;
+                           edu:partOfAbility edu:Interpretation .
+
+
+###  http://edugraph.org/edu#AxiomDefinition
+edu:AxiomDefinition rdf:type owl:NamedIndividual ,
+                             :Ability ;
+                    edu:partOfAbility edu:DeductiveReasoning .
+
+
 ###  http://edugraph.org/edu#Balance
 edu:Balance rdf:type owl:NamedIndividual ,
                      :Ability ;
             edu:partOfAbility edu:PhyiscalCapability .
+
+
+###  http://edugraph.org/edu#BiasDetection
+edu:BiasDetection rdf:type owl:NamedIndividual ,
+                           :Ability ;
+                  edu:partOfAbility edu:Evaluation .
+
+
+###  http://edugraph.org/edu#BiasPrevention
+edu:BiasPrevention rdf:type owl:NamedIndividual ,
+                            :Ability ;
+                   edu:partOfAbility edu:Expression .
 
 
 ###  http://edugraph.org/edu#CardiovascularEndurance
@@ -185,12 +215,6 @@ edu:CognitiveContext rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu#CommunicationCapability
 edu:CommunicationCapability rdf:type owl:NamedIndividual ,
                                      :Ability .
-
-
-###  http://edugraph.org/edu#Compression
-edu:Compression rdf:type owl:NamedIndividual ,
-                         :Ability ;
-                edu:partOfAbility edu:Reception .
 
 
 ###  http://edugraph.org/edu#ConceptClassification
@@ -252,6 +276,12 @@ edu:DialogModeration rdf:type owl:NamedIndividual ,
                      edu:partOfAbility edu:Facilitation .
 
 
+###  http://edugraph.org/edu#DirectUnderstanding
+edu:DirectUnderstanding rdf:type owl:NamedIndividual ,
+                                 :Ability ;
+                        edu:partOfAbility edu:Understanding .
+
+
 ###  http://edugraph.org/edu#DivergentCreativity
 edu:DivergentCreativity rdf:type owl:NamedIndividual ,
                                  :Ability ;
@@ -268,6 +298,12 @@ edu:DiversityTolerance rdf:type owl:NamedIndividual ,
 edu:DynamicBalance rdf:type owl:NamedIndividual ,
                             :Ability ;
                    edu:partOfAbility edu:Balance .
+
+
+###  http://edugraph.org/edu#EmotionExtraction
+edu:EmotionExtraction rdf:type owl:NamedIndividual ,
+                               :Ability ;
+                      edu:partOfAbility edu:Extraction .
 
 
 ###  http://edugraph.org/edu#EmotionalCapability
@@ -299,6 +335,24 @@ edu:Endurance rdf:type owl:NamedIndividual ,
               edu:partOfAbility edu:PhyiscalCapability .
 
 
+###  http://edugraph.org/edu#ErrorCorrection
+edu:ErrorCorrection rdf:type owl:NamedIndividual ,
+                             :Ability ;
+                    edu:partOfAbility edu:Evaluation .
+
+
+###  http://edugraph.org/edu#ErrorDetection
+edu:ErrorDetection rdf:type owl:NamedIndividual ,
+                            :Ability ;
+                   edu:partOfAbility edu:Evaluation .
+
+
+###  http://edugraph.org/edu#Evaluation
+edu:Evaluation rdf:type owl:NamedIndividual ,
+                        :Ability ;
+               edu:partOfAbility edu:Processing .
+
+
 ###  http://edugraph.org/edu#ExplosiveStrength
 edu:ExplosiveStrength rdf:type owl:NamedIndividual ,
                                :Ability ;
@@ -311,28 +365,58 @@ edu:Expression rdf:type owl:NamedIndividual ,
                edu:partOfAbility edu:CommunicationCapability .
 
 
+###  http://edugraph.org/edu#Extraction
+edu:Extraction rdf:type owl:NamedIndividual ,
+                        :Ability ;
+               edu:partOfAbility edu:Processing .
+
+
 ###  http://edugraph.org/edu#Facilitation
 edu:Facilitation rdf:type owl:NamedIndividual ,
                           :Ability ;
                  edu:partOfAbility edu:CommunicationCapability .
 
 
-###  http://edugraph.org/edu#Formulization
-edu:Formulization rdf:type owl:NamedIndividual ,
+###  http://edugraph.org/edu#Formalization
+edu:Formalization rdf:type owl:NamedIndividual ,
                            :Ability ;
                   edu:partOfAbility edu:Expression .
 
 
-###  http://edugraph.org/edu#GesticArtiucilation
-edu:GesticArtiucilation rdf:type owl:NamedIndividual ,
-                                 :Ability ;
-                        edu:partOfAbility edu:Articulation .
+###  http://edugraph.org/edu#GesticArticulation
+edu:GesticArticulation rdf:type owl:NamedIndividual ,
+                                :Ability ;
+                       edu:partOfAbility edu:Articulation .
+
+
+###  http://edugraph.org/edu#GesticReception
+edu:GesticReception rdf:type owl:NamedIndividual ,
+                             :Ability ;
+                    edu:partOfAbility edu:Reception .
+
+
+###  http://edugraph.org/edu#GrammaticalPrecision
+edu:GrammaticalPrecision rdf:type owl:NamedIndividual ,
+                                  :Ability ;
+                         edu:partOfAbility edu:LingusticArticulation .
 
 
 ###  http://edugraph.org/edu#GroupModeration
 edu:GroupModeration rdf:type owl:NamedIndividual ,
                              :Ability ;
                     edu:partOfAbility edu:Facilitation .
+
+
+###  http://edugraph.org/edu#Hearing
+edu:Hearing rdf:type owl:NamedIndividual ,
+                     :Ability ;
+            edu:partOfAbility edu:SensoricCapability .
+
+
+###  http://edugraph.org/edu#HumoristicInterpretation
+edu:HumoristicInterpretation rdf:type owl:NamedIndividual ,
+                                      :Ability ;
+                             edu:partOfAbility edu:Interpretation .
 
 
 ###  http://edugraph.org/edu#HypothesisGeneration
@@ -353,6 +437,18 @@ edu:InductiveReasoning rdf:type owl:NamedIndividual ,
                        edu:partOfAbility edu:NonDeductiveReasoning .
 
 
+###  http://edugraph.org/edu#InformationCompression
+edu:InformationCompression rdf:type owl:NamedIndividual ,
+                                    :Ability ;
+                           edu:partOfAbility edu:Interpretation .
+
+
+###  http://edugraph.org/edu#InformationExtraction
+edu:InformationExtraction rdf:type owl:NamedIndividual ,
+                                   :Ability ;
+                          edu:partOfAbility edu:Extraction .
+
+
 ###  http://edugraph.org/edu#IntentIdentifcation
 edu:IntentIdentifcation rdf:type owl:NamedIndividual ,
                                  :Ability ;
@@ -362,7 +458,7 @@ edu:IntentIdentifcation rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu#Interpretation
 edu:Interpretation rdf:type owl:NamedIndividual ,
                             :Ability ;
-                   edu:partOfAbility edu:Reception .
+                   edu:partOfAbility edu:Processing .
 
 
 ###  http://edugraph.org/edu#Introspection
@@ -377,10 +473,23 @@ edu:LateralCreativty rdf:type owl:NamedIndividual ,
                      edu:partOfAbility edu:CreativeCapability .
 
 
-###  http://edugraph.org/edu#LiteralUnderstanding
-edu:LiteralUnderstanding rdf:type owl:NamedIndividual ,
-                                  :Ability ;
-                         edu:partOfAbility edu:Understanding .
+###  http://edugraph.org/edu#LingusticArticulation
+edu:LingusticArticulation rdf:type owl:NamedIndividual ,
+                                   :Ability ;
+                          edu:partOfAbility edu:Articulation ,
+                                            edu:LingusticCapability .
+
+
+###  http://edugraph.org/edu#LingusticCapability
+edu:LingusticCapability rdf:type owl:NamedIndividual ,
+                                 :Ability .
+
+
+###  http://edugraph.org/edu#LingusticReception
+edu:LingusticReception rdf:type owl:NamedIndividual ,
+                                :Ability ;
+                       edu:partOfAbility edu:LingusticCapability ,
+                                         edu:Reception .
 
 
 ###  http://edugraph.org/edu#LogicalInference
@@ -422,7 +531,7 @@ edu:MentalEndurance rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu#MessageExtraction
 edu:MessageExtraction rdf:type owl:NamedIndividual ,
                                :Ability ;
-                      edu:partOfAbility edu:Compression .
+                      edu:partOfAbility edu:Extraction .
 
 
 ###  http://edugraph.org/edu#Messaging
@@ -437,10 +546,10 @@ edu:MimicArticulation rdf:type owl:NamedIndividual ,
                       edu:partOfAbility edu:Articulation .
 
 
-###  http://edugraph.org/edu#MonologicalPresentation
-edu:MonologicalPresentation rdf:type owl:NamedIndividual ,
-                                     :Ability ;
-                            edu:partOfAbility edu:Facilitation .
+###  http://edugraph.org/edu#MimicReception
+edu:MimicReception rdf:type owl:NamedIndividual ,
+                            :Ability ;
+                   edu:partOfAbility edu:Reception .
 
 
 ###  http://edugraph.org/edu#MoodIdentification
@@ -491,6 +600,12 @@ edu:Narration rdf:type owl:NamedIndividual ,
               edu:partOfAbility edu:Expression .
 
 
+###  http://edugraph.org/edu#NarrativeExtraction
+edu:NarrativeExtraction rdf:type owl:NamedIndividual ,
+                                 :Ability ;
+                        edu:partOfAbility edu:Extraction .
+
+
 ###  http://edugraph.org/edu#NonDeductiveReasoning
 edu:NonDeductiveReasoning rdf:type owl:NamedIndividual ,
                                    :Ability ;
@@ -520,6 +635,12 @@ edu:PassiveCommunication rdf:type owl:NamedIndividual ,
                                   :Ability .
 
 
+###  http://edugraph.org/edu#PassiveVocabulary
+edu:PassiveVocabulary rdf:type owl:NamedIndividual ,
+                               :Ability ;
+                      edu:partOfAbility edu:LingusticReception .
+
+
 ###  http://edugraph.org/edu#PeerAwareness
 edu:PeerAwareness rdf:type owl:NamedIndividual ,
                            :Ability ;
@@ -547,6 +668,12 @@ edu:Performance rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu#PhyiscalCapability
 edu:PhyiscalCapability rdf:type owl:NamedIndividual ,
                                 :Ability .
+
+
+###  http://edugraph.org/edu#PlausabilityEvaluation
+edu:PlausabilityEvaluation rdf:type owl:NamedIndividual ,
+                                    :Ability ;
+                           edu:partOfAbility edu:Evaluation .
 
 
 ###  http://edugraph.org/edu#PoliticalAwareness
@@ -615,10 +742,40 @@ edu:ProcedureUnderstanding rdf:type owl:NamedIndividual ,
                            edu:partOfAbility edu:LogicalProcessing .
 
 
+###  http://edugraph.org/edu#Processing
+edu:Processing rdf:type owl:NamedIndividual ,
+                        :Ability ;
+               edu:partOfAbility edu:CommunicationCapability .
+
+
+###  http://edugraph.org/edu#Pronunciation
+edu:Pronunciation rdf:type owl:NamedIndividual ,
+                           :Ability ;
+                  edu:partOfAbility edu:VocalArticulation .
+
+
 ###  http://edugraph.org/edu#PropositionIdentification
 edu:PropositionIdentification rdf:type owl:NamedIndividual ,
                                        :Ability ;
                               edu:partOfAbility edu:LogicalReasoning .
+
+
+###  http://edugraph.org/edu#ReadingFluency
+edu:ReadingFluency rdf:type owl:NamedIndividual ,
+                            :Ability ;
+                   edu:partOfAbility edu:TextualReception .
+
+
+###  http://edugraph.org/edu#ReadingPrecision
+edu:ReadingPrecision rdf:type owl:NamedIndividual ,
+                              :Ability ;
+                     edu:partOfAbility edu:TextualReception .
+
+
+###  http://edugraph.org/edu#ReadingSpeed
+edu:ReadingSpeed rdf:type owl:NamedIndividual ,
+                          :Ability ;
+                 edu:partOfAbility edu:TextualReception .
 
 
 ###  http://edugraph.org/edu#ReasoningStrategy
@@ -630,7 +787,13 @@ edu:ReasoningStrategy rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu#Reception
 edu:Reception rdf:type owl:NamedIndividual ,
                        :Ability ;
-              edu:partOfAbility edu:CommunicationCapability .
+              edu:partOfAbility edu:Processing .
+
+
+###  http://edugraph.org/edu#RelevanceEvaluation
+edu:RelevanceEvaluation rdf:type owl:NamedIndividual ,
+                                 :Ability ;
+                        edu:partOfAbility edu:Evaluation .
 
 
 ###  http://edugraph.org/edu#Representation
@@ -648,6 +811,12 @@ edu:ResultInterpretation rdf:type owl:NamedIndividual ,
 edu:ScientificThinking rdf:type owl:NamedIndividual ,
                                 :Ability ;
                        edu:partOfAbility edu:AnalyticalCapability .
+
+
+###  http://edugraph.org/edu#Seeing
+edu:Seeing rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           edu:partOfAbility edu:SensoricCapability .
 
 
 ###  http://edugraph.org/edu#SelfAssessment
@@ -680,16 +849,39 @@ edu:SelfRegulation rdf:type owl:NamedIndividual ,
                    edu:partOfAbility edu:Introspection .
 
 
+###  http://edugraph.org/edu#SensoricCapability
+edu:SensoricCapability rdf:type owl:NamedIndividual ,
+                                :Ability .
+
+
 ###  http://edugraph.org/edu#ServiceOrientation
 edu:ServiceOrientation rdf:type owl:NamedIndividual ,
                                 :Ability ;
                        edu:partOfAbility edu:SocialScaling .
 
 
+###  http://edugraph.org/edu#Smelling
+edu:Smelling rdf:type owl:NamedIndividual ,
+                      :Ability ;
+             edu:partOfAbility edu:SensoricCapability .
+
+
 ###  http://edugraph.org/edu#SocialScaling
 edu:SocialScaling rdf:type owl:NamedIndividual ,
                            :Ability ;
                   edu:partOfAbility edu:EmotionalCapability .
+
+
+###  http://edugraph.org/edu#SpeakingFluency
+edu:SpeakingFluency rdf:type owl:NamedIndividual ,
+                             :Ability ;
+                    edu:partOfAbility edu:VocalArticulation .
+
+
+###  http://edugraph.org/edu#SpeakingSpeed
+edu:SpeakingSpeed rdf:type owl:NamedIndividual ,
+                           :Ability ;
+                  edu:partOfAbility edu:VocalArticulation .
 
 
 ###  http://edugraph.org/edu#StartingStrength
@@ -716,22 +908,34 @@ edu:SubtextUnderstanding rdf:type owl:NamedIndividual ,
                          edu:partOfAbility edu:Understanding .
 
 
-###  http://edugraph.org/edu#Summarization
-edu:Summarization rdf:type owl:NamedIndividual ,
-                           :Ability ;
-                  edu:partOfAbility edu:Compression .
-
-
 ###  http://edugraph.org/edu#SupertextUnderstanding
 edu:SupertextUnderstanding rdf:type owl:NamedIndividual ,
                                     :Ability ;
                            edu:partOfAbility edu:Understanding .
 
 
+###  http://edugraph.org/edu#SyntacticalPrecision
+edu:SyntacticalPrecision rdf:type owl:NamedIndividual ,
+                                  :Ability ;
+                         edu:partOfAbility edu:TextualArticulation .
+
+
+###  http://edugraph.org/edu#Tasting
+edu:Tasting rdf:type owl:NamedIndividual ,
+                     :Ability ;
+            edu:partOfAbility edu:SensoricCapability .
+
+
 ###  http://edugraph.org/edu#TextualArticulation
 edu:TextualArticulation rdf:type owl:NamedIndividual ,
                                  :Ability ;
-                        edu:partOfAbility edu:Articulation .
+                        edu:partOfAbility edu:LingusticArticulation .
+
+
+###  http://edugraph.org/edu#TextualReception
+edu:TextualReception rdf:type owl:NamedIndividual ,
+                              :Ability ;
+                     edu:partOfAbility edu:LingusticReception .
 
 
 ###  http://edugraph.org/edu#TonalArticulation
@@ -740,10 +944,22 @@ edu:TonalArticulation rdf:type owl:NamedIndividual ,
                       edu:partOfAbility edu:Articulation .
 
 
+###  http://edugraph.org/edu#TonalReception
+edu:TonalReception rdf:type owl:NamedIndividual ,
+                            :Ability ;
+                   edu:partOfAbility edu:Reception .
+
+
+###  http://edugraph.org/edu#Touching
+edu:Touching rdf:type owl:NamedIndividual ,
+                      :Ability ;
+             edu:partOfAbility edu:SensoricCapability .
+
+
 ###  http://edugraph.org/edu#Understanding
 edu:Understanding rdf:type owl:NamedIndividual ,
                            :Ability ;
-                  edu:partOfAbility edu:Reception .
+                  edu:partOfAbility edu:Processing .
 
 
 ###  http://edugraph.org/edu#VisualArticulation
@@ -752,10 +968,22 @@ edu:VisualArticulation rdf:type owl:NamedIndividual ,
                        edu:partOfAbility edu:Articulation .
 
 
-###  http://edugraph.org/edu#VisualInterpretation
-edu:VisualInterpretation rdf:type owl:NamedIndividual ,
-                                  :Ability ;
-                         edu:partOfAbility edu:Interpretation .
+###  http://edugraph.org/edu#VisualDecomposition
+edu:VisualDecomposition rdf:type owl:NamedIndividual ,
+                                 :Ability ;
+                        edu:partOfAbility edu:VisualReception .
+
+
+###  http://edugraph.org/edu#VisualReception
+edu:VisualReception rdf:type owl:NamedIndividual ,
+                             :Ability ;
+                    edu:partOfAbility edu:Reception .
+
+
+###  http://edugraph.org/edu#VisualRecongition
+edu:VisualRecongition rdf:type owl:NamedIndividual ,
+                               :Ability ;
+                      edu:partOfAbility edu:VisualReception .
 
 
 ###  http://edugraph.org/edu#Visualization
@@ -767,7 +995,43 @@ edu:Visualization rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu#VocalArticulation
 edu:VocalArticulation rdf:type owl:NamedIndividual ,
                                :Ability ;
-                      edu:partOfAbility edu:Articulation .
+                      edu:partOfAbility edu:LingusticArticulation .
+
+
+###  http://edugraph.org/edu#VocalListeningCapacity
+edu:VocalListeningCapacity rdf:type owl:NamedIndividual ,
+                                    :Ability ;
+                           edu:partOfAbility edu:VocalReception .
+
+
+###  http://edugraph.org/edu#VocalListeningFlexibility
+edu:VocalListeningFlexibility rdf:type owl:NamedIndividual ,
+                                       :Ability ;
+                              edu:partOfAbility edu:VocalReception .
+
+
+###  http://edugraph.org/edu#VocalListeningPrecision
+edu:VocalListeningPrecision rdf:type owl:NamedIndividual ,
+                                     :Ability ;
+                            edu:partOfAbility edu:VocalReception .
+
+
+###  http://edugraph.org/edu#VocalReception
+edu:VocalReception rdf:type owl:NamedIndividual ,
+                            :Ability ;
+                   edu:partOfAbility edu:LingusticReception .
+
+
+###  http://edugraph.org/edu#WritingFluency
+edu:WritingFluency rdf:type owl:NamedIndividual ,
+                            :Ability ;
+                   edu:partOfAbility edu:TextualArticulation .
+
+
+###  http://edugraph.org/edu#WritingSpeed
+edu:WritingSpeed rdf:type owl:NamedIndividual ,
+                          :Ability ;
+                 edu:partOfAbility edu:TextualArticulation .
 
 
 ###  http://edugraph.org/edu/Algebra
@@ -1007,5 +1271,6 @@ edu:VocalArticulation rdf:type owl:NamedIndividual ,
 :WeightMeasurement rdf:type owl:NamedIndividual ,
                             :Area ;
                    edu:partOfArea :Measurement .
+
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
