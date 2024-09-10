@@ -27,11 +27,11 @@ edu:partOfArea rdf:type owl:ObjectProperty ;
                rdfs:range :Area .
 
 
-###  http://edugraph.org/edu#partOfContext
-edu:partOfContext rdf:type owl:ObjectProperty ;
-                  rdfs:subPropertyOf :partOf ;
-                  rdfs:domain edu:Context ;
-                  rdfs:range edu:Context .
+###  http://edugraph.org/edu#partOfScope
+edu:partOfScope rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :partOf ;
+                rdfs:domain edu:Scope ;
+                rdfs:range edu:Scope .
 
 
 ###  http://edugraph.org/edu#targets
@@ -59,7 +59,7 @@ edu:targetsArea rdf:type owl:ObjectProperty ;
 edu:targetsContext rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf edu:targets ;
                    rdfs:domain :Attribute ;
-                   rdfs:range edu:Context .
+                   rdfs:range edu:Scope .
 
 
 ###  http://edugraph.org/edu/partOf
@@ -78,10 +78,10 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ,
 #    Classes
 #################################################################
 
-###  http://edugraph.org/edu#Context
-edu:Context rdf:type owl:Class ;
-            rdfs:subClassOf :Descriptor ;
-            rdfs:comment "A learning context." .
+###  http://edugraph.org/edu#Scope
+edu:Scope rdf:type owl:Class ;
+          rdfs:subClassOf :Descriptor ;
+          rdfs:comment "A learning context." .
 
 
 ###  http://edugraph.org/edu#Skill
@@ -165,6 +165,12 @@ edu:AnalyticalCapability rdf:type owl:NamedIndividual ,
                                   :Ability .
 
 
+###  http://edugraph.org/edu#ArabicNumerals
+edu:ArabicNumerals rdf:type owl:NamedIndividual ,
+                            edu:Scope ;
+                   edu:partOfScope edu:NumeralSystem .
+
+
 ###  http://edugraph.org/edu#Articulation
 edu:Articulation rdf:type owl:NamedIndividual ,
                           :Ability ;
@@ -189,6 +195,30 @@ edu:Balance rdf:type owl:NamedIndividual ,
             edu:partOfAbility edu:PhyiscalCapability .
 
 
+###  http://edugraph.org/edu#Base10
+edu:Base10 rdf:type owl:NamedIndividual ,
+                    edu:Scope ;
+           edu:partOfScope edu:NumericBase .
+
+
+###  http://edugraph.org/edu#Base16
+edu:Base16 rdf:type owl:NamedIndividual ,
+                    edu:Scope ;
+           edu:partOfScope edu:NumericBase .
+
+
+###  http://edugraph.org/edu#Base2
+edu:Base2 rdf:type owl:NamedIndividual ,
+                   edu:Scope ;
+          edu:partOfScope edu:NumericBase .
+
+
+###  http://edugraph.org/edu#Base8
+edu:Base8 rdf:type owl:NamedIndividual ,
+                   edu:Scope ;
+          edu:partOfScope edu:NumericBase .
+
+
 ###  http://edugraph.org/edu#BiasDetection
 edu:BiasDetection rdf:type owl:NamedIndividual ,
                            :Ability ;
@@ -207,9 +237,9 @@ edu:CardiovascularEndurance rdf:type owl:NamedIndividual ,
                             edu:partOfAbility edu:Endurance .
 
 
-###  http://edugraph.org/edu#CognitiveContext
-edu:CognitiveContext rdf:type owl:NamedIndividual ,
-                              edu:Context .
+###  http://edugraph.org/edu#CognitiveScope
+edu:CognitiveScope rdf:type owl:NamedIndividual ,
+                            edu:Scope .
 
 
 ###  http://edugraph.org/edu#CommunicationCapability
@@ -262,6 +292,42 @@ edu:ConvergentCreativity rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu#CreativeCapability
 edu:CreativeCapability rdf:type owl:NamedIndividual ,
                                 :Ability .
+
+
+###  http://edugraph.org/edu#DecimalAddition
+edu:DecimalAddition rdf:type owl:NamedIndividual ,
+                             :Area ;
+                    edu:partOfArea edu:DecimalArithmetic .
+
+
+###  http://edugraph.org/edu#DecimalArithmetic
+edu:DecimalArithmetic rdf:type owl:NamedIndividual ,
+                               :Area ;
+                      edu:partOfArea edu:RationalsArithmetic .
+
+
+###  http://edugraph.org/edu#DecimalDivision
+edu:DecimalDivision rdf:type owl:NamedIndividual ,
+                             :Area ;
+                    edu:partOfArea edu:DecimalArithmetic .
+
+
+###  http://edugraph.org/edu#DecimalMultiplication
+edu:DecimalMultiplication rdf:type owl:NamedIndividual ,
+                                   :Area ;
+                          edu:partOfArea edu:DecimalArithmetic .
+
+
+###  http://edugraph.org/edu#DecimalNotation
+edu:DecimalNotation rdf:type owl:NamedIndividual ,
+                             :Area ;
+                    edu:partOfArea edu:DecimalArithmetic .
+
+
+###  http://edugraph.org/edu#DecimalSubtraction
+edu:DecimalSubtraction rdf:type owl:NamedIndividual ,
+                                :Area ;
+                       edu:partOfArea edu:DecimalArithmetic .
 
 
 ###  http://edugraph.org/edu#DeductiveReasoning
@@ -383,6 +449,60 @@ edu:Formalization rdf:type owl:NamedIndividual ,
                   edu:partOfAbility edu:Expression .
 
 
+###  http://edugraph.org/edu#FractionAddition
+edu:FractionAddition rdf:type owl:NamedIndividual ,
+                              :Area ;
+                     edu:partOfArea edu:FractionArithmetic .
+
+
+###  http://edugraph.org/edu#FractionArithmetic
+edu:FractionArithmetic rdf:type owl:NamedIndividual ,
+                                :Area ;
+                       edu:partOfArea edu:RationalsArithmetic .
+
+
+###  http://edugraph.org/edu#FractionDivision
+edu:FractionDivision rdf:type owl:NamedIndividual ,
+                              :Area ;
+                     edu:partOfArea edu:FractionArithmetic .
+
+
+###  http://edugraph.org/edu#FractionLogarithm
+edu:FractionLogarithm rdf:type owl:NamedIndividual ,
+                               :Area ;
+                      edu:partOfArea edu:FractionArithmetic .
+
+
+###  http://edugraph.org/edu#FractionMultiplication
+edu:FractionMultiplication rdf:type owl:NamedIndividual ,
+                                    :Area ;
+                           edu:partOfArea edu:FractionArithmetic .
+
+
+###  http://edugraph.org/edu#FractionNotation
+edu:FractionNotation rdf:type owl:NamedIndividual ,
+                              :Area ;
+                     edu:partOfArea edu:FractionArithmetic .
+
+
+###  http://edugraph.org/edu#FractionPower
+edu:FractionPower rdf:type owl:NamedIndividual ,
+                           :Area ;
+                  edu:partOfArea edu:FractionArithmetic .
+
+
+###  http://edugraph.org/edu#FractionRoot
+edu:FractionRoot rdf:type owl:NamedIndividual ,
+                          :Area ;
+                 edu:partOfArea edu:FractionArithmetic .
+
+
+###  http://edugraph.org/edu#FractionSubtraction
+edu:FractionSubtraction rdf:type owl:NamedIndividual ,
+                                 :Area ;
+                        edu:partOfArea edu:FractionArithmetic .
+
+
 ###  http://edugraph.org/edu#GesticArticulation
 edu:GesticArticulation rdf:type owl:NamedIndividual ,
                                 :Ability ;
@@ -447,6 +567,24 @@ edu:InformationCompression rdf:type owl:NamedIndividual ,
 edu:InformationExtraction rdf:type owl:NamedIndividual ,
                                    :Ability ;
                           edu:partOfAbility edu:Extraction .
+
+
+###  http://edugraph.org/edu#IntegerLogarithm
+edu:IntegerLogarithm rdf:type owl:NamedIndividual ,
+                              :Area ;
+                     edu:partOfArea :IntegerArithmetic .
+
+
+###  http://edugraph.org/edu#IntegerPower
+edu:IntegerPower rdf:type owl:NamedIndividual ,
+                          :Area ;
+                 edu:partOfArea :IntegerArithmetic .
+
+
+###  http://edugraph.org/edu#IntegerRoot
+edu:IntegerRoot rdf:type owl:NamedIndividual ,
+                         :Area ;
+                edu:partOfArea :IntegerArithmetic .
 
 
 ###  http://edugraph.org/edu#IntentIdentifcation
@@ -606,28 +744,107 @@ edu:NarrativeExtraction rdf:type owl:NamedIndividual ,
                         edu:partOfAbility edu:Extraction .
 
 
+###  http://edugraph.org/edu#NaturalsAddition
+edu:NaturalsAddition rdf:type owl:NamedIndividual ,
+                              edu:Scope ;
+                     edu:partOfArea edu:NaturalsArithmetic .
+
+
+###  http://edugraph.org/edu#NaturalsArithmetic
+edu:NaturalsArithmetic rdf:type owl:NamedIndividual ,
+                                edu:Scope ;
+                       edu:partOfArea :Arithmetic .
+
+
+###  http://edugraph.org/edu#NaturalsDivision
+edu:NaturalsDivision rdf:type owl:NamedIndividual ,
+                              edu:Scope ;
+                     edu:partOfArea edu:NaturalsArithmetic .
+
+
+###  http://edugraph.org/edu#NaturalsLogarithm
+edu:NaturalsLogarithm rdf:type owl:NamedIndividual ,
+                               edu:Scope ;
+                      edu:partOfArea edu:NaturalsArithmetic .
+
+
+###  http://edugraph.org/edu#NaturalsMultiplication
+edu:NaturalsMultiplication rdf:type owl:NamedIndividual ,
+                                    edu:Scope ;
+                           edu:partOfArea edu:NaturalsArithmetic .
+
+
+###  http://edugraph.org/edu#NaturalsNotation
+edu:NaturalsNotation rdf:type owl:NamedIndividual ,
+                              edu:Scope ;
+                     edu:partOfArea edu:NaturalsArithmetic .
+
+
+###  http://edugraph.org/edu#NaturalsPower
+edu:NaturalsPower rdf:type owl:NamedIndividual ,
+                           edu:Scope ;
+                  edu:partOfArea edu:NaturalsArithmetic .
+
+
+###  http://edugraph.org/edu#NaturalsRoot
+edu:NaturalsRoot rdf:type owl:NamedIndividual ,
+                          edu:Scope ;
+                 edu:partOfArea edu:NaturalsArithmetic .
+
+
+###  http://edugraph.org/edu#NaturalsSubtraction
+edu:NaturalsSubtraction rdf:type owl:NamedIndividual ,
+                                 edu:Scope ;
+                        edu:partOfArea edu:NaturalsArithmetic .
+
+
 ###  http://edugraph.org/edu#NonDeductiveReasoning
 edu:NonDeductiveReasoning rdf:type owl:NamedIndividual ,
                                    :Ability ;
                           edu:partOfAbility edu:LogicalReasoning .
 
 
-###  http://edugraph.org/edu#NumberBase
-edu:NumberBase rdf:type owl:NamedIndividual ,
-                        edu:Context ;
-               edu:partOfContext edu:CognitiveContext .
+###  http://edugraph.org/edu#NumeralSystem
+edu:NumeralSystem rdf:type owl:NamedIndividual ,
+                           edu:Scope ;
+                  edu:partOfScope edu:NumericScope ,
+                                  edu:RepresentationalScope .
 
 
-###  http://edugraph.org/edu#NumberRange
-edu:NumberRange rdf:type owl:NamedIndividual ,
-                         edu:Context ;
-                edu:partOfContext edu:CognitiveContext .
+###  http://edugraph.org/edu#NumericBase
+edu:NumericBase rdf:type owl:NamedIndividual ,
+                         edu:Scope ;
+                edu:partOfScope edu:NumericScope .
 
 
-###  http://edugraph.org/edu#NumberRepresentation
-edu:NumberRepresentation rdf:type owl:NamedIndividual ,
-                                  edu:Context ;
-                         edu:partOfContext edu:CognitiveContext .
+###  http://edugraph.org/edu#NumericIdentity
+edu:NumericIdentity rdf:type owl:NamedIndividual ,
+                             :Area ;
+                    edu:partOfArea :NumericComparison .
+
+
+###  http://edugraph.org/edu#NumericOrder
+edu:NumericOrder rdf:type owl:NamedIndividual ,
+                          :Area ;
+                 edu:partOfArea :NumericComparison .
+
+
+###  http://edugraph.org/edu#NumericRange
+edu:NumericRange rdf:type owl:NamedIndividual ,
+                          edu:Scope ;
+                 edu:partOfScope edu:NumericScope .
+
+
+###  http://edugraph.org/edu#NumericScope
+edu:NumericScope rdf:type owl:NamedIndividual ,
+                          edu:Scope ;
+                 edu:partOfScope edu:CognitiveScope .
+
+
+###  http://edugraph.org/edu#ObjectCounting
+edu:ObjectCounting rdf:type owl:NamedIndividual ,
+                            :Area ;
+                   edu:partOfArea :Measurement .
 
 
 ###  http://edugraph.org/edu#PassiveCommunication
@@ -760,6 +977,12 @@ edu:PropositionIdentification rdf:type owl:NamedIndividual ,
                               edu:partOfAbility edu:LogicalReasoning .
 
 
+###  http://edugraph.org/edu#RationalsArithmetic
+edu:RationalsArithmetic rdf:type owl:NamedIndividual ,
+                                 :Area ;
+                        edu:partOfArea :Arithmetic .
+
+
 ###  http://edugraph.org/edu#ReadingFluency
 edu:ReadingFluency rdf:type owl:NamedIndividual ,
                             :Ability ;
@@ -798,13 +1021,30 @@ edu:RelevanceEvaluation rdf:type owl:NamedIndividual ,
 
 ###  http://edugraph.org/edu#Representation
 edu:Representation rdf:type owl:NamedIndividual ,
-                            edu:Context .
+                            edu:Scope .
+
+
+###  http://edugraph.org/edu#RepresentationalScope
+edu:RepresentationalScope rdf:type owl:NamedIndividual ,
+                                   edu:Scope .
 
 
 ###  http://edugraph.org/edu#ResultInterpretation
 edu:ResultInterpretation rdf:type owl:NamedIndividual ,
                                   :Ability ;
                          edu:partOfAbility edu:ScientificThinking .
+
+
+###  http://edugraph.org/edu#RodNumerals
+edu:RodNumerals rdf:type owl:NamedIndividual ,
+                         edu:Scope ;
+                edu:partOfScope edu:NumeralSystem .
+
+
+###  http://edugraph.org/edu#RomanNumerals
+edu:RomanNumerals rdf:type owl:NamedIndividual ,
+                           edu:Scope ;
+                  edu:partOfScope edu:NumeralSystem .
 
 
 ###  http://edugraph.org/edu#ScientificThinking
@@ -858,6 +1098,30 @@ edu:SensoricCapability rdf:type owl:NamedIndividual ,
 edu:ServiceOrientation rdf:type owl:NamedIndividual ,
                                 :Ability ;
                        edu:partOfAbility edu:SocialScaling .
+
+
+###  http://edugraph.org/edu#Smaller10
+edu:Smaller10 rdf:type owl:NamedIndividual ,
+                       edu:Scope ;
+              edu:partOfScope edu:NumericRange .
+
+
+###  http://edugraph.org/edu#Smaller100
+edu:Smaller100 rdf:type owl:NamedIndividual ,
+                        edu:Scope ;
+               edu:partOfScope edu:NumericRange .
+
+
+###  http://edugraph.org/edu#Smaller1000
+edu:Smaller1000 rdf:type owl:NamedIndividual ,
+                         edu:Scope ;
+                edu:partOfScope edu:NumericRange .
+
+
+###  http://edugraph.org/edu#Smaller20
+edu:Smaller20 rdf:type owl:NamedIndividual ,
+                       edu:Scope ;
+              edu:partOfScope edu:NumericRange .
 
 
 ###  http://edugraph.org/edu#Smelling
@@ -1022,6 +1286,18 @@ edu:VocalReception rdf:type owl:NamedIndividual ,
                    edu:partOfAbility edu:LingusticReception .
 
 
+###  http://edugraph.org/edu#WithoutNegatives
+edu:WithoutNegatives rdf:type owl:NamedIndividual ,
+                              :Area ;
+                     edu:partOfScope edu:NumericRange .
+
+
+###  http://edugraph.org/edu#WithoutZero
+edu:WithoutZero rdf:type owl:NamedIndividual ,
+                         edu:Scope ;
+                edu:partOfScope edu:NumericRange .
+
+
 ###  http://edugraph.org/edu#WritingFluency
 edu:WritingFluency rdf:type owl:NamedIndividual ,
                             :Ability ;
@@ -1058,16 +1334,16 @@ edu:WritingSpeed rdf:type owl:NamedIndividual ,
                         edu:partOfArea :NumberTheory .
 
 
+###  http://edugraph.org/edu/Arithmetic
+:Arithmetic rdf:type owl:NamedIndividual ,
+                     :Area ;
+            edu:partOfArea :Mathematics .
+
+
 ###  http://edugraph.org/edu/BaseOperations
 :BaseOperations rdf:type owl:NamedIndividual ,
                          :Area ;
                 edu:partOfArea :NumberSense .
-
-
-###  http://edugraph.org/edu/BasicArithmetic
-:BasicArithmetic rdf:type owl:NamedIndividual ,
-                          :Area ;
-                 edu:partOfArea :Mathematics .
 
 
 ###  http://edugraph.org/edu/Calculus
@@ -1082,12 +1358,6 @@ edu:WritingSpeed rdf:type owl:NamedIndividual ,
                           edu:partOfArea :Mathematics .
 
 
-###  http://edugraph.org/edu/DecimalNotation
-:DecimalNotation rdf:type owl:NamedIndividual ,
-                          :Area ;
-                 edu:partOfArea :NumberSense .
-
-
 ###  http://edugraph.org/edu/DescreteMathematics
 :DescreteMathematics rdf:type owl:NamedIndividual ,
                               :Area ;
@@ -1098,6 +1368,12 @@ edu:WritingSpeed rdf:type owl:NamedIndividual ,
 :Difference rdf:type owl:NamedIndividual ,
                      :Area ;
             edu:partOfArea :BaseOperations .
+
+
+###  http://edugraph.org/edu/DigitNotation
+:DigitNotation rdf:type owl:NamedIndividual ,
+                        :Area ;
+               edu:partOfArea :NumberSense .
 
 
 ###  http://edugraph.org/edu/DiophantineGeometry
@@ -1133,7 +1409,7 @@ edu:WritingSpeed rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu/IntegerArithmetic
 :IntegerArithmetic rdf:type owl:NamedIndividual ,
                             :Area ;
-                   edu:partOfArea :BasicArithmetic .
+                   edu:partOfArea :Arithmetic .
 
 
 ###  http://edugraph.org/edu/IntegerDivision
@@ -1151,7 +1427,7 @@ edu:WritingSpeed rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu/IntegerNotation
 :IntegerNotation rdf:type owl:NamedIndividual ,
                           :Area ;
-                 edu:partOfArea :NumberSense .
+                 edu:partOfArea :IntegerArithmetic .
 
 
 ###  http://edugraph.org/edu/IntegerSubtraction
@@ -1183,12 +1459,6 @@ edu:WritingSpeed rdf:type owl:NamedIndividual ,
              edu:partOfArea :SpatialSense .
 
 
-###  http://edugraph.org/edu/NumberComparison
-:NumberComparison rdf:type owl:NamedIndividual ,
-                           :Area ;
-                  edu:partOfArea :NumberSense .
-
-
 ###  http://edugraph.org/edu/NumberSense
 :NumberSense rdf:type owl:NamedIndividual ,
                       :Area ;
@@ -1205,6 +1475,12 @@ edu:WritingSpeed rdf:type owl:NamedIndividual ,
 :Numeration rdf:type owl:NamedIndividual ,
                      :Area ;
             edu:partOfArea :NumberSense .
+
+
+###  http://edugraph.org/edu/NumericComparison
+:NumericComparison rdf:type owl:NamedIndividual ,
+                            :Area ;
+                   edu:partOfArea :NumberSense .
 
 
 ###  http://edugraph.org/edu/ObjectMeasurement
