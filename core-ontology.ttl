@@ -13,6 +13,33 @@
 #    Object Properties
 #################################################################
 
+###  http://edugraph.org/edu#expands
+edu:expands rdf:type owl:ObjectProperty ;
+            rdfs:domain :Descriptor ;
+            rdfs:range :Descriptor .
+
+
+###  http://edugraph.org/edu#expandsAbility
+edu:expandsAbility rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf edu:expands ;
+                   rdfs:domain :Ability ;
+                   rdfs:range :Ability .
+
+
+###  http://edugraph.org/edu#expandsArea
+edu:expandsArea rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf edu:expands ;
+                rdfs:domain :Area ;
+                rdfs:range :Area .
+
+
+###  http://edugraph.org/edu#expandsScope
+edu:expandsScope rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf edu:expands ;
+                 rdfs:domain edu:Scope ;
+                 rdfs:range edu:Scope .
+
+
 ###  http://edugraph.org/edu#partOfAbility
 edu:partOfAbility rdf:type owl:ObjectProperty ;
                   rdfs:subPropertyOf :partOf ;
@@ -363,7 +390,8 @@ edu:DecimalAddition rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu#DecimalArithmetic
 edu:DecimalArithmetic rdf:type owl:NamedIndividual ,
                                :Area ;
-                      edu:partOfArea edu:RationalsArithmetic .
+                      edu:partOfArea edu:NumberNotation ,
+                                     edu:RationalsArithmetic .
 
 
 ###  http://edugraph.org/edu#DecimalDivision
@@ -388,6 +416,13 @@ edu:DecimalNotation rdf:type owl:NamedIndividual ,
 edu:DecimalSubtraction rdf:type owl:NamedIndividual ,
                                 :Area ;
                        edu:partOfArea edu:DecimalArithmetic .
+
+
+###  http://edugraph.org/edu#Decrement
+edu:Decrement rdf:type owl:NamedIndividual ,
+                       :Area ;
+              edu:expandsArea :Increment ;
+              edu:partOfArea :BaseOperations .
 
 
 ###  http://edugraph.org/edu#DeductiveReasoning
@@ -626,6 +661,7 @@ edu:FractionMultiplication rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu#FractionNotation
 edu:FractionNotation rdf:type owl:NamedIndividual ,
                               :Area ;
+                     edu:expandsArea :IntegerNotation ;
                      edu:partOfArea edu:FractionArithmetic ,
                                     edu:NumberNotation .
 
@@ -729,18 +765,21 @@ edu:InformationExtraction rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu#IntegerExponentiation
 edu:IntegerExponentiation rdf:type owl:NamedIndividual ,
                                    :Area ;
+                          edu:expandsArea :IntegerMultiplication ;
                           edu:partOfArea :IntegerArithmetic .
 
 
 ###  http://edugraph.org/edu#IntegerLogarithm
 edu:IntegerLogarithm rdf:type owl:NamedIndividual ,
                               :Area ;
+                     edu:expandsArea edu:IntegerExponentiation ;
                      edu:partOfArea :IntegerArithmetic .
 
 
 ###  http://edugraph.org/edu#IntegerRoot
 edu:IntegerRoot rdf:type owl:NamedIndividual ,
                          :Area ;
+                edu:expandsArea edu:IntegerExponentiation ;
                 edu:partOfArea :IntegerArithmetic .
 
 
@@ -953,61 +992,6 @@ edu:NarrativeExtraction rdf:type owl:NamedIndividual ,
                         edu:partOfAbility edu:Extraction .
 
 
-###  http://edugraph.org/edu#NaturalsAddition
-edu:NaturalsAddition rdf:type owl:NamedIndividual ,
-                              :Area ;
-                     edu:partOfArea edu:NaturalsArithmetic .
-
-
-###  http://edugraph.org/edu#NaturalsArithmetic
-edu:NaturalsArithmetic rdf:type owl:NamedIndividual ,
-                                :Area ;
-                       edu:partOfArea :Arithmetic .
-
-
-###  http://edugraph.org/edu#NaturalsDivision
-edu:NaturalsDivision rdf:type owl:NamedIndividual ,
-                              :Area ;
-                     edu:partOfArea edu:NaturalsArithmetic .
-
-
-###  http://edugraph.org/edu#NaturalsExponentiation
-edu:NaturalsExponentiation rdf:type owl:NamedIndividual ,
-                                    :Area ;
-                           edu:partOfArea edu:NaturalsArithmetic .
-
-
-###  http://edugraph.org/edu#NaturalsLogarithm
-edu:NaturalsLogarithm rdf:type owl:NamedIndividual ,
-                               :Area ;
-                      edu:partOfArea edu:NaturalsArithmetic .
-
-
-###  http://edugraph.org/edu#NaturalsMultiplication
-edu:NaturalsMultiplication rdf:type owl:NamedIndividual ,
-                                    :Area ;
-                           edu:partOfArea edu:NaturalsArithmetic .
-
-
-###  http://edugraph.org/edu#NaturalsNotation
-edu:NaturalsNotation rdf:type owl:NamedIndividual ,
-                              :Area ;
-                     edu:partOfArea edu:NaturalsArithmetic ,
-                                    edu:NumberNotation .
-
-
-###  http://edugraph.org/edu#NaturalsRoot
-edu:NaturalsRoot rdf:type owl:NamedIndividual ,
-                          :Area ;
-                 edu:partOfArea edu:NaturalsArithmetic .
-
-
-###  http://edugraph.org/edu#NaturalsSubtraction
-edu:NaturalsSubtraction rdf:type owl:NamedIndividual ,
-                                 :Area ;
-                        edu:partOfArea edu:NaturalsArithmetic .
-
-
 ###  http://edugraph.org/edu#NonDeductiveReasoning
 edu:NonDeductiveReasoning rdf:type owl:NamedIndividual ,
                                    :Ability ;
@@ -1044,14 +1028,17 @@ edu:Numerals rdf:type owl:NamedIndividual ,
              edu:partOfScope edu:NumberRepresentation .
 
 
+###  http://edugraph.org/edu#NumerationWithIntegers
+edu:NumerationWithIntegers rdf:type owl:NamedIndividual ,
+                                    :Area ;
+                           edu:expandsArea edu:NumericOrder ,
+                                           :Increment ,
+                                           :IntegerNotation ;
+                           edu:partOfArea :Numeration .
+
+
 ###  http://edugraph.org/edu#NumerationWithIntervals
 edu:NumerationWithIntervals rdf:type owl:NamedIndividual ,
-                                     :Area ;
-                            edu:partOfArea :Numeration .
-
-
-###  http://edugraph.org/edu#NumerationWithNegatives
-edu:NumerationWithNegatives rdf:type owl:NamedIndividual ,
                                      :Area ;
                             edu:partOfArea :Numeration .
 
@@ -1060,12 +1047,6 @@ edu:NumerationWithNegatives rdf:type owl:NamedIndividual ,
 edu:NumerationWithRationals rdf:type owl:NamedIndividual ,
                                      :Area ;
                             edu:partOfArea :Numeration .
-
-
-###  http://edugraph.org/edu#NumerationWithZero
-edu:NumerationWithZero rdf:type owl:NamedIndividual ,
-                                :Area ;
-                       edu:partOfArea :Numeration .
 
 
 ###  http://edugraph.org/edu#NumericBase
@@ -1083,6 +1064,7 @@ edu:NumericIdentity rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu#NumericOrder
 edu:NumericOrder rdf:type owl:NamedIndividual ,
                           :Area ;
+                 edu:expandsArea edu:NumericIdentity ;
                  edu:partOfArea :NumericComparison .
 
 
@@ -1828,6 +1810,7 @@ edu:WritingSpeed rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu/Difference
 :Difference rdf:type owl:NamedIndividual ,
                      :Area ;
+            edu:expandsArea edu:Decrement ;
             edu:partOfArea :BaseOperations .
 
 
@@ -1864,6 +1847,9 @@ edu:WritingSpeed rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu/IntegerAdditon
 :IntegerAdditon rdf:type owl:NamedIndividual ,
                          :Area ;
+                edu:expandsArea edu:NumerationWithIntegers ,
+                                :IntegerNotation ,
+                                :Sum ;
                 edu:partOfArea :IntegerArithmetic .
 
 
@@ -1876,18 +1862,21 @@ edu:WritingSpeed rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu/IntegerDivision
 :IntegerDivision rdf:type owl:NamedIndividual ,
                           :Area ;
+                 edu:expandsArea :IntegerMultiplication ;
                  edu:partOfArea :IntegerArithmetic .
 
 
 ###  http://edugraph.org/edu/IntegerMultiplication
 :IntegerMultiplication rdf:type owl:NamedIndividual ,
                                 :Area ;
+                       edu:expandsArea :IntegerAdditon ;
                        edu:partOfArea :IntegerArithmetic .
 
 
 ###  http://edugraph.org/edu/IntegerNotation
 :IntegerNotation rdf:type owl:NamedIndividual ,
                           :Area ;
+                 edu:expandsArea :DigitNotation ;
                  edu:partOfArea edu:NumberNotation ,
                                 :IntegerArithmetic .
 
@@ -1895,6 +1884,8 @@ edu:WritingSpeed rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu/IntegerSubtraction
 :IntegerSubtraction rdf:type owl:NamedIndividual ,
                              :Area ;
+                    edu:expandsArea :Difference ,
+                                    :IntegerNotation ;
                     edu:partOfArea :IntegerArithmetic .
 
 
@@ -1996,6 +1987,7 @@ edu:WritingSpeed rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu/Sum
 :Sum rdf:type owl:NamedIndividual ,
               :Area ;
+     edu:expandsArea :Increment ;
      edu:partOfArea :BaseOperations .
 
 
