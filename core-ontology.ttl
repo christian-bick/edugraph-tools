@@ -571,7 +571,7 @@ edu:DimensionalGeneration rdf:type owl:NamedIndividual ,
 ###  http://edugraph.org/edu#DimensionalImagination
 edu:DimensionalImagination rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
-                           edu:partOfArea edu:DimensionalImagination .
+                           edu:partOfAbility edu:DimensionalThinking .
 
 
 ###  http://edugraph.org/edu#DimensionalInterpretation
