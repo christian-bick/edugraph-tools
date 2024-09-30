@@ -1,95 +1,95 @@
-@prefix : <http://edugraph.org/edu#> .
-@prefix edu: <http://edugraph.org/edu#> .
+@prefix : <http://edugraph.io/edu#> .
+@prefix edu: <http://edugraph.io/edu#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://edugraph.org/edu> .
+@base <http://edugraph.io/edu> .
 
-<http://edugraph.org/edu> rdf:type owl:Ontology .
+<http://edugraph.io/edu> rdf:type owl:Ontology .
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  http://edugraph.org/edu#expands
+###  http://edugraph.io/edu#expands
 edu:expands rdf:type owl:ObjectProperty ;
             rdfs:domain edu:Descriptor ;
             rdfs:range edu:Descriptor .
 
 
-###  http://edugraph.org/edu#expandsAbility
+###  http://edugraph.io/edu#expandsAbility
 edu:expandsAbility rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf edu:expands ;
                    rdfs:domain edu:Ability ;
                    rdfs:range edu:Ability .
 
 
-###  http://edugraph.org/edu#expandsArea
+###  http://edugraph.io/edu#expandsArea
 edu:expandsArea rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf edu:expands ;
                 rdfs:domain edu:Area ;
                 rdfs:range edu:Area .
 
 
-###  http://edugraph.org/edu#expandsScope
+###  http://edugraph.io/edu#expandsScope
 edu:expandsScope rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf edu:expands ;
                  rdfs:domain edu:Scope ;
                  rdfs:range edu:Scope .
 
 
-###  http://edugraph.org/edu#partOf
+###  http://edugraph.io/edu#partOf
 edu:partOf rdf:type owl:ObjectProperty ;
            rdfs:subPropertyOf owl:topObjectProperty ;
            rdfs:domain owl:Thing ;
            rdfs:range owl:Thing .
 
 
-###  http://edugraph.org/edu#partOfAbility
+###  http://edugraph.io/edu#partOfAbility
 edu:partOfAbility rdf:type owl:ObjectProperty ;
                   rdfs:subPropertyOf edu:partOf ;
                   rdfs:domain edu:Ability ;
                   rdfs:range edu:Ability .
 
 
-###  http://edugraph.org/edu#partOfArea
+###  http://edugraph.io/edu#partOfArea
 edu:partOfArea rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf edu:partOf ;
                rdfs:domain edu:Area ;
                rdfs:range edu:Area .
 
 
-###  http://edugraph.org/edu#partOfScope
+###  http://edugraph.io/edu#partOfScope
 edu:partOfScope rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf edu:partOf ;
                 rdfs:domain edu:Scope ;
                 rdfs:range edu:Scope .
 
 
-###  http://edugraph.org/edu#targets
+###  http://edugraph.io/edu#targets
 edu:targets rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf owl:topObjectProperty ;
             rdfs:domain edu:Attribute ;
             rdfs:range edu:Descriptor .
 
 
-###  http://edugraph.org/edu#targetsAbility
+###  http://edugraph.io/edu#targetsAbility
 edu:targetsAbility rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf edu:targets ;
                    rdfs:domain edu:Attribute ;
                    rdfs:range edu:Ability .
 
 
-###  http://edugraph.org/edu#targetsArea
+###  http://edugraph.io/edu#targetsArea
 edu:targetsArea rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf edu:targets ;
                 rdfs:domain edu:Attribute ;
                 rdfs:range edu:Area .
 
 
-###  http://edugraph.org/edu#targetsContext
+###  http://edugraph.io/edu#targetsContext
 edu:targetsContext rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf edu:targets ;
                    rdfs:domain edu:Attribute ;
@@ -105,19 +105,19 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ,
 #    Classes
 #################################################################
 
-###  http://edugraph.org/edu#Ability
+###  http://edugraph.io/edu#Ability
 edu:Ability rdf:type owl:Class ;
             rdfs:subClassOf edu:Descriptor ;
             rdfs:comment "A learning dimension." .
 
 
-###  http://edugraph.org/edu#Area
+###  http://edugraph.io/edu#Area
 edu:Area rdf:type owl:Class ;
          rdfs:subClassOf edu:Descriptor ;
          rdfs:comment "A learning domain." .
 
 
-###  http://edugraph.org/edu#Attribute
+###  http://edugraph.io/edu#Attribute
 edu:Attribute rdf:type owl:Class ;
               owl:equivalentClass [ rdf:type owl:Restriction ;
                                     owl:onProperty edu:targets ;
@@ -132,18 +132,18 @@ edu:Attribute rdf:type owl:Class ;
               rdfs:comment "An observable combination of learning abiltiies within a learning area and optionaly a learning context." .
 
 
-###  http://edugraph.org/edu#Descriptor
+###  http://edugraph.io/edu#Descriptor
 edu:Descriptor rdf:type owl:Class ;
                rdfs:comment "A learning descriptor." .
 
 
-###  http://edugraph.org/edu#Scope
+###  http://edugraph.io/edu#Scope
 edu:Scope rdf:type owl:Class ;
           rdfs:subClassOf edu:Descriptor ;
           rdfs:comment "A learning context." .
 
 
-###  http://edugraph.org/edu#Skill
+###  http://edugraph.io/edu#Skill
 edu:Skill rdf:type owl:Class ;
           owl:equivalentClass [ rdf:type owl:Restriction ;
                                 owl:onProperty edu:targets ;
@@ -157,293 +157,293 @@ edu:Skill rdf:type owl:Class ;
 #    Individuals
 #################################################################
 
-###  http://edugraph.org/edu#Abacus
+###  http://edugraph.io/edu#Abacus
 edu:Abacus rdf:type owl:NamedIndividual ,
                     edu:Scope ;
            edu:partOfScope edu:PhysicalNumbers .
 
 
-###  http://edugraph.org/edu#AbductiveReasoning
+###  http://edugraph.io/edu#AbductiveReasoning
 edu:AbductiveReasoning rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:NonDeductiveReasoning .
 
 
-###  http://edugraph.org/edu#ActiveVocabulary
+###  http://edugraph.io/edu#ActiveVocabulary
 edu:ActiveVocabulary rdf:type owl:NamedIndividual ,
                               edu:Ability ;
                      edu:partOfAbility edu:LingusticArticulation .
 
 
-###  http://edugraph.org/edu#AdaptiveCreativity
+###  http://edugraph.io/edu#AdaptiveCreativity
 edu:AdaptiveCreativity rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:CreativeCapability .
 
 
-###  http://edugraph.org/edu#AdditiveCount
+###  http://edugraph.io/edu#AdditiveCount
 edu:AdditiveCount rdf:type owl:NamedIndividual ,
                            edu:Scope ;
                   edu:partOfScope edu:QuantitiyMeasurement .
 
 
-###  http://edugraph.org/edu#AgileStrength
+###  http://edugraph.io/edu#AgileStrength
 edu:AgileStrength rdf:type owl:NamedIndividual ,
                            edu:Ability ;
                   edu:partOfAbility edu:Strength .
 
 
-###  http://edugraph.org/edu#Algebra
+###  http://edugraph.io/edu#Algebra
 edu:Algebra rdf:type owl:NamedIndividual ,
                      edu:Area ;
             edu:partOfArea edu:Mathematics .
 
 
-###  http://edugraph.org/edu#AlgebraicNumberTheory
+###  http://edugraph.io/edu#AlgebraicNumberTheory
 edu:AlgebraicNumberTheory rdf:type owl:NamedIndividual ,
                                    edu:Area ;
                           edu:partOfArea edu:NumberTheory .
 
 
-###  http://edugraph.org/edu#AnalogClock
+###  http://edugraph.io/edu#AnalogClock
 edu:AnalogClock rdf:type owl:NamedIndividual ,
                          edu:Scope ;
                 edu:partOfScope edu:TimeMeasurement .
 
 
-###  http://edugraph.org/edu#AnalogicalReasoning
+###  http://edugraph.io/edu#AnalogicalReasoning
 edu:AnalogicalReasoning rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
                         edu:partOfAbility edu:NonDeductiveReasoning .
 
 
-###  http://edugraph.org/edu#Analysis
+###  http://edugraph.io/edu#Analysis
 edu:Analysis rdf:type owl:NamedIndividual ,
                       edu:Area ;
              edu:partOfArea edu:Mathematics .
 
 
-###  http://edugraph.org/edu#AnalyticalCapability
+###  http://edugraph.io/edu#AnalyticalCapability
 edu:AnalyticalCapability rdf:type owl:NamedIndividual ,
                                   edu:Ability .
 
 
-###  http://edugraph.org/edu#AnalyticalNumberTheory
+###  http://edugraph.io/edu#AnalyticalNumberTheory
 edu:AnalyticalNumberTheory rdf:type owl:NamedIndividual ,
                                     edu:Area ;
                            edu:partOfArea edu:NumberTheory .
 
 
-###  http://edugraph.org/edu#AngleMeasurement
+###  http://edugraph.io/edu#AngleMeasurement
 edu:AngleMeasurement rdf:type owl:NamedIndividual ,
                               edu:Scope ;
                      edu:partOfScope edu:MeasurementScope .
 
 
-###  http://edugraph.org/edu#ArabicNumerals
+###  http://edugraph.io/edu#ArabicNumerals
 edu:ArabicNumerals rdf:type owl:NamedIndividual ,
                             edu:Scope ;
                    edu:partOfScope edu:Numerals .
 
 
-###  http://edugraph.org/edu#Arithmetic
+###  http://edugraph.io/edu#Arithmetic
 edu:Arithmetic rdf:type owl:NamedIndividual ,
                         edu:Area ;
                edu:partOfArea edu:Mathematics .
 
 
-###  http://edugraph.org/edu#Articulation
+###  http://edugraph.io/edu#Articulation
 edu:Articulation rdf:type owl:NamedIndividual ,
                           edu:Ability ;
                  edu:partOfAbility edu:Expression .
 
 
-###  http://edugraph.org/edu#ArtisticInterpretation
+###  http://edugraph.io/edu#ArtisticInterpretation
 edu:ArtisticInterpretation rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
                            edu:partOfAbility edu:Interpretation .
 
 
-###  http://edugraph.org/edu#AxiomDefinition
+###  http://edugraph.io/edu#AxiomDefinition
 edu:AxiomDefinition rdf:type owl:NamedIndividual ,
                              edu:Ability ;
                     edu:partOfAbility edu:DeductiveReasoning .
 
 
-###  http://edugraph.org/edu#Balance
+###  http://edugraph.io/edu#Balance
 edu:Balance rdf:type owl:NamedIndividual ,
                      edu:Ability ;
             edu:partOfAbility edu:PhyiscalCapability .
 
 
-###  http://edugraph.org/edu#BalanceScale
+###  http://edugraph.io/edu#BalanceScale
 edu:BalanceScale rdf:type owl:NamedIndividual ,
                           edu:Scope ;
                  edu:partOfScope edu:WeightMeasurement .
 
 
-###  http://edugraph.org/edu#Base10
+###  http://edugraph.io/edu#Base10
 edu:Base10 rdf:type owl:NamedIndividual ,
                     edu:Scope ;
            edu:partOfScope edu:NumericBase .
 
 
-###  http://edugraph.org/edu#Base16
+###  http://edugraph.io/edu#Base16
 edu:Base16 rdf:type owl:NamedIndividual ,
                     edu:Scope ;
            edu:partOfScope edu:NumericBase .
 
 
-###  http://edugraph.org/edu#Base2
+###  http://edugraph.io/edu#Base2
 edu:Base2 rdf:type owl:NamedIndividual ,
                    edu:Scope ;
           edu:partOfScope edu:NumericBase .
 
 
-###  http://edugraph.org/edu#Base8
+###  http://edugraph.io/edu#Base8
 edu:Base8 rdf:type owl:NamedIndividual ,
                    edu:Scope ;
           edu:partOfScope edu:NumericBase .
 
 
-###  http://edugraph.org/edu#BaseOperations
+###  http://edugraph.io/edu#BaseOperations
 edu:BaseOperations rdf:type owl:NamedIndividual ,
                             edu:Area ;
                    edu:partOfArea edu:NumberSense .
 
 
-###  http://edugraph.org/edu#BaseTenBlocks
+###  http://edugraph.io/edu#BaseTenBlocks
 edu:BaseTenBlocks rdf:type owl:NamedIndividual ,
                            edu:Scope ;
                   edu:partOfScope edu:PhysicalNumbers .
 
 
-###  http://edugraph.org/edu#BiasDetection
+###  http://edugraph.io/edu#BiasDetection
 edu:BiasDetection rdf:type owl:NamedIndividual ,
                            edu:Ability ;
                   edu:partOfAbility edu:Evaluation .
 
 
-###  http://edugraph.org/edu#BiasPrevention
+###  http://edugraph.io/edu#BiasPrevention
 edu:BiasPrevention rdf:type owl:NamedIndividual ,
                             edu:Ability ;
                    edu:partOfAbility edu:Expression .
 
 
-###  http://edugraph.org/edu#Calculus
+###  http://edugraph.io/edu#Calculus
 edu:Calculus rdf:type owl:NamedIndividual ,
                       edu:Area ;
              edu:partOfArea edu:Mathematics .
 
 
-###  http://edugraph.org/edu#CardiovascularEndurance
+###  http://edugraph.io/edu#CardiovascularEndurance
 edu:CardiovascularEndurance rdf:type owl:NamedIndividual ,
                                      edu:Ability ;
                             edu:partOfAbility edu:Endurance .
 
 
-###  http://edugraph.org/edu#CartesianCoordinateSystem
+###  http://edugraph.io/edu#CartesianCoordinateSystem
 edu:CartesianCoordinateSystem rdf:type owl:NamedIndividual ,
                                        edu:Scope ;
                               edu:partOfScope edu:VisualGeometry .
 
 
-###  http://edugraph.org/edu#CircularLineDrawing
+###  http://edugraph.io/edu#CircularLineDrawing
 edu:CircularLineDrawing rdf:type owl:NamedIndividual ,
                                  edu:Area ;
                         edu:partOfArea edu:SpatialModelling .
 
 
-###  http://edugraph.org/edu#CircularShapeDrawing
+###  http://edugraph.io/edu#CircularShapeDrawing
 edu:CircularShapeDrawing rdf:type owl:NamedIndividual ,
                                   edu:Area ;
                          edu:partOfArea edu:SpatialModelling .
 
 
-###  http://edugraph.org/edu#CognitiveScope
+###  http://edugraph.io/edu#CognitiveScope
 edu:CognitiveScope rdf:type owl:NamedIndividual ,
                             edu:Scope .
 
 
-###  http://edugraph.org/edu#CommunicationCapability
+###  http://edugraph.io/edu#CommunicationCapability
 edu:CommunicationCapability rdf:type owl:NamedIndividual ,
                                      edu:Ability .
 
 
-###  http://edugraph.org/edu#ComputationalMathematics
+###  http://edugraph.io/edu#ComputationalMathematics
 edu:ComputationalMathematics rdf:type owl:NamedIndividual ,
                                       edu:Area ;
                              edu:partOfArea edu:Mathematics .
 
 
-###  http://edugraph.org/edu#ConceptClassification
+###  http://edugraph.io/edu#ConceptClassification
 edu:ConceptClassification rdf:type owl:NamedIndividual ,
                                    edu:Ability ;
                           edu:partOfAbility edu:ConceptualThinking .
 
 
-###  http://edugraph.org/edu#ConceptComposition
+###  http://edugraph.io/edu#ConceptComposition
 edu:ConceptComposition rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:ConceptualThinking .
 
 
-###  http://edugraph.org/edu#ConceptDerivation
+###  http://edugraph.io/edu#ConceptDerivation
 edu:ConceptDerivation rdf:type owl:NamedIndividual ,
                                edu:Ability ;
                       edu:partOfAbility edu:ConceptualThinking .
 
 
-###  http://edugraph.org/edu#ConceptGeneralization
+###  http://edugraph.io/edu#ConceptGeneralization
 edu:ConceptGeneralization rdf:type owl:NamedIndividual ,
                                    edu:Ability ;
                           edu:partOfAbility edu:ConceptualThinking .
 
 
-###  http://edugraph.org/edu#ConceptSpecification
+###  http://edugraph.io/edu#ConceptSpecification
 edu:ConceptSpecification rdf:type owl:NamedIndividual ,
                                   edu:Ability ;
                          edu:partOfAbility edu:ConceptualThinking .
 
 
-###  http://edugraph.org/edu#ConceptualThinking
+###  http://edugraph.io/edu#ConceptualThinking
 edu:ConceptualThinking rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:AnalyticalCapability .
 
 
-###  http://edugraph.org/edu#ConvergentCreativity
+###  http://edugraph.io/edu#ConvergentCreativity
 edu:ConvergentCreativity rdf:type owl:NamedIndividual ,
                                   edu:Ability ;
                          edu:partOfAbility edu:CreativeCapability .
 
 
-###  http://edugraph.org/edu#CountingSymbols
+###  http://edugraph.io/edu#CountingSymbols
 edu:CountingSymbols rdf:type owl:NamedIndividual ,
                              edu:Scope ;
                     edu:partOfScope edu:VisualNumbers .
 
 
-###  http://edugraph.org/edu#CreativeCapability
+###  http://edugraph.io/edu#CreativeCapability
 edu:CreativeCapability rdf:type owl:NamedIndividual ,
                                 edu:Ability .
 
 
-###  http://edugraph.org/edu#DecimalAddition
+###  http://edugraph.io/edu#DecimalAddition
 edu:DecimalAddition rdf:type owl:NamedIndividual ,
                              edu:Area ;
                     edu:expandsArea edu:IntegerAdditon ;
                     edu:partOfArea edu:DecimalArithmetic .
 
 
-###  http://edugraph.org/edu#DecimalArithmetic
+###  http://edugraph.io/edu#DecimalArithmetic
 edu:DecimalArithmetic rdf:type owl:NamedIndividual ,
                                edu:Area ;
                       edu:expandsArea edu:DecimalNotation ;
                       edu:partOfArea edu:RationalsArithmetic .
 
 
-###  http://edugraph.org/edu#DecimalDivision
+###  http://edugraph.io/edu#DecimalDivision
 edu:DecimalDivision rdf:type owl:NamedIndividual ,
                              edu:Area ;
                     edu:expandsArea edu:DecimalMultiplication ,
@@ -451,7 +451,7 @@ edu:DecimalDivision rdf:type owl:NamedIndividual ,
                     edu:partOfArea edu:DecimalArithmetic .
 
 
-###  http://edugraph.org/edu#DecimalExponentiation
+###  http://edugraph.io/edu#DecimalExponentiation
 edu:DecimalExponentiation rdf:type owl:NamedIndividual ,
                                    edu:Area ;
                           edu:expandsArea edu:DecimalMultiplication ,
@@ -459,7 +459,7 @@ edu:DecimalExponentiation rdf:type owl:NamedIndividual ,
                           edu:partOfArea edu:DecimalArithmetic .
 
 
-###  http://edugraph.org/edu#DecimalLogarithm
+###  http://edugraph.io/edu#DecimalLogarithm
 edu:DecimalLogarithm rdf:type owl:NamedIndividual ,
                               edu:Area ;
                      edu:expandsArea edu:DecimalExponentiation ,
@@ -467,7 +467,7 @@ edu:DecimalLogarithm rdf:type owl:NamedIndividual ,
                      edu:partOfArea edu:DecimalArithmetic .
 
 
-###  http://edugraph.org/edu#DecimalMultiplication
+###  http://edugraph.io/edu#DecimalMultiplication
 edu:DecimalMultiplication rdf:type owl:NamedIndividual ,
                                    edu:Area ;
                           edu:expandsArea edu:DecimalAddition ,
@@ -475,7 +475,7 @@ edu:DecimalMultiplication rdf:type owl:NamedIndividual ,
                           edu:partOfArea edu:DecimalArithmetic .
 
 
-###  http://edugraph.org/edu#DecimalNotation
+###  http://edugraph.io/edu#DecimalNotation
 edu:DecimalNotation rdf:type owl:NamedIndividual ,
                              edu:Area ;
                     edu:expandsArea edu:IntegerNotation ,
@@ -484,7 +484,7 @@ edu:DecimalNotation rdf:type owl:NamedIndividual ,
                                    edu:RationalsArithmetic .
 
 
-###  http://edugraph.org/edu#DecimalRoot
+###  http://edugraph.io/edu#DecimalRoot
 edu:DecimalRoot rdf:type owl:NamedIndividual ,
                          edu:Area ;
                 edu:expandsArea edu:DecimalExponentiation ,
@@ -492,7 +492,7 @@ edu:DecimalRoot rdf:type owl:NamedIndividual ,
                 edu:partOfArea edu:DecimalArithmetic .
 
 
-###  http://edugraph.org/edu#DecimalSubtraction
+###  http://edugraph.io/edu#DecimalSubtraction
 edu:DecimalSubtraction rdf:type owl:NamedIndividual ,
                                 edu:Area ;
                        edu:expandsArea edu:DecimalAddition ,
@@ -500,242 +500,242 @@ edu:DecimalSubtraction rdf:type owl:NamedIndividual ,
                        edu:partOfArea edu:DecimalArithmetic .
 
 
-###  http://edugraph.org/edu#Decrement
+###  http://edugraph.io/edu#Decrement
 edu:Decrement rdf:type owl:NamedIndividual ,
                        edu:Area ;
               edu:expandsArea edu:Increment ;
               edu:partOfArea edu:BaseOperations .
 
 
-###  http://edugraph.org/edu#DeductiveReasoning
+###  http://edugraph.io/edu#DeductiveReasoning
 edu:DeductiveReasoning rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:LogicalReasoning .
 
 
-###  http://edugraph.org/edu#DerivedCount
+###  http://edugraph.io/edu#DerivedCount
 edu:DerivedCount rdf:type owl:NamedIndividual ,
                           edu:Scope ;
                  edu:partOfScope edu:QuantitiyMeasurement .
 
 
-###  http://edugraph.org/edu#DescreteMathematics
+###  http://edugraph.io/edu#DescreteMathematics
 edu:DescreteMathematics rdf:type owl:NamedIndividual ,
                                  edu:Area ;
                         edu:partOfArea edu:Mathematics .
 
 
-###  http://edugraph.org/edu#DialogModeration
+###  http://edugraph.io/edu#DialogModeration
 edu:DialogModeration rdf:type owl:NamedIndividual ,
                               edu:Ability ;
                      edu:partOfAbility edu:Facilitation .
 
 
-###  http://edugraph.org/edu#Difference
+###  http://edugraph.io/edu#Difference
 edu:Difference rdf:type owl:NamedIndividual ,
                         edu:Area ;
                edu:expandsArea edu:Decrement ;
                edu:partOfArea edu:BaseOperations .
 
 
-###  http://edugraph.org/edu#DigitNotation
+###  http://edugraph.io/edu#DigitNotation
 edu:DigitNotation rdf:type owl:NamedIndividual ,
                            edu:Area ;
                   edu:partOfArea edu:NumberNotation .
 
 
-###  http://edugraph.org/edu#DigitalClock
+###  http://edugraph.io/edu#DigitalClock
 edu:DigitalClock rdf:type owl:NamedIndividual ,
                           edu:Scope ;
                  edu:partOfScope edu:TimeMeasurement .
 
 
-###  http://edugraph.org/edu#DigitalScale
+###  http://edugraph.io/edu#DigitalScale
 edu:DigitalScale rdf:type owl:NamedIndividual ,
                           edu:Scope ;
                  edu:partOfScope edu:WeightMeasurement .
 
 
-###  http://edugraph.org/edu#DimensionalComposition
+###  http://edugraph.io/edu#DimensionalComposition
 edu:DimensionalComposition rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
                            edu:partOfAbility edu:DimensionalThinking .
 
 
-###  http://edugraph.org/edu#DimensionalGeneration
+###  http://edugraph.io/edu#DimensionalGeneration
 edu:DimensionalGeneration rdf:type owl:NamedIndividual ,
                                    edu:Ability ;
                           edu:partOfAbility edu:DimensionalThinking .
 
 
-###  http://edugraph.org/edu#DimensionalImagination
+###  http://edugraph.io/edu#DimensionalImagination
 edu:DimensionalImagination rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
                            edu:partOfAbility edu:DimensionalThinking .
 
 
-###  http://edugraph.org/edu#DimensionalInterpretation
+###  http://edugraph.io/edu#DimensionalInterpretation
 edu:DimensionalInterpretation rdf:type owl:NamedIndividual ,
                                        edu:Ability ;
                               edu:partOfAbility edu:DimensionalThinking .
 
 
-###  http://edugraph.org/edu#DimensionalNavigation
+###  http://edugraph.io/edu#DimensionalNavigation
 edu:DimensionalNavigation rdf:type owl:NamedIndividual ,
                                    edu:Ability ;
                           edu:partOfAbility edu:DimensionalThinking .
 
 
-###  http://edugraph.org/edu#DimensionalScope
+###  http://edugraph.io/edu#DimensionalScope
 edu:DimensionalScope rdf:type owl:NamedIndividual ,
                               edu:Scope ;
                      edu:partOfScope edu:CognitiveScope .
 
 
-###  http://edugraph.org/edu#DimensionalThinking
+###  http://edugraph.io/edu#DimensionalThinking
 edu:DimensionalThinking rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
                         edu:partOfAbility edu:AnalyticalCapability .
 
 
-###  http://edugraph.org/edu#DiophantineGeometry
+###  http://edugraph.io/edu#DiophantineGeometry
 edu:DiophantineGeometry rdf:type owl:NamedIndividual ,
                                  edu:Area ;
                         edu:partOfArea edu:NumberTheory .
 
 
-###  http://edugraph.org/edu#DirectUnderstanding
+###  http://edugraph.io/edu#DirectUnderstanding
 edu:DirectUnderstanding rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
                         edu:partOfAbility edu:Understanding .
 
 
-###  http://edugraph.org/edu#DivergentCreativity
+###  http://edugraph.io/edu#DivergentCreativity
 edu:DivergentCreativity rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
                         edu:partOfAbility edu:CreativeCapability .
 
 
-###  http://edugraph.org/edu#DiversityTolerance
+###  http://edugraph.io/edu#DiversityTolerance
 edu:DiversityTolerance rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:SocialScaling .
 
 
-###  http://edugraph.org/edu#DynamicBalance
+###  http://edugraph.io/edu#DynamicBalance
 edu:DynamicBalance rdf:type owl:NamedIndividual ,
                             edu:Ability ;
                    edu:partOfAbility edu:Balance .
 
 
-###  http://edugraph.org/edu#ElementaryNumberTheory
+###  http://edugraph.io/edu#ElementaryNumberTheory
 edu:ElementaryNumberTheory rdf:type owl:NamedIndividual ,
                                     edu:Area ;
                            edu:partOfArea edu:NumberTheory .
 
 
-###  http://edugraph.org/edu#ElipticLineDrawing
+###  http://edugraph.io/edu#ElipticLineDrawing
 edu:ElipticLineDrawing rdf:type owl:NamedIndividual ,
                                 edu:Area ;
                        edu:partOfArea edu:SpatialModelling .
 
 
-###  http://edugraph.org/edu#ElipticShapeDrawing
+###  http://edugraph.io/edu#ElipticShapeDrawing
 edu:ElipticShapeDrawing rdf:type owl:NamedIndividual ,
                                  edu:Area ;
                         edu:partOfArea edu:SpatialModelling .
 
 
-###  http://edugraph.org/edu#EmotionExtraction
+###  http://edugraph.io/edu#EmotionExtraction
 edu:EmotionExtraction rdf:type owl:NamedIndividual ,
                                edu:Ability ;
                       edu:partOfAbility edu:Extraction .
 
 
-###  http://edugraph.org/edu#EmotionalCapability
+###  http://edugraph.io/edu#EmotionalCapability
 edu:EmotionalCapability rdf:type owl:NamedIndividual ,
                                  edu:Ability .
 
 
-###  http://edugraph.org/edu#EmotionalCreativity
+###  http://edugraph.io/edu#EmotionalCreativity
 edu:EmotionalCreativity rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
                         edu:partOfAbility edu:CreativeCapability .
 
 
-###  http://edugraph.org/edu#Emotionalization
+###  http://edugraph.io/edu#Emotionalization
 edu:Emotionalization rdf:type owl:NamedIndividual ,
                               edu:Ability ;
                      edu:partOfAbility edu:Expression .
 
 
-###  http://edugraph.org/edu#Empathy
+###  http://edugraph.io/edu#Empathy
 edu:Empathy rdf:type owl:NamedIndividual ,
                      edu:Ability ;
             edu:partOfAbility edu:EmotionalCapability .
 
 
-###  http://edugraph.org/edu#Endurance
+###  http://edugraph.io/edu#Endurance
 edu:Endurance rdf:type owl:NamedIndividual ,
                        edu:Ability ;
               edu:partOfAbility edu:PhyiscalCapability .
 
 
-###  http://edugraph.org/edu#ErrorCorrection
+###  http://edugraph.io/edu#ErrorCorrection
 edu:ErrorCorrection rdf:type owl:NamedIndividual ,
                              edu:Ability ;
                     edu:partOfAbility edu:Evaluation .
 
 
-###  http://edugraph.org/edu#ErrorDetection
+###  http://edugraph.io/edu#ErrorDetection
 edu:ErrorDetection rdf:type owl:NamedIndividual ,
                             edu:Ability ;
                    edu:partOfAbility edu:Evaluation .
 
 
-###  http://edugraph.org/edu#Evaluation
+###  http://edugraph.io/edu#Evaluation
 edu:Evaluation rdf:type owl:NamedIndividual ,
                         edu:Ability ;
                edu:partOfAbility edu:Processing .
 
 
-###  http://edugraph.org/edu#ExplosiveStrength
+###  http://edugraph.io/edu#ExplosiveStrength
 edu:ExplosiveStrength rdf:type owl:NamedIndividual ,
                                edu:Ability ;
                       edu:partOfAbility edu:Strength .
 
 
-###  http://edugraph.org/edu#Expression
+###  http://edugraph.io/edu#Expression
 edu:Expression rdf:type owl:NamedIndividual ,
                         edu:Ability ;
                edu:partOfAbility edu:CommunicationCapability .
 
 
-###  http://edugraph.org/edu#Extraction
+###  http://edugraph.io/edu#Extraction
 edu:Extraction rdf:type owl:NamedIndividual ,
                         edu:Ability ;
                edu:partOfAbility edu:Processing .
 
 
-###  http://edugraph.org/edu#Facilitation
+###  http://edugraph.io/edu#Facilitation
 edu:Facilitation rdf:type owl:NamedIndividual ,
                           edu:Ability ;
                  edu:partOfAbility edu:CommunicationCapability .
 
 
-###  http://edugraph.org/edu#Formalization
+###  http://edugraph.io/edu#Formalization
 edu:Formalization rdf:type owl:NamedIndividual ,
                            edu:Ability ;
                   edu:partOfAbility edu:Expression .
 
 
-###  http://edugraph.org/edu#FourDimensional
+###  http://edugraph.io/edu#FourDimensional
 edu:FourDimensional rdf:type owl:NamedIndividual ,
                              edu:Scope ;
                     edu:partOfScope edu:DimensionalScope .
 
 
-###  http://edugraph.org/edu#FractionAddition
+###  http://edugraph.io/edu#FractionAddition
 edu:FractionAddition rdf:type owl:NamedIndividual ,
                               edu:Area ;
                      edu:expandsArea edu:IntegerAdditon ,
@@ -743,14 +743,14 @@ edu:FractionAddition rdf:type owl:NamedIndividual ,
                      edu:partOfArea edu:FractionArithmetic .
 
 
-###  http://edugraph.org/edu#FractionArithmetic
+###  http://edugraph.io/edu#FractionArithmetic
 edu:FractionArithmetic rdf:type owl:NamedIndividual ,
                                 edu:Area ;
                        edu:expandsArea edu:FractionNotation ;
                        edu:partOfArea edu:RationalsArithmetic .
 
 
-###  http://edugraph.org/edu#FractionDivision
+###  http://edugraph.io/edu#FractionDivision
 edu:FractionDivision rdf:type owl:NamedIndividual ,
                               edu:Area ;
                      edu:expandsArea edu:FractionMultiplication ,
@@ -758,7 +758,7 @@ edu:FractionDivision rdf:type owl:NamedIndividual ,
                      edu:partOfArea edu:FractionArithmetic .
 
 
-###  http://edugraph.org/edu#FractionExponentiation
+###  http://edugraph.io/edu#FractionExponentiation
 edu:FractionExponentiation rdf:type owl:NamedIndividual ,
                                     edu:Area ;
                            edu:expandsArea edu:FractionMultiplication ,
@@ -766,7 +766,7 @@ edu:FractionExponentiation rdf:type owl:NamedIndividual ,
                            edu:partOfArea edu:FractionArithmetic .
 
 
-###  http://edugraph.org/edu#FractionLogarithm
+###  http://edugraph.io/edu#FractionLogarithm
 edu:FractionLogarithm rdf:type owl:NamedIndividual ,
                                edu:Area ;
                       edu:expandsArea edu:FractionExponentiation ,
@@ -774,7 +774,7 @@ edu:FractionLogarithm rdf:type owl:NamedIndividual ,
                       edu:partOfArea edu:FractionArithmetic .
 
 
-###  http://edugraph.org/edu#FractionMultiplication
+###  http://edugraph.io/edu#FractionMultiplication
 edu:FractionMultiplication rdf:type owl:NamedIndividual ,
                                     edu:Area ;
                            edu:expandsArea edu:FractionAddition ,
@@ -782,7 +782,7 @@ edu:FractionMultiplication rdf:type owl:NamedIndividual ,
                            edu:partOfArea edu:FractionArithmetic .
 
 
-###  http://edugraph.org/edu#FractionNotation
+###  http://edugraph.io/edu#FractionNotation
 edu:FractionNotation rdf:type owl:NamedIndividual ,
                               edu:Area ;
                      edu:expandsArea edu:IntegerDivision ,
@@ -793,7 +793,7 @@ edu:FractionNotation rdf:type owl:NamedIndividual ,
                                     edu:RationalsArithmetic .
 
 
-###  http://edugraph.org/edu#FractionRoot
+###  http://edugraph.io/edu#FractionRoot
 edu:FractionRoot rdf:type owl:NamedIndividual ,
                           edu:Area ;
                  edu:expandsArea edu:FractionExponentiation ,
@@ -801,7 +801,7 @@ edu:FractionRoot rdf:type owl:NamedIndividual ,
                  edu:partOfArea edu:FractionArithmetic .
 
 
-###  http://edugraph.org/edu#FractionSimplification
+###  http://edugraph.io/edu#FractionSimplification
 edu:FractionSimplification rdf:type owl:NamedIndividual ,
                                     edu:Area ;
                            edu:expandsArea edu:IntegerDivision ,
@@ -809,7 +809,7 @@ edu:FractionSimplification rdf:type owl:NamedIndividual ,
                            edu:partOfArea edu:FractionArithmetic .
 
 
-###  http://edugraph.org/edu#FractionSubtraction
+###  http://edugraph.io/edu#FractionSubtraction
 edu:FractionSubtraction rdf:type owl:NamedIndividual ,
                                  edu:Area ;
                         edu:expandsArea edu:FractionAddition ,
@@ -818,145 +818,145 @@ edu:FractionSubtraction rdf:type owl:NamedIndividual ,
                         edu:partOfArea edu:FractionArithmetic .
 
 
-###  http://edugraph.org/edu#Geoboard
+###  http://edugraph.io/edu#Geoboard
 edu:Geoboard rdf:type owl:NamedIndividual ,
                       edu:Scope ;
              edu:partOfScope edu:PhysicalGeometry .
 
 
-###  http://edugraph.org/edu#Geometry
+###  http://edugraph.io/edu#Geometry
 edu:Geometry rdf:type owl:NamedIndividual ,
                       edu:Area ;
              edu:partOfArea edu:Mathematics .
 
 
-###  http://edugraph.org/edu#GeometryRepresentation
+###  http://edugraph.io/edu#GeometryRepresentation
 edu:GeometryRepresentation rdf:type owl:NamedIndividual ,
                                     edu:Scope ;
                            edu:partOfScope edu:RepresentationalScope .
 
 
-###  http://edugraph.org/edu#GesticArticulation
+###  http://edugraph.io/edu#GesticArticulation
 edu:GesticArticulation rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:Articulation .
 
 
-###  http://edugraph.org/edu#GesticReception
+###  http://edugraph.io/edu#GesticReception
 edu:GesticReception rdf:type owl:NamedIndividual ,
                              edu:Ability ;
                     edu:partOfAbility edu:Reception .
 
 
-###  http://edugraph.org/edu#GrammaticalPrecision
+###  http://edugraph.io/edu#GrammaticalPrecision
 edu:GrammaticalPrecision rdf:type owl:NamedIndividual ,
                                   edu:Ability ;
                          edu:partOfAbility edu:LingusticArticulation .
 
 
-###  http://edugraph.org/edu#GroupModeration
+###  http://edugraph.io/edu#GroupModeration
 edu:GroupModeration rdf:type owl:NamedIndividual ,
                              edu:Ability ;
                     edu:partOfAbility edu:Facilitation .
 
 
-###  http://edugraph.org/edu#Hearing
+###  http://edugraph.io/edu#Hearing
 edu:Hearing rdf:type owl:NamedIndividual ,
                      edu:Ability ;
             edu:partOfAbility edu:SensoricCapability .
 
 
-###  http://edugraph.org/edu#HumoristicInterpretation
+###  http://edugraph.io/edu#HumoristicInterpretation
 edu:HumoristicInterpretation rdf:type owl:NamedIndividual ,
                                       edu:Ability ;
                              edu:partOfAbility edu:Interpretation .
 
 
-###  http://edugraph.org/edu#HyperDimensional
+###  http://edugraph.io/edu#HyperDimensional
 edu:HyperDimensional rdf:type owl:NamedIndividual ,
                               edu:Scope ;
                      edu:partOfScope edu:DimensionalScope .
 
 
-###  http://edugraph.org/edu#HypothesisGeneration
+###  http://edugraph.io/edu#HypothesisGeneration
 edu:HypothesisGeneration rdf:type owl:NamedIndividual ,
                                   edu:Ability ;
                          edu:partOfAbility edu:ScientificThinking .
 
 
-###  http://edugraph.org/edu#HypothesisValidation
+###  http://edugraph.io/edu#HypothesisValidation
 edu:HypothesisValidation rdf:type owl:NamedIndividual ,
                                   edu:Ability ;
                          edu:partOfAbility edu:ScientificThinking .
 
 
-###  http://edugraph.org/edu#Increment
+###  http://edugraph.io/edu#Increment
 edu:Increment rdf:type owl:NamedIndividual ,
                        edu:Area ;
               edu:partOfArea edu:BaseOperations .
 
 
-###  http://edugraph.org/edu#InductiveReasoning
+###  http://edugraph.io/edu#InductiveReasoning
 edu:InductiveReasoning rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:NonDeductiveReasoning .
 
 
-###  http://edugraph.org/edu#InformationCompression
+###  http://edugraph.io/edu#InformationCompression
 edu:InformationCompression rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
                            edu:partOfAbility edu:Interpretation .
 
 
-###  http://edugraph.org/edu#InformationExtraction
+###  http://edugraph.io/edu#InformationExtraction
 edu:InformationExtraction rdf:type owl:NamedIndividual ,
                                    edu:Ability ;
                           edu:partOfAbility edu:Extraction .
 
 
-###  http://edugraph.org/edu#IntegerAdditon
+###  http://edugraph.io/edu#IntegerAdditon
 edu:IntegerAdditon rdf:type owl:NamedIndividual ,
                             edu:Area ;
                    edu:expandsArea edu:Sum ;
                    edu:partOfArea edu:IntegerArithmetic .
 
 
-###  http://edugraph.org/edu#IntegerArithmetic
+###  http://edugraph.io/edu#IntegerArithmetic
 edu:IntegerArithmetic rdf:type owl:NamedIndividual ,
                                edu:Area ;
                       edu:expandsArea edu:IntegerNotation ;
                       edu:partOfArea edu:Arithmetic .
 
 
-###  http://edugraph.org/edu#IntegerDivision
+###  http://edugraph.io/edu#IntegerDivision
 edu:IntegerDivision rdf:type owl:NamedIndividual ,
                              edu:Area ;
                     edu:expandsArea edu:IntegerMultiplication ;
                     edu:partOfArea edu:IntegerArithmetic .
 
 
-###  http://edugraph.org/edu#IntegerExponentiation
+###  http://edugraph.io/edu#IntegerExponentiation
 edu:IntegerExponentiation rdf:type owl:NamedIndividual ,
                                    edu:Area ;
                           edu:expandsArea edu:IntegerMultiplication ;
                           edu:partOfArea edu:IntegerArithmetic .
 
 
-###  http://edugraph.org/edu#IntegerLogarithm
+###  http://edugraph.io/edu#IntegerLogarithm
 edu:IntegerLogarithm rdf:type owl:NamedIndividual ,
                               edu:Area ;
                      edu:expandsArea edu:IntegerExponentiation ;
                      edu:partOfArea edu:IntegerArithmetic .
 
 
-###  http://edugraph.org/edu#IntegerMultiplication
+###  http://edugraph.io/edu#IntegerMultiplication
 edu:IntegerMultiplication rdf:type owl:NamedIndividual ,
                                    edu:Area ;
                           edu:expandsArea edu:IntegerAdditon ;
                           edu:partOfArea edu:IntegerArithmetic .
 
 
-###  http://edugraph.org/edu#IntegerNotation
+###  http://edugraph.io/edu#IntegerNotation
 edu:IntegerNotation rdf:type owl:NamedIndividual ,
                              edu:Area ;
                     edu:expandsArea edu:DigitNotation ,
@@ -965,14 +965,14 @@ edu:IntegerNotation rdf:type owl:NamedIndividual ,
                                    edu:NumberNotation .
 
 
-###  http://edugraph.org/edu#IntegerRoot
+###  http://edugraph.io/edu#IntegerRoot
 edu:IntegerRoot rdf:type owl:NamedIndividual ,
                          edu:Area ;
                 edu:expandsArea edu:IntegerExponentiation ;
                 edu:partOfArea edu:IntegerArithmetic .
 
 
-###  http://edugraph.org/edu#IntegerSubtraction
+###  http://edugraph.io/edu#IntegerSubtraction
 edu:IntegerSubtraction rdf:type owl:NamedIndividual ,
                                 edu:Area ;
                        edu:expandsArea edu:Difference ,
@@ -980,312 +980,312 @@ edu:IntegerSubtraction rdf:type owl:NamedIndividual ,
                        edu:partOfArea edu:IntegerArithmetic .
 
 
-###  http://edugraph.org/edu#IntentIdentifcation
+###  http://edugraph.io/edu#IntentIdentifcation
 edu:IntentIdentifcation rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
                         edu:partOfAbility edu:Interpretation .
 
 
-###  http://edugraph.org/edu#Interpretation
+###  http://edugraph.io/edu#Interpretation
 edu:Interpretation rdf:type owl:NamedIndividual ,
                             edu:Ability ;
                    edu:partOfAbility edu:Processing .
 
 
-###  http://edugraph.org/edu#IntervalsWithInfitity
+###  http://edugraph.io/edu#IntervalsWithInfitity
 edu:IntervalsWithInfitity rdf:type owl:NamedIndividual ,
                                    edu:Area ;
                           edu:partOfArea edu:NumerationWithIntervals .
 
 
-###  http://edugraph.org/edu#Introspection
+###  http://edugraph.io/edu#Introspection
 edu:Introspection rdf:type owl:NamedIndividual ,
                            edu:Ability ;
                   edu:partOfAbility edu:EmotionalCapability .
 
 
-###  http://edugraph.org/edu#IntuitiveMathematics
+###  http://edugraph.io/edu#IntuitiveMathematics
 edu:IntuitiveMathematics rdf:type owl:NamedIndividual ,
                                   edu:Area ;
                          edu:partOfArea edu:Mathematics .
 
 
-###  http://edugraph.org/edu#LaserRuler
+###  http://edugraph.io/edu#LaserRuler
 edu:LaserRuler rdf:type owl:NamedIndividual ,
                         edu:Scope ;
                edu:partOfScope edu:LengthMeasurement .
 
 
-###  http://edugraph.org/edu#LateralCreativty
+###  http://edugraph.io/edu#LateralCreativty
 edu:LateralCreativty rdf:type owl:NamedIndividual ,
                               edu:Ability ;
                      edu:partOfAbility edu:CreativeCapability .
 
 
-###  http://edugraph.org/edu#LengthMeasurement
+###  http://edugraph.io/edu#LengthMeasurement
 edu:LengthMeasurement rdf:type owl:NamedIndividual ,
                                edu:Scope ;
                       edu:partOfScope edu:MeasurementScope .
 
 
-###  http://edugraph.org/edu#LinearLineDrawing
+###  http://edugraph.io/edu#LinearLineDrawing
 edu:LinearLineDrawing rdf:type owl:NamedIndividual ,
                                edu:Area ;
                       edu:partOfArea edu:SpatialModelling .
 
 
-###  http://edugraph.org/edu#LinearShapeDrawing
+###  http://edugraph.io/edu#LinearShapeDrawing
 edu:LinearShapeDrawing rdf:type owl:NamedIndividual ,
                                 edu:Area ;
                        edu:partOfArea edu:SpatialModelling .
 
 
-###  http://edugraph.org/edu#LingusticArticulation
+###  http://edugraph.io/edu#LingusticArticulation
 edu:LingusticArticulation rdf:type owl:NamedIndividual ,
                                    edu:Ability ;
                           edu:partOfAbility edu:Articulation ,
                                             edu:LingusticCapability .
 
 
-###  http://edugraph.org/edu#LingusticCapability
+###  http://edugraph.io/edu#LingusticCapability
 edu:LingusticCapability rdf:type owl:NamedIndividual ,
                                  edu:Ability .
 
 
-###  http://edugraph.org/edu#LingusticReception
+###  http://edugraph.io/edu#LingusticReception
 edu:LingusticReception rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:LingusticCapability ,
                                          edu:Reception .
 
 
-###  http://edugraph.org/edu#LinkingCubes
+###  http://edugraph.io/edu#LinkingCubes
 edu:LinkingCubes rdf:type owl:NamedIndividual ,
                           edu:Scope ;
                  edu:partOfScope edu:PhysicalNumbers .
 
 
-###  http://edugraph.org/edu#LiquidVolumes
+###  http://edugraph.io/edu#LiquidVolumes
 edu:LiquidVolumes rdf:type owl:NamedIndividual ,
                            edu:Scope ;
                   edu:partOfScope edu:VolumeMeasurement .
 
 
-###  http://edugraph.org/edu#Logic
+###  http://edugraph.io/edu#Logic
 edu:Logic rdf:type owl:NamedIndividual ,
                    edu:Area ;
           edu:partOfArea edu:Mathematics .
 
 
-###  http://edugraph.org/edu#LogicalInference
+###  http://edugraph.io/edu#LogicalInference
 edu:LogicalInference rdf:type owl:NamedIndividual ,
                               edu:Ability ;
                      edu:partOfAbility edu:DeductiveReasoning .
 
 
-###  http://edugraph.org/edu#LogicalProcessing
+###  http://edugraph.io/edu#LogicalProcessing
 edu:LogicalProcessing rdf:type owl:NamedIndividual ,
                                edu:Ability ;
                       edu:partOfAbility edu:LogicalThinking .
 
 
-###  http://edugraph.org/edu#LogicalReasoning
+###  http://edugraph.io/edu#LogicalReasoning
 edu:LogicalReasoning rdf:type owl:NamedIndividual ,
                               edu:Ability ;
                      edu:partOfAbility edu:LogicalThinking .
 
 
-###  http://edugraph.org/edu#LogicalThinking
+###  http://edugraph.io/edu#LogicalThinking
 edu:LogicalThinking rdf:type owl:NamedIndividual ,
                              edu:Ability ;
                     edu:partOfAbility edu:AnalyticalCapability .
 
 
-###  http://edugraph.org/edu#LowestCommonDenominator
+###  http://edugraph.io/edu#LowestCommonDenominator
 edu:LowestCommonDenominator rdf:type owl:NamedIndividual ,
                                      edu:Area ;
                             edu:expandsArea edu:IntegerDivision ;
                             edu:partOfArea edu:FractionArithmetic .
 
 
-###  http://edugraph.org/edu#Mathematics
+###  http://edugraph.io/edu#Mathematics
 edu:Mathematics rdf:type owl:NamedIndividual ,
                          edu:Area .
 
 
-###  http://edugraph.org/edu#MaximumStrength
+###  http://edugraph.io/edu#MaximumStrength
 edu:MaximumStrength rdf:type owl:NamedIndividual ,
                              edu:Ability ;
                     edu:partOfAbility edu:Strength .
 
 
-###  http://edugraph.org/edu#Measurement
+###  http://edugraph.io/edu#Measurement
 edu:Measurement rdf:type owl:NamedIndividual ,
                          edu:Area ;
                 edu:partOfArea edu:SpatialSense .
 
 
-###  http://edugraph.org/edu#MeasurementScope
+###  http://edugraph.io/edu#MeasurementScope
 edu:MeasurementScope rdf:type owl:NamedIndividual ,
                               edu:Scope .
 
 
-###  http://edugraph.org/edu#MeasuringObjects
+###  http://edugraph.io/edu#MeasuringObjects
 edu:MeasuringObjects rdf:type owl:NamedIndividual ,
                               edu:Area ;
                      edu:partOfArea edu:Measurement .
 
 
-###  http://edugraph.org/edu#MeasuringTime
+###  http://edugraph.io/edu#MeasuringTime
 edu:MeasuringTime rdf:type owl:NamedIndividual ,
                            edu:Area ;
                   edu:partOfArea edu:Measurement .
 
 
-###  http://edugraph.org/edu#MentalEndurance
+###  http://edugraph.io/edu#MentalEndurance
 edu:MentalEndurance rdf:type owl:NamedIndividual ,
                              edu:Ability ;
                     edu:partOfAbility edu:Endurance .
 
 
-###  http://edugraph.org/edu#MessageExtraction
+###  http://edugraph.io/edu#MessageExtraction
 edu:MessageExtraction rdf:type owl:NamedIndividual ,
                                edu:Ability ;
                       edu:partOfAbility edu:Extraction .
 
 
-###  http://edugraph.org/edu#Messaging
+###  http://edugraph.io/edu#Messaging
 edu:Messaging rdf:type owl:NamedIndividual ,
                        edu:Ability ;
               edu:partOfAbility edu:Expression .
 
 
-###  http://edugraph.org/edu#MimicArticulation
+###  http://edugraph.io/edu#MimicArticulation
 edu:MimicArticulation rdf:type owl:NamedIndividual ,
                                edu:Ability ;
                       edu:partOfAbility edu:Articulation .
 
 
-###  http://edugraph.org/edu#MimicReception
+###  http://edugraph.io/edu#MimicReception
 edu:MimicReception rdf:type owl:NamedIndividual ,
                             edu:Ability ;
                    edu:partOfAbility edu:Reception .
 
 
-###  http://edugraph.org/edu#MoodIdentification
+###  http://edugraph.io/edu#MoodIdentification
 edu:MoodIdentification rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:Interpretation .
 
 
-###  http://edugraph.org/edu#Motoric
+###  http://edugraph.io/edu#Motoric
 edu:Motoric rdf:type owl:NamedIndividual ,
                      edu:Ability ;
             edu:partOfAbility edu:PhyiscalCapability .
 
 
-###  http://edugraph.org/edu#MotoricFlexibility
+###  http://edugraph.io/edu#MotoricFlexibility
 edu:MotoricFlexibility rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:Motoric .
 
 
-###  http://edugraph.org/edu#MotoricPrecision
+###  http://edugraph.io/edu#MotoricPrecision
 edu:MotoricPrecision rdf:type owl:NamedIndividual ,
                               edu:Ability ;
                      edu:partOfAbility edu:Motoric .
 
 
-###  http://edugraph.org/edu#MotoricRange
+###  http://edugraph.io/edu#MotoricRange
 edu:MotoricRange rdf:type owl:NamedIndividual ,
                           edu:Ability ;
                  edu:partOfAbility edu:Motoric .
 
 
-###  http://edugraph.org/edu#MotoricSpeed
+###  http://edugraph.io/edu#MotoricSpeed
 edu:MotoricSpeed rdf:type owl:NamedIndividual ,
                           edu:Ability ;
                  edu:partOfAbility edu:Motoric .
 
 
-###  http://edugraph.org/edu#MultiDimensionalThinking
+###  http://edugraph.io/edu#MultiDimensionalThinking
 edu:MultiDimensionalThinking rdf:type owl:NamedIndividual ,
                                       edu:Ability .
 
 
-###  http://edugraph.org/edu#MuscularEndurance
+###  http://edugraph.io/edu#MuscularEndurance
 edu:MuscularEndurance rdf:type owl:NamedIndividual ,
                                edu:Ability ;
                       edu:partOfAbility edu:Endurance .
 
 
-###  http://edugraph.org/edu#Narration
+###  http://edugraph.io/edu#Narration
 edu:Narration rdf:type owl:NamedIndividual ,
                        edu:Ability ;
               edu:partOfAbility edu:Expression .
 
 
-###  http://edugraph.org/edu#NarrativeExtraction
+###  http://edugraph.io/edu#NarrativeExtraction
 edu:NarrativeExtraction rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
                         edu:partOfAbility edu:Extraction .
 
 
-###  http://edugraph.org/edu#NonDeductiveReasoning
+###  http://edugraph.io/edu#NonDeductiveReasoning
 edu:NonDeductiveReasoning rdf:type owl:NamedIndividual ,
                                    edu:Ability ;
                           edu:partOfAbility edu:LogicalReasoning .
 
 
-###  http://edugraph.org/edu#NumberNotation
+###  http://edugraph.io/edu#NumberNotation
 edu:NumberNotation rdf:type owl:NamedIndividual ,
                             edu:Area ;
                    edu:partOfArea edu:NumberSense .
 
 
-###  http://edugraph.org/edu#NumberRepresentation
+###  http://edugraph.io/edu#NumberRepresentation
 edu:NumberRepresentation rdf:type owl:NamedIndividual ,
                                   edu:Scope ;
                          edu:partOfScope edu:RepresentationalScope .
 
 
-###  http://edugraph.org/edu#NumberSense
+###  http://edugraph.io/edu#NumberSense
 edu:NumberSense rdf:type owl:NamedIndividual ,
                          edu:Area ;
                 edu:partOfArea edu:IntuitiveMathematics .
 
 
-###  http://edugraph.org/edu#NumberTheory
+###  http://edugraph.io/edu#NumberTheory
 edu:NumberTheory rdf:type owl:NamedIndividual ,
                           edu:Area ;
                  edu:partOfArea edu:Mathematics .
 
 
-###  http://edugraph.org/edu#NumberTiles
+###  http://edugraph.io/edu#NumberTiles
 edu:NumberTiles rdf:type owl:NamedIndividual ,
                          edu:Scope ;
                 edu:partOfScope edu:VisualNumbers .
 
 
-###  http://edugraph.org/edu#Numberline
+###  http://edugraph.io/edu#Numberline
 edu:Numberline rdf:type owl:NamedIndividual ,
                         edu:Scope ;
                edu:partOfScope edu:SpatialNumbers .
 
 
-###  http://edugraph.org/edu#Numerals
+###  http://edugraph.io/edu#Numerals
 edu:Numerals rdf:type owl:NamedIndividual ,
                       edu:Scope ;
              edu:partOfScope edu:NumberRepresentation .
 
 
-###  http://edugraph.org/edu#Numeration
+###  http://edugraph.io/edu#Numeration
 edu:Numeration rdf:type owl:NamedIndividual ,
                         edu:Area ;
                edu:partOfArea edu:NumberSense .
 
 
-###  http://edugraph.org/edu#NumerationWithIntegers
+###  http://edugraph.io/edu#NumerationWithIntegers
 edu:NumerationWithIntegers rdf:type owl:NamedIndividual ,
                                     edu:Area ;
                            edu:expandsArea edu:Increment ,
@@ -1294,766 +1294,766 @@ edu:NumerationWithIntegers rdf:type owl:NamedIndividual ,
                            edu:partOfArea edu:Numeration .
 
 
-###  http://edugraph.org/edu#NumerationWithIntervals
+###  http://edugraph.io/edu#NumerationWithIntervals
 edu:NumerationWithIntervals rdf:type owl:NamedIndividual ,
                                      edu:Area ;
                             edu:partOfArea edu:Numeration .
 
 
-###  http://edugraph.org/edu#NumerationWithRationals
+###  http://edugraph.io/edu#NumerationWithRationals
 edu:NumerationWithRationals rdf:type owl:NamedIndividual ,
                                      edu:Area ;
                             edu:partOfArea edu:Numeration .
 
 
-###  http://edugraph.org/edu#NumericBase
+###  http://edugraph.io/edu#NumericBase
 edu:NumericBase rdf:type owl:NamedIndividual ,
                          edu:Scope ;
                 edu:partOfScope edu:NumericScope .
 
 
-###  http://edugraph.org/edu#NumericComparison
+###  http://edugraph.io/edu#NumericComparison
 edu:NumericComparison rdf:type owl:NamedIndividual ,
                                edu:Area ;
                       edu:partOfArea edu:NumberSense .
 
 
-###  http://edugraph.org/edu#NumericIdentity
+###  http://edugraph.io/edu#NumericIdentity
 edu:NumericIdentity rdf:type owl:NamedIndividual ,
                              edu:Area ;
                     edu:partOfArea edu:NumericComparison .
 
 
-###  http://edugraph.org/edu#NumericOrder
+###  http://edugraph.io/edu#NumericOrder
 edu:NumericOrder rdf:type owl:NamedIndividual ,
                           edu:Area ;
                  edu:expandsArea edu:NumericIdentity ;
                  edu:partOfArea edu:NumericComparison .
 
 
-###  http://edugraph.org/edu#NumericRange
+###  http://edugraph.io/edu#NumericRange
 edu:NumericRange rdf:type owl:NamedIndividual ,
                           edu:Scope ;
                  edu:partOfScope edu:NumericScope .
 
 
-###  http://edugraph.org/edu#NumericScope
+###  http://edugraph.io/edu#NumericScope
 edu:NumericScope rdf:type owl:NamedIndividual ,
                           edu:Scope ;
                  edu:partOfScope edu:CognitiveScope .
 
 
-###  http://edugraph.org/edu#OneDimensional
+###  http://edugraph.io/edu#OneDimensional
 edu:OneDimensional rdf:type owl:NamedIndividual ,
                             edu:Scope ;
                    edu:partOfScope edu:DimensionalScope .
 
 
-###  http://edugraph.org/edu#PassiveCommunication
+###  http://edugraph.io/edu#PassiveCommunication
 edu:PassiveCommunication rdf:type owl:NamedIndividual ,
                                   edu:Ability .
 
 
-###  http://edugraph.org/edu#PassiveVocabulary
+###  http://edugraph.io/edu#PassiveVocabulary
 edu:PassiveVocabulary rdf:type owl:NamedIndividual ,
                                edu:Ability ;
                       edu:partOfAbility edu:LingusticReception .
 
 
-###  http://edugraph.org/edu#Patternbloks
+###  http://edugraph.io/edu#Patternbloks
 edu:Patternbloks rdf:type owl:NamedIndividual ,
                           edu:Scope ;
                  edu:partOfScope edu:PhysicalGeometry .
 
 
-###  http://edugraph.org/edu#PeerAwareness
+###  http://edugraph.io/edu#PeerAwareness
 edu:PeerAwareness rdf:type owl:NamedIndividual ,
                            edu:Ability ;
                   edu:partOfAbility edu:Empathy .
 
 
-###  http://edugraph.org/edu#PeerRelatability
+###  http://edugraph.io/edu#PeerRelatability
 edu:PeerRelatability rdf:type owl:NamedIndividual ,
                               edu:Ability ;
                      edu:partOfAbility edu:Empathy .
 
 
-###  http://edugraph.org/edu#PeerSupport
+###  http://edugraph.io/edu#PeerSupport
 edu:PeerSupport rdf:type owl:NamedIndividual ,
                          edu:Ability ;
                 edu:partOfAbility edu:Empathy .
 
 
-###  http://edugraph.org/edu#Performance
+###  http://edugraph.io/edu#Performance
 edu:Performance rdf:type owl:NamedIndividual ,
                          edu:Ability ;
                 edu:partOfAbility edu:Expression .
 
 
-###  http://edugraph.org/edu#PhyiscalCapability
+###  http://edugraph.io/edu#PhyiscalCapability
 edu:PhyiscalCapability rdf:type owl:NamedIndividual ,
                                 edu:Ability .
 
 
-###  http://edugraph.org/edu#PhysicalGeometry
+###  http://edugraph.io/edu#PhysicalGeometry
 edu:PhysicalGeometry rdf:type owl:NamedIndividual ,
                               edu:Scope ;
                      edu:partOfScope edu:GeometryRepresentation .
 
 
-###  http://edugraph.org/edu#PhysicalNumbers
+###  http://edugraph.io/edu#PhysicalNumbers
 edu:PhysicalNumbers rdf:type owl:NamedIndividual ,
                              edu:Scope ;
                     edu:partOfScope edu:NumberRepresentation .
 
 
-###  http://edugraph.org/edu#PhysicalRuler
+###  http://edugraph.io/edu#PhysicalRuler
 edu:PhysicalRuler rdf:type owl:NamedIndividual ,
                            edu:Scope ;
                   edu:partOfScope edu:LengthMeasurement .
 
 
-###  http://edugraph.org/edu#PlausabilityEvaluation
+###  http://edugraph.io/edu#PlausabilityEvaluation
 edu:PlausabilityEvaluation rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
                            edu:partOfAbility edu:Evaluation .
 
 
-###  http://edugraph.org/edu#PoliticalAwareness
+###  http://edugraph.io/edu#PoliticalAwareness
 edu:PoliticalAwareness rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:SocialScaling .
 
 
-###  http://edugraph.org/edu#PosturalEndurance
+###  http://edugraph.io/edu#PosturalEndurance
 edu:PosturalEndurance rdf:type owl:NamedIndividual ,
                                edu:Ability ;
                       edu:partOfAbility edu:Endurance .
 
 
-###  http://edugraph.org/edu#Presentation
+###  http://edugraph.io/edu#Presentation
 edu:Presentation rdf:type owl:NamedIndividual ,
                           edu:Ability ;
                  edu:partOfAbility edu:Expression .
 
 
-###  http://edugraph.org/edu#ProcedureApplicability
+###  http://edugraph.io/edu#ProcedureApplicability
 edu:ProcedureApplicability rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
                            edu:partOfAbility edu:ProcedureUnderstanding .
 
 
-###  http://edugraph.org/edu#ProcedureApplication
+###  http://edugraph.io/edu#ProcedureApplication
 edu:ProcedureApplication rdf:type owl:NamedIndividual ,
                                   edu:Ability ;
                          edu:partOfAbility edu:LogicalProcessing .
 
 
-###  http://edugraph.org/edu#ProcedureComposition
+###  http://edugraph.io/edu#ProcedureComposition
 edu:ProcedureComposition rdf:type owl:NamedIndividual ,
                                   edu:Ability ;
                          edu:partOfAbility edu:ProcedureUnderstanding .
 
 
-###  http://edugraph.org/edu#ProcedureDerivation
+###  http://edugraph.io/edu#ProcedureDerivation
 edu:ProcedureDerivation rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
                         edu:partOfAbility edu:ProcedureUnderstanding .
 
 
-###  http://edugraph.org/edu#ProcedureExecution
+###  http://edugraph.io/edu#ProcedureExecution
 edu:ProcedureExecution rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:ProcedureApplication .
 
 
-###  http://edugraph.org/edu#ProcedureIdentification
+###  http://edugraph.io/edu#ProcedureIdentification
 edu:ProcedureIdentification rdf:type owl:NamedIndividual ,
                                      edu:Ability ;
                             edu:partOfAbility edu:ProcedureApplication .
 
 
-###  http://edugraph.org/edu#ProcedureMemorization
+###  http://edugraph.io/edu#ProcedureMemorization
 edu:ProcedureMemorization rdf:type owl:NamedIndividual ,
                                    edu:Ability ;
                           edu:partOfAbility edu:ProcedureApplication .
 
 
-###  http://edugraph.org/edu#ProcedureUnderstanding
+###  http://edugraph.io/edu#ProcedureUnderstanding
 edu:ProcedureUnderstanding rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
                            edu:partOfAbility edu:LogicalProcessing .
 
 
-###  http://edugraph.org/edu#Processing
+###  http://edugraph.io/edu#Processing
 edu:Processing rdf:type owl:NamedIndividual ,
                         edu:Ability ;
                edu:partOfAbility edu:CommunicationCapability .
 
 
-###  http://edugraph.org/edu#Pronunciation
+###  http://edugraph.io/edu#Pronunciation
 edu:Pronunciation rdf:type owl:NamedIndividual ,
                            edu:Ability ;
                   edu:partOfAbility edu:VocalArticulation .
 
 
-###  http://edugraph.org/edu#ProportionAbstraction
+###  http://edugraph.io/edu#ProportionAbstraction
 edu:ProportionAbstraction rdf:type owl:NamedIndividual ,
                                    edu:Area ;
                           edu:partOfArea edu:ProportionSense .
 
 
-###  http://edugraph.org/edu#ProportionExpression
+###  http://edugraph.io/edu#ProportionExpression
 edu:ProportionExpression rdf:type owl:NamedIndividual ,
                                   edu:Area ;
                          edu:partOfArea edu:ProportionInteraction .
 
 
-###  http://edugraph.org/edu#ProportionIdentification
+###  http://edugraph.io/edu#ProportionIdentification
 edu:ProportionIdentification rdf:type owl:NamedIndividual ,
                                       edu:Area ;
                              edu:partOfArea edu:ProportionInteraction .
 
 
-###  http://edugraph.org/edu#ProportionInteraction
+###  http://edugraph.io/edu#ProportionInteraction
 edu:ProportionInteraction rdf:type owl:NamedIndividual ,
                                    edu:Area ;
                           edu:partOfArea edu:ProportionSense .
 
 
-###  http://edugraph.org/edu#ProportionManipulation
+###  http://edugraph.io/edu#ProportionManipulation
 edu:ProportionManipulation rdf:type owl:NamedIndividual ,
                                     edu:Area ;
                            edu:partOfArea edu:ProportionInteraction .
 
 
-###  http://edugraph.org/edu#ProportionSense
+###  http://edugraph.io/edu#ProportionSense
 edu:ProportionSense rdf:type owl:NamedIndividual ,
                              edu:Area ;
                     edu:partOfArea edu:IntuitiveMathematics .
 
 
-###  http://edugraph.org/edu#PropositionIdentification
+###  http://edugraph.io/edu#PropositionIdentification
 edu:PropositionIdentification rdf:type owl:NamedIndividual ,
                                        edu:Ability ;
                               edu:partOfAbility edu:LogicalReasoning .
 
 
-###  http://edugraph.org/edu#Protractor
+###  http://edugraph.io/edu#Protractor
 edu:Protractor rdf:type owl:NamedIndividual ,
                         edu:Scope ;
                edu:partOfScope edu:AngleMeasurement .
 
 
-###  http://edugraph.org/edu#QuantitiyMeasurement
+###  http://edugraph.io/edu#QuantitiyMeasurement
 edu:QuantitiyMeasurement rdf:type owl:NamedIndividual ,
                                   edu:Scope ;
                          edu:partOfScope edu:MeasurementScope .
 
 
-###  http://edugraph.org/edu#RatioEquivalence
+###  http://edugraph.io/edu#RatioEquivalence
 edu:RatioEquivalence rdf:type owl:NamedIndividual ,
                               edu:Area ;
                      edu:partOfArea edu:ProportionAbstraction .
 
 
-###  http://edugraph.org/edu#RatioInterpretation
+###  http://edugraph.io/edu#RatioInterpretation
 edu:RatioInterpretation rdf:type owl:NamedIndividual ,
                                  edu:Area ;
                         edu:partOfArea edu:ProportionAbstraction .
 
 
-###  http://edugraph.org/edu#RatioNotation
+###  http://edugraph.io/edu#RatioNotation
 edu:RatioNotation rdf:type owl:NamedIndividual ,
                            edu:Area ;
                   edu:partOfArea edu:ProportionAbstraction .
 
 
-###  http://edugraph.org/edu#RationalsArithmetic
+###  http://edugraph.io/edu#RationalsArithmetic
 edu:RationalsArithmetic rdf:type owl:NamedIndividual ,
                                  edu:Area ;
                         edu:partOfArea edu:Arithmetic .
 
 
-###  http://edugraph.org/edu#ReadingFluency
+###  http://edugraph.io/edu#ReadingFluency
 edu:ReadingFluency rdf:type owl:NamedIndividual ,
                             edu:Ability ;
                    edu:partOfAbility edu:TextualReception .
 
 
-###  http://edugraph.org/edu#ReadingPrecision
+###  http://edugraph.io/edu#ReadingPrecision
 edu:ReadingPrecision rdf:type owl:NamedIndividual ,
                               edu:Ability ;
                      edu:partOfAbility edu:TextualReception .
 
 
-###  http://edugraph.org/edu#ReadingSpeed
+###  http://edugraph.io/edu#ReadingSpeed
 edu:ReadingSpeed rdf:type owl:NamedIndividual ,
                           edu:Ability ;
                  edu:partOfAbility edu:TextualReception .
 
 
-###  http://edugraph.org/edu#ReasoningStrategy
+###  http://edugraph.io/edu#ReasoningStrategy
 edu:ReasoningStrategy rdf:type owl:NamedIndividual ,
                                edu:Ability ;
                       edu:partOfAbility edu:LogicalReasoning .
 
 
-###  http://edugraph.org/edu#Reception
+###  http://edugraph.io/edu#Reception
 edu:Reception rdf:type owl:NamedIndividual ,
                        edu:Ability ;
               edu:partOfAbility edu:Processing .
 
 
-###  http://edugraph.org/edu#RelevanceEvaluation
+###  http://edugraph.io/edu#RelevanceEvaluation
 edu:RelevanceEvaluation rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
                         edu:partOfAbility edu:Evaluation .
 
 
-###  http://edugraph.org/edu#Representation
+###  http://edugraph.io/edu#Representation
 edu:Representation rdf:type owl:NamedIndividual ,
                             edu:Scope .
 
 
-###  http://edugraph.org/edu#RepresentationalScope
+###  http://edugraph.io/edu#RepresentationalScope
 edu:RepresentationalScope rdf:type owl:NamedIndividual ,
                                    edu:Scope .
 
 
-###  http://edugraph.org/edu#ResultInterpretation
+###  http://edugraph.io/edu#ResultInterpretation
 edu:ResultInterpretation rdf:type owl:NamedIndividual ,
                                   edu:Ability ;
                          edu:partOfAbility edu:ScientificThinking .
 
 
-###  http://edugraph.org/edu#RodNumerals
+###  http://edugraph.io/edu#RodNumerals
 edu:RodNumerals rdf:type owl:NamedIndividual ,
                          edu:Scope ;
                 edu:partOfScope edu:Numerals .
 
 
-###  http://edugraph.org/edu#RomanNumerals
+###  http://edugraph.io/edu#RomanNumerals
 edu:RomanNumerals rdf:type owl:NamedIndividual ,
                            edu:Scope ;
                   edu:partOfScope edu:Numerals .
 
 
-###  http://edugraph.org/edu#SandClock
+###  http://edugraph.io/edu#SandClock
 edu:SandClock rdf:type owl:NamedIndividual ,
                        edu:Scope ;
               edu:partOfScope edu:TimeMeasurement .
 
 
-###  http://edugraph.org/edu#ScientificThinking
+###  http://edugraph.io/edu#ScientificThinking
 edu:ScientificThinking rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:AnalyticalCapability .
 
 
-###  http://edugraph.org/edu#Seeing
+###  http://edugraph.io/edu#Seeing
 edu:Seeing rdf:type owl:NamedIndividual ,
                     edu:Ability ;
            edu:partOfAbility edu:SensoricCapability .
 
 
-###  http://edugraph.org/edu#SelfAssessment
+###  http://edugraph.io/edu#SelfAssessment
 edu:SelfAssessment rdf:type owl:NamedIndividual ,
                             edu:Ability ;
                    edu:partOfAbility edu:Introspection .
 
 
-###  http://edugraph.org/edu#SelfAwareness
+###  http://edugraph.io/edu#SelfAwareness
 edu:SelfAwareness rdf:type owl:NamedIndividual ,
                            edu:Ability ;
                   edu:partOfAbility edu:Introspection .
 
 
-###  http://edugraph.org/edu#SelfConfidence
+###  http://edugraph.io/edu#SelfConfidence
 edu:SelfConfidence rdf:type owl:NamedIndividual ,
                             edu:Ability ;
                    edu:partOfAbility edu:Introspection .
 
 
-###  http://edugraph.org/edu#SelfMotivation
+###  http://edugraph.io/edu#SelfMotivation
 edu:SelfMotivation rdf:type owl:NamedIndividual ,
                             edu:Ability ;
                    edu:partOfAbility edu:Introspection .
 
 
-###  http://edugraph.org/edu#SelfRegulation
+###  http://edugraph.io/edu#SelfRegulation
 edu:SelfRegulation rdf:type owl:NamedIndividual ,
                             edu:Ability ;
                    edu:partOfAbility edu:Introspection .
 
 
-###  http://edugraph.org/edu#SensoricCapability
+###  http://edugraph.io/edu#SensoricCapability
 edu:SensoricCapability rdf:type owl:NamedIndividual ,
                                 edu:Ability .
 
 
-###  http://edugraph.org/edu#ServiceOrientation
+###  http://edugraph.io/edu#ServiceOrientation
 edu:ServiceOrientation rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:SocialScaling .
 
 
-###  http://edugraph.org/edu#SetTheory
+###  http://edugraph.io/edu#SetTheory
 edu:SetTheory rdf:type owl:NamedIndividual ,
                        edu:Area ;
               edu:partOfArea edu:Mathematics .
 
 
-###  http://edugraph.org/edu#ShapeCongruence
+###  http://edugraph.io/edu#ShapeCongruence
 edu:ShapeCongruence rdf:type owl:NamedIndividual ,
                              edu:Area ;
                     edu:partOfArea edu:ShapeRecognition .
 
 
-###  http://edugraph.org/edu#ShapeIdentity
+###  http://edugraph.io/edu#ShapeIdentity
 edu:ShapeIdentity rdf:type owl:NamedIndividual ,
                            edu:Area ;
                   edu:partOfArea edu:ShapeRecognition .
 
 
-###  http://edugraph.org/edu#ShapeRecognition
+###  http://edugraph.io/edu#ShapeRecognition
 edu:ShapeRecognition rdf:type owl:NamedIndividual ,
                               edu:Area ;
                      edu:partOfArea edu:SpatialSense .
 
 
-###  http://edugraph.org/edu#ShapeSymmetry
+###  http://edugraph.io/edu#ShapeSymmetry
 edu:ShapeSymmetry rdf:type owl:NamedIndividual ,
                            edu:Area ;
                   edu:partOfArea edu:ShapeRecognition .
 
 
-###  http://edugraph.org/edu#Smaller10
+###  http://edugraph.io/edu#Smaller10
 edu:Smaller10 rdf:type owl:NamedIndividual ,
                        edu:Scope ;
               edu:partOfScope edu:NumericRange .
 
 
-###  http://edugraph.org/edu#Smaller100
+###  http://edugraph.io/edu#Smaller100
 edu:Smaller100 rdf:type owl:NamedIndividual ,
                         edu:Scope ;
                edu:partOfScope edu:NumericRange .
 
 
-###  http://edugraph.org/edu#Smaller1000
+###  http://edugraph.io/edu#Smaller1000
 edu:Smaller1000 rdf:type owl:NamedIndividual ,
                          edu:Scope ;
                 edu:partOfScope edu:NumericRange .
 
 
-###  http://edugraph.org/edu#Smaller20
+###  http://edugraph.io/edu#Smaller20
 edu:Smaller20 rdf:type owl:NamedIndividual ,
                        edu:Scope ;
               edu:partOfScope edu:NumericRange .
 
 
-###  http://edugraph.org/edu#Smelling
+###  http://edugraph.io/edu#Smelling
 edu:Smelling rdf:type owl:NamedIndividual ,
                       edu:Ability ;
              edu:partOfAbility edu:SensoricCapability .
 
 
-###  http://edugraph.org/edu#SocialScaling
+###  http://edugraph.io/edu#SocialScaling
 edu:SocialScaling rdf:type owl:NamedIndividual ,
                            edu:Ability ;
                   edu:partOfAbility edu:EmotionalCapability .
 
 
-###  http://edugraph.org/edu#SpatialModelling
+###  http://edugraph.io/edu#SpatialModelling
 edu:SpatialModelling rdf:type owl:NamedIndividual ,
                               edu:Area ;
                      edu:partOfArea edu:SpatialSense .
 
 
-###  http://edugraph.org/edu#SpatialNumbers
+###  http://edugraph.io/edu#SpatialNumbers
 edu:SpatialNumbers rdf:type owl:NamedIndividual ,
                             edu:Scope ;
                    edu:partOfScope edu:NumberRepresentation .
 
 
-###  http://edugraph.org/edu#SpatialSense
+###  http://edugraph.io/edu#SpatialSense
 edu:SpatialSense rdf:type owl:NamedIndividual ,
                           edu:Area ;
                  edu:partOfArea edu:IntuitiveMathematics .
 
 
-###  http://edugraph.org/edu#SpeakingFluency
+###  http://edugraph.io/edu#SpeakingFluency
 edu:SpeakingFluency rdf:type owl:NamedIndividual ,
                              edu:Ability ;
                     edu:partOfAbility edu:VocalArticulation .
 
 
-###  http://edugraph.org/edu#SpeakingSpeed
+###  http://edugraph.io/edu#SpeakingSpeed
 edu:SpeakingSpeed rdf:type owl:NamedIndividual ,
                            edu:Ability ;
                   edu:partOfAbility edu:VocalArticulation .
 
 
-###  http://edugraph.org/edu#StartingStrength
+###  http://edugraph.io/edu#StartingStrength
 edu:StartingStrength rdf:type owl:NamedIndividual ,
                               edu:Ability ;
                      edu:partOfAbility edu:Strength .
 
 
-###  http://edugraph.org/edu#StaticBalance
+###  http://edugraph.io/edu#StaticBalance
 edu:StaticBalance rdf:type owl:NamedIndividual ,
                            edu:Ability ;
                   edu:partOfAbility edu:Balance .
 
 
-###  http://edugraph.org/edu#Statistics
+###  http://edugraph.io/edu#Statistics
 edu:Statistics rdf:type owl:NamedIndividual ,
                         edu:Area ;
                edu:partOfArea edu:Mathematics .
 
 
-###  http://edugraph.org/edu#Stopwatch
+###  http://edugraph.io/edu#Stopwatch
 edu:Stopwatch rdf:type owl:NamedIndividual ,
                        edu:Scope ;
               edu:partOfScope edu:TimeMeasurement .
 
 
-###  http://edugraph.org/edu#Strength
+###  http://edugraph.io/edu#Strength
 edu:Strength rdf:type owl:NamedIndividual ,
                       edu:Ability ;
              edu:partOfAbility edu:PhyiscalCapability .
 
 
-###  http://edugraph.org/edu#SubtextUnderstanding
+###  http://edugraph.io/edu#SubtextUnderstanding
 edu:SubtextUnderstanding rdf:type owl:NamedIndividual ,
                                   edu:Ability ;
                          edu:partOfAbility edu:Understanding .
 
 
-###  http://edugraph.org/edu#SubtractiveCount
+###  http://edugraph.io/edu#SubtractiveCount
 edu:SubtractiveCount rdf:type owl:NamedIndividual ,
                               edu:Scope ;
                      edu:partOfScope edu:QuantitiyMeasurement .
 
 
-###  http://edugraph.org/edu#Sum
+###  http://edugraph.io/edu#Sum
 edu:Sum rdf:type owl:NamedIndividual ,
                  edu:Area ;
         edu:expandsArea edu:Increment ;
         edu:partOfArea edu:BaseOperations .
 
 
-###  http://edugraph.org/edu#Sunclock
+###  http://edugraph.io/edu#Sunclock
 edu:Sunclock rdf:type owl:NamedIndividual ,
                       edu:Scope ;
              edu:partOfScope edu:TimeMeasurement .
 
 
-###  http://edugraph.org/edu#SupertextUnderstanding
+###  http://edugraph.io/edu#SupertextUnderstanding
 edu:SupertextUnderstanding rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
                            edu:partOfAbility edu:Understanding .
 
 
-###  http://edugraph.org/edu#SyntacticalPrecision
+###  http://edugraph.io/edu#SyntacticalPrecision
 edu:SyntacticalPrecision rdf:type owl:NamedIndividual ,
                                   edu:Ability ;
                          edu:partOfAbility edu:TextualArticulation .
 
 
-###  http://edugraph.org/edu#Tangrams
+###  http://edugraph.io/edu#Tangrams
 edu:Tangrams rdf:type owl:NamedIndividual ,
                       edu:Scope ;
              edu:partOfScope edu:PhysicalGeometry .
 
 
-###  http://edugraph.org/edu#Tapemeter
+###  http://edugraph.io/edu#Tapemeter
 edu:Tapemeter rdf:type owl:NamedIndividual ,
                        edu:Scope ;
               edu:partOfScope edu:LengthMeasurement .
 
 
-###  http://edugraph.org/edu#Tasting
+###  http://edugraph.io/edu#Tasting
 edu:Tasting rdf:type owl:NamedIndividual ,
                      edu:Ability ;
             edu:partOfAbility edu:SensoricCapability .
 
 
-###  http://edugraph.org/edu#TemperatureMeasurement
+###  http://edugraph.io/edu#TemperatureMeasurement
 edu:TemperatureMeasurement rdf:type owl:NamedIndividual ,
                                     edu:Scope ;
                            edu:partOfScope edu:MeasurementScope .
 
 
-###  http://edugraph.org/edu#Termometer
+###  http://edugraph.io/edu#Termometer
 edu:Termometer rdf:type owl:NamedIndividual ,
                         edu:Scope ;
                edu:partOfScope edu:TemperatureMeasurement .
 
 
-###  http://edugraph.org/edu#TextualArticulation
+###  http://edugraph.io/edu#TextualArticulation
 edu:TextualArticulation rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
                         edu:partOfAbility edu:LingusticArticulation .
 
 
-###  http://edugraph.org/edu#TextualReception
+###  http://edugraph.io/edu#TextualReception
 edu:TextualReception rdf:type owl:NamedIndividual ,
                               edu:Ability ;
                      edu:partOfAbility edu:LingusticReception .
 
 
-###  http://edugraph.org/edu#ThreeDimensional
+###  http://edugraph.io/edu#ThreeDimensional
 edu:ThreeDimensional rdf:type owl:NamedIndividual ,
                               edu:Scope ;
                      edu:partOfScope edu:DimensionalScope .
 
 
-###  http://edugraph.org/edu#TimeMeasurement
+###  http://edugraph.io/edu#TimeMeasurement
 edu:TimeMeasurement rdf:type owl:NamedIndividual ,
                              edu:Scope ;
                     edu:partOfScope edu:MeasurementScope .
 
 
-###  http://edugraph.org/edu#TonalArticulation
+###  http://edugraph.io/edu#TonalArticulation
 edu:TonalArticulation rdf:type owl:NamedIndividual ,
                                edu:Ability ;
                       edu:partOfAbility edu:Articulation .
 
 
-###  http://edugraph.org/edu#TonalReception
+###  http://edugraph.io/edu#TonalReception
 edu:TonalReception rdf:type owl:NamedIndividual ,
                             edu:Ability ;
                    edu:partOfAbility edu:Reception .
 
 
-###  http://edugraph.org/edu#Touching
+###  http://edugraph.io/edu#Touching
 edu:Touching rdf:type owl:NamedIndividual ,
                       edu:Ability ;
              edu:partOfAbility edu:SensoricCapability .
 
 
-###  http://edugraph.org/edu#TriangleRuler
+###  http://edugraph.io/edu#TriangleRuler
 edu:TriangleRuler rdf:type owl:NamedIndividual ,
                            edu:Scope ;
                   edu:partOfScope edu:AngleMeasurement .
 
 
-###  http://edugraph.org/edu#TwoDimensional
+###  http://edugraph.io/edu#TwoDimensional
 edu:TwoDimensional rdf:type owl:NamedIndividual ,
                             edu:Scope ;
                    edu:partOfScope edu:DimensionalScope .
 
 
-###  http://edugraph.org/edu#Understanding
+###  http://edugraph.io/edu#Understanding
 edu:Understanding rdf:type owl:NamedIndividual ,
                            edu:Ability ;
                   edu:partOfAbility edu:Processing .
 
 
-###  http://edugraph.org/edu#VisualArticulation
+###  http://edugraph.io/edu#VisualArticulation
 edu:VisualArticulation rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:Articulation .
 
 
-###  http://edugraph.org/edu#VisualDecomposition
+###  http://edugraph.io/edu#VisualDecomposition
 edu:VisualDecomposition rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
                         edu:partOfAbility edu:VisualReception .
 
 
-###  http://edugraph.org/edu#VisualGeometry
+###  http://edugraph.io/edu#VisualGeometry
 edu:VisualGeometry rdf:type owl:NamedIndividual ,
                             edu:Scope ;
                    edu:partOfScope edu:GeometryRepresentation .
 
 
-###  http://edugraph.org/edu#VisualNumbers
+###  http://edugraph.io/edu#VisualNumbers
 edu:VisualNumbers rdf:type owl:NamedIndividual ,
                            edu:Scope ;
                   edu:partOfScope edu:NumberRepresentation .
 
 
-###  http://edugraph.org/edu#VisualReception
+###  http://edugraph.io/edu#VisualReception
 edu:VisualReception rdf:type owl:NamedIndividual ,
                              edu:Ability ;
                     edu:partOfAbility edu:Reception .
 
 
-###  http://edugraph.org/edu#VisualRecongition
+###  http://edugraph.io/edu#VisualRecongition
 edu:VisualRecongition rdf:type owl:NamedIndividual ,
                                edu:Ability ;
                       edu:partOfAbility edu:VisualReception .
 
 
-###  http://edugraph.org/edu#Visualization
+###  http://edugraph.io/edu#Visualization
 edu:Visualization rdf:type owl:NamedIndividual ,
                            edu:Ability ;
                   edu:partOfAbility edu:Expression .
 
 
-###  http://edugraph.org/edu#VocalArticulation
+###  http://edugraph.io/edu#VocalArticulation
 edu:VocalArticulation rdf:type owl:NamedIndividual ,
                                edu:Ability ;
                       edu:partOfAbility edu:LingusticArticulation .
 
 
-###  http://edugraph.org/edu#VocalListeningCapacity
+###  http://edugraph.io/edu#VocalListeningCapacity
 edu:VocalListeningCapacity rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
                            edu:partOfAbility edu:VocalReception .
 
 
-###  http://edugraph.org/edu#VocalListeningFlexibility
+###  http://edugraph.io/edu#VocalListeningFlexibility
 edu:VocalListeningFlexibility rdf:type owl:NamedIndividual ,
                                        edu:Ability ;
                               edu:partOfAbility edu:VocalReception .
 
 
-###  http://edugraph.org/edu#VocalListeningPrecision
+###  http://edugraph.io/edu#VocalListeningPrecision
 edu:VocalListeningPrecision rdf:type owl:NamedIndividual ,
                                      edu:Ability ;
                             edu:partOfAbility edu:VocalReception .
 
 
-###  http://edugraph.org/edu#VocalReception
+###  http://edugraph.io/edu#VocalReception
 edu:VocalReception rdf:type owl:NamedIndividual ,
                             edu:Ability ;
                    edu:partOfAbility edu:LingusticReception .
 
 
-###  http://edugraph.org/edu#VolumeMeasurement
+###  http://edugraph.io/edu#VolumeMeasurement
 edu:VolumeMeasurement rdf:type owl:NamedIndividual ,
                                edu:Scope ;
                       edu:partOfScope edu:MeasurementScope .
 
 
-###  http://edugraph.org/edu#WeightMeasurement
+###  http://edugraph.io/edu#WeightMeasurement
 edu:WeightMeasurement rdf:type owl:NamedIndividual ,
                                edu:Scope ;
                       edu:partOfScope edu:MeasurementScope .
 
 
-###  http://edugraph.org/edu#WithoutNegatives
+###  http://edugraph.io/edu#WithoutNegatives
 edu:WithoutNegatives rdf:type owl:NamedIndividual ,
                               edu:Scope ;
                      edu:partOfScope edu:NumericRange .
 
 
-###  http://edugraph.org/edu#WithoutZero
+###  http://edugraph.io/edu#WithoutZero
 edu:WithoutZero rdf:type owl:NamedIndividual ,
                          edu:Scope ;
                 edu:partOfScope edu:NumericRange .
 
 
-###  http://edugraph.org/edu#WritingFluency
+###  http://edugraph.io/edu#WritingFluency
 edu:WritingFluency rdf:type owl:NamedIndividual ,
                             edu:Ability ;
                    edu:partOfAbility edu:TextualArticulation .
 
 
-###  http://edugraph.org/edu#WritingSpeed
+###  http://edugraph.io/edu#WritingSpeed
 edu:WritingSpeed rdf:type owl:NamedIndividual ,
                           edu:Ability ;
                  edu:partOfAbility edu:TextualArticulation .
