@@ -5,13 +5,19 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://edugraph.io/edu> .
+@base <http://edugraph.io/edu#> .
 
 <http://edugraph.io/edu> rdf:type owl:Ontology .
 
 #################################################################
 #    Object Properties
 #################################################################
+
+###  http://edugraph.io/edu#expandedBy
+edu:expandedBy rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               owl:inverseOf edu:expands .
+
 
 ###  http://edugraph.io/edu#expands
 edu:expands rdf:type owl:ObjectProperty ;
@@ -40,6 +46,12 @@ edu:expandsScope rdf:type owl:ObjectProperty ;
                  rdfs:range edu:Scope .
 
 
+###  http://edugraph.io/edu#hasPart
+edu:hasPart rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            owl:inverseOf edu:partOf .
+
+
 ###  http://edugraph.io/edu#partOf
 edu:partOf rdf:type owl:ObjectProperty ;
            rdfs:subPropertyOf owl:topObjectProperty ;
@@ -66,6 +78,12 @@ edu:partOfScope rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf edu:partOf ;
                 rdfs:domain edu:Scope ;
                 rdfs:range edu:Scope .
+
+
+###  http://edugraph.io/edu#targetedBy
+edu:targetedBy rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               owl:inverseOf edu:targets .
 
 
 ###  http://edugraph.io/edu#targets
