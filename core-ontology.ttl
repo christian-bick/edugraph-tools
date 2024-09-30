@@ -16,7 +16,33 @@
 ###  http://edugraph.io/edu#expandedBy
 edu:expandedBy rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf owl:topObjectProperty ;
-               owl:inverseOf edu:expands .
+               owl:inverseOf edu:expands ;
+               rdfs:domain edu:Descriptor ;
+               rdfs:range edu:Descriptor .
+
+
+###  http://edugraph.io/edu#expandedByAbility
+edu:expandedByAbility rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf edu:expandedBy ;
+                      owl:inverseOf edu:expandsAbility ;
+                      rdfs:domain edu:Ability ;
+                      rdfs:range edu:Ability .
+
+
+###  http://edugraph.io/edu#expandedByArea
+edu:expandedByArea rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf edu:expandedBy ;
+                   owl:inverseOf edu:expandsArea ;
+                   rdfs:domain edu:Area ;
+                   rdfs:range edu:Area .
+
+
+###  http://edugraph.io/edu#expandedByScope
+edu:expandedByScope rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf edu:expandedBy ;
+                    owl:inverseOf edu:expandsScope ;
+                    rdfs:domain edu:Scope ;
+                    rdfs:range edu:Scope .
 
 
 ###  http://edugraph.io/edu#expands
@@ -50,6 +76,30 @@ edu:expandsScope rdf:type owl:ObjectProperty ;
 edu:hasPart rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf owl:topObjectProperty ;
             owl:inverseOf edu:partOf .
+
+
+###  http://edugraph.io/edu#hasPartAbility
+edu:hasPartAbility rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf edu:hasPart ;
+                   owl:inverseOf edu:partOfAbility ;
+                   rdfs:domain edu:Ability ;
+                   rdfs:range edu:Ability .
+
+
+###  http://edugraph.io/edu#hasPartArea
+edu:hasPartArea rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf edu:hasPart ;
+                owl:inverseOf edu:partOfArea ;
+                rdfs:domain edu:Area ;
+                rdfs:range edu:Area .
+
+
+###  http://edugraph.io/edu#hasPartScope
+edu:hasPartScope rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf edu:hasPart ;
+                 owl:inverseOf edu:partOfScope ;
+                 rdfs:domain edu:Scope ;
+                 rdfs:range edu:Scope .
 
 
 ###  http://edugraph.io/edu#partOf
