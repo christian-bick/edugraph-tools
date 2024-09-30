@@ -1,2 +1,2 @@
-from edugraph import create_app
+from web import create_app
 app = create_app()
