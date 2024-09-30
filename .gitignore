@@ -1,2 +1,3 @@
 *.properties
 __pycache__
+core-ontology.rdf
