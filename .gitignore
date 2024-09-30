@@ -1,3 +1,4 @@
 *.properties
 __pycache__
 core-ontology.rdf
+apps/.env
