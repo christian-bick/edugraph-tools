@@ -2,3 +2,4 @@
 __pycache__
 core-ontology.rdf
 apps/.env
+.idea
