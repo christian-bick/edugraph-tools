@@ -88,14 +88,34 @@ def classify_description_rec(description, descriptor_type, descriptor_node):
     return classify_description_rec(description, descriptor_type, new_descriptor_node)
 
 
-def classify_content(file, descriptor_type, descriptor_node):
+def classify_area(description):
+    descriptor_type = onto.Area
+    descriptor_node = onto.Mathematics
+    area = classify_description_rec(description, descriptor_type, descriptor_node)
+    return area
+
+def classify_ability(description):
+    descriptor_type = onto.Ability
+    descriptor_node = onto.AnalyticalCapability
+    ability = classify_description_rec(description, descriptor_type, descriptor_node)
+    return ability
+
+def classify_scope(description):
+    descriptor_type = onto.Scope
+    descriptor_node = onto.CognitiveScope
+    ability = classify_description_rec(description, descriptor_type, descriptor_node)
+    return ability
+
+def classify_content(file):
     description = describe_content(file)
-    classification = classify_description_rec(description, descriptor_type, descriptor_node)
+    classification = {
+        "area": classify_area(description),
+        "ability": classify_ability(description),
+        "scope": classify_scope(description)
+    }
     return classification
 
-descriptor_start_node = onto.Mathematics
-descriptor_start_type = onto.Area
 file = "./../examples/LongMultiplication-01.png"
 
-final_classification = classify_content(file, descriptor_start_type, descriptor_start_node)
-print(final_classification)
+classification = classify_content(file)
+print(classification)
