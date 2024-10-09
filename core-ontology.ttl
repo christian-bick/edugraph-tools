@@ -237,6 +237,11 @@ edu:AbductiveReasoning rdf:type owl:NamedIndividual ,
                        edu:partOfAbility edu:NonDeductiveReasoning .
 
 
+###  http://edugraph.io/edu#AbstractionScope
+edu:AbstractionScope rdf:type owl:NamedIndividual ,
+                              edu:Scope .
+
+
 ###  http://edugraph.io/edu#ActiveVocabulary
 edu:ActiveVocabulary rdf:type owl:NamedIndividual ,
                               edu:Ability ;
@@ -426,11 +431,6 @@ edu:CircularLineDrawing rdf:type owl:NamedIndividual ,
 edu:CircularShapeDrawing rdf:type owl:NamedIndividual ,
                                   edu:Area ;
                          edu:partOfArea edu:SpatialModelling .
-
-
-###  http://edugraph.io/edu#CognitiveScope
-edu:CognitiveScope rdf:type owl:NamedIndividual ,
-                            edu:Scope .
 
 
 ###  http://edugraph.io/edu#CommunicationCapability
@@ -624,6 +624,12 @@ edu:DigitalScale rdf:type owl:NamedIndividual ,
                  edu:partOfScope edu:WeightMeasurement .
 
 
+###  http://edugraph.io/edu#DimensionalAbstraction
+edu:DimensionalAbstraction rdf:type owl:NamedIndividual ,
+                                    edu:Scope ;
+                           edu:partOfScope edu:AbstractionScope .
+
+
 ###  http://edugraph.io/edu#DimensionalComposition
 edu:DimensionalComposition rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
@@ -652,12 +658,6 @@ edu:DimensionalInterpretation rdf:type owl:NamedIndividual ,
 edu:DimensionalNavigation rdf:type owl:NamedIndividual ,
                                    edu:Ability ;
                           edu:partOfAbility edu:DimensionalThinking .
-
-
-###  http://edugraph.io/edu#DimensionalScope
-edu:DimensionalScope rdf:type owl:NamedIndividual ,
-                              edu:Scope ;
-                     edu:partOfScope edu:CognitiveScope .
 
 
 ###  http://edugraph.io/edu#DimensionalThinking
@@ -800,7 +800,7 @@ edu:Formalization rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#FourDimensional
 edu:FourDimensional rdf:type owl:NamedIndividual ,
                              edu:Scope ;
-                    edu:partOfScope edu:DimensionalScope .
+                    edu:partOfScope edu:DimensionalAbstraction .
 
 
 ###  http://edugraph.io/edu#FractionAddition
@@ -943,7 +943,7 @@ edu:HumoristicInterpretation rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#HyperDimensional
 edu:HyperDimensional rdf:type owl:NamedIndividual ,
                               edu:Scope ;
-                     edu:partOfScope edu:DimensionalScope .
+                     edu:partOfScope edu:DimensionalAbstraction .
 
 
 ###  http://edugraph.io/edu#HypothesisGeneration
@@ -1374,10 +1374,16 @@ edu:NumerationWithRationals rdf:type owl:NamedIndividual ,
                             edu:partOfArea edu:Numeration .
 
 
+###  http://edugraph.io/edu#NumericAbstraction
+edu:NumericAbstraction rdf:type owl:NamedIndividual ,
+                                edu:Scope ;
+                       edu:partOfScope edu:AbstractionScope .
+
+
 ###  http://edugraph.io/edu#NumericBase
 edu:NumericBase rdf:type owl:NamedIndividual ,
                          edu:Scope ;
-                edu:partOfScope edu:NumericScope .
+                edu:partOfScope edu:NumericAbstraction .
 
 
 ###  http://edugraph.io/edu#NumericComparison
@@ -1402,19 +1408,13 @@ edu:NumericOrder rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#NumericRange
 edu:NumericRange rdf:type owl:NamedIndividual ,
                           edu:Scope ;
-                 edu:partOfScope edu:NumericScope .
-
-
-###  http://edugraph.io/edu#NumericScope
-edu:NumericScope rdf:type owl:NamedIndividual ,
-                          edu:Scope ;
-                 edu:partOfScope edu:CognitiveScope .
+                 edu:partOfScope edu:NumericAbstraction .
 
 
 ###  http://edugraph.io/edu#OneDimensional
 edu:OneDimensional rdf:type owl:NamedIndividual ,
                             edu:Scope ;
-                   edu:partOfScope edu:DimensionalScope .
+                   edu:partOfScope edu:DimensionalAbstraction .
 
 
 ###  http://edugraph.io/edu#PassiveCommunication
@@ -1974,7 +1974,7 @@ edu:TextualReception rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#ThreeDimensional
 edu:ThreeDimensional rdf:type owl:NamedIndividual ,
                               edu:Scope ;
-                     edu:partOfScope edu:DimensionalScope .
+                     edu:partOfScope edu:DimensionalAbstraction .
 
 
 ###  http://edugraph.io/edu#TimeMeasurement
@@ -2010,7 +2010,7 @@ edu:TriangleRuler rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#TwoDimensional
 edu:TwoDimensional rdf:type owl:NamedIndividual ,
                             edu:Scope ;
-                   edu:partOfScope edu:DimensionalScope .
+                   edu:partOfScope edu:DimensionalAbstraction .
 
 
 ###  http://edugraph.io/edu#Understanding
