@@ -4,6 +4,8 @@ from re import finditer
 
 from enum import Enum
 
+from google.protobuf.descriptor import Descriptor
+
 from semantic import *
 import google.generativeai as gemini
 import os
@@ -17,7 +19,7 @@ def camel_case_split(identifier):
 def list_as_words(list):
     return reduce(lambda a, b: a + ' ' +b, list).strip()
 
-def entity_full_name(name):
+def id_as_name(name):
     name_list = camel_case_split(name)
     name_words = list_as_words(name_list)
     return name_words
@@ -39,59 +41,61 @@ def describe_content(file):
     return result.text
 
 def entities_as_enum(entities):
-    skill_map = {entity.name: entity_full_name(entity.name) for entity in entities}
+    skill_map = {entity.name: id_as_name(entity.name) for entity in entities}
     return Enum('SkillEnum', skill_map)
 
 
-def classify_description(description, parent, entities):
+def classify_description(description, descriptor_type, descriptor_node, descriptor_parts):
     model = gemini.GenerativeModel(
         model_name="gemini-1.5-flash",
         system_instruction="You are presented with descriptions of learning material that you shall classify."
     )
 
-    skill_dict = {entity.name: entity_full_name(entity.name) for entity in entities}
-    SkillEnum = Enum('SkillEnum', skill_dict)
+    descriptor_dict = {entity.name: id_as_name(entity.name) for entity in descriptor_parts}
+    DescriptorEnum = Enum('DescriptorEnum', descriptor_dict)
 
-    parent_full_name = entity_full_name(parent.name)
+    descriptor_node_name = id_as_name(descriptor_node.name)
+    descriptor_type_name = id_as_name(descriptor_type.name)
 
     prompt = """
                 Consider the following description of learning material: {0}
     
-                Determine the closest area of {1} from the given selection
-            """.format(description, parent_full_name)
+                Determine the closest {1} of {2} from the given selection
+            """.format(description, descriptor_type_name, descriptor_node_name)
 
     result = model.generate_content(
         prompt, generation_config=gemini.types.GenerationConfig(
             candidate_count=1,
             max_output_tokens=250,
             response_mime_type="text/x.enum",
-            response_schema=SkillEnum
+            response_schema=DescriptorEnum
         ))
     return result.text
 
-def classify_description_rec(description, parent, entities):
-    classification_value = classify_description(description, parent, entities)
+def classify_description_rec(description, descriptor_type, descriptor_node):
+    descriptor_parts = descriptor_node.INDIRECT_hasPart
+    is_leaf_entity = not (isinstance(descriptor_parts, list) and len(descriptor_parts) > 0)
 
-    reverse_skill_dict = {entity_full_name(entity.name): entity.name for entity in entities}
+    if is_leaf_entity:
+        return descriptor_node
+
+    classification_value = classify_description(description, descriptor_type, descriptor_node, descriptor_parts)
+
+    reverse_skill_dict = {id_as_name(entity.name): entity.name for entity in descriptor_parts}
     classification_key = reverse_skill_dict.get(classification_value)
+    new_descriptor_node = getattr(onto, classification_key)
 
-    new_parent = getattr(onto, classification_key)
-    new_entities = new_parent.INDIRECT_hasPart
-    has_next_level = isinstance(new_entities, list) and len(new_entities) > 0
-
-    if has_next_level:
-        classify_description_rec(description, new_parent, new_entities)
-
-    return new_parent
+    return classify_description_rec(description, descriptor_type, new_descriptor_node)
 
 
-def classify_content(file, parent, entities):
+def classify_content(file, descriptor_type, descriptor_node):
     description = describe_content(file)
-    classification = classify_description_rec(description, parent, entities)
+    classification = classify_description_rec(description, descriptor_type, descriptor_node)
     return classification
 
-parent = onto.Mathematics
-entities = parent.INDIRECT_hasPart
+descriptor_start_node = onto.Mathematics
+descriptor_start_type = onto.Area
+file = "./../examples/LongMultiplication-01.png"
 
-final_classification = classify_content("./../examples/LongMultiplication-01.png", parent, entities)
+final_classification = classify_content(file, descriptor_start_type, descriptor_start_node)
 print(final_classification)
