@@ -1,0 +1,37 @@
+Use the following template to define abilities:
+
+
+
+<defined ability>
+
+<A brief definition in 3 sentences>
+
+Examples from different subjects:
+
+Math: 
+
+* <first math example>
+* <second math example>
+* <third math example>
+
+Science:
+
+* <first science example>
+* <second science example>
+* <third science example>
+
+Social Science: 
+
+* <first social science example>
+* <second social science example>
+* <third social science example>
+
+Foreign Language
+
+* <first foreign language example>
+* <second foreign language example>
+* <third foreign language example>
+
+
+
+In the context of #X, distinctively define the following abilities: #Y
