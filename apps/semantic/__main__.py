@@ -103,42 +103,47 @@ def classify_description(description, context, descriptor_type, descriptor_node,
         ))
     return result.text
 
-def find_best_matches(description, context, descriptor_type, descriptor_nodes):
+def find_matches(description, context, descriptor_type):
     model = gemini.GenerativeModel(
         model_name="gemini-1.5-flash",
         system_instruction="You are presented with descriptions of learning material that you shall classify."
     )
 
-    descriptor_dict = {entity.name: id_as_name(entity.name) for entity in descriptor_nodes}
-    DescriptorEnum = Enum('DescriptorEnum', descriptor_dict)
-
     descriptor_type_name = id_as_name(descriptor_type.name)
 
     prompt = ("""
-                Consider the following description of learning material: {0}
+                Consider the following taxonomy:
 
-                Determine the closest matching {1}s from the given selection using the following taxonomy:
+                {0}
                 
-                {2}
-            """.format(description, descriptor_type_name, context))
+                Consider the following description of learning material
+                
+                {1}
+                
+                Find the applicable {2}s for the described learning material,
+                * only using terminology that was defined in the taxonomy
+                * only using the conditions as defined in the taxonomy
+                * only when you are certain about your judgement
+                
+                Return matched results without their chapter numbers
+            """.format(context, description, descriptor_type))
 
     result = model.generate_content(
         prompt, generation_config=gemini.types.GenerationConfig(
             candidate_count=1,
             max_output_tokens=250,
             response_mime_type="application/json",
-            response_schema=list[DescriptorEnum]
+            temperature=0,
+            response_schema=list[str]
         ))
     result_list = json.loads(result.text)
-    return [ node_of_value(value, descriptor_nodes) for value in result_list]
-
-
+    return [node_of_value(value) for value in result_list]
 
 def is_leaf_entity(node):
     children = node.INDIRECT_hasPart
     return not (isinstance(children, list) and len(children) > 0)
 
-def node_of_value(value, nodes):
+def node_of_value(value):
     classification_key = value.replace(" ", "")
     return getattr(onto, classification_key)
 
@@ -149,7 +154,7 @@ def classify_description_rec(description, context, descriptor_type, descriptor_n
     descriptor_parts = descriptor_node.INDIRECT_hasPart
     classification_value = classify_description(description, context, descriptor_type, descriptor_node, descriptor_parts)
 
-    new_descriptor_node = node_of_value(classification_value, descriptor_parts)
+    new_descriptor_node = node_of_value(classification_value)
 
     return classify_description_rec(description, context, descriptor_type, new_descriptor_node)
 
@@ -219,21 +224,16 @@ def classify_area(description):
 
 def classify_ability(description):
     descriptor_type = onto.Ability
-    descriptor_node = onto.AnalyticalCapability
-    context = build_ability_context()
-    ability = classify_description_rec(description, context, descriptor_type, descriptor_node)
-    return ability
+    context = "Taxonomy of Abilities\n\n"
+    context += build_ability_context()
+    matched_areas = find_matches(description, context, descriptor_type)
+    return matched_areas
 
 def classify_scope(description):
     descriptor_type = onto.Scope
-    descriptor_top_nodes = [onto.RepresentationalScope, onto.AbstractionScope, onto.MeasurementScope]
-    context = build_scope_context()
-    matched_scopes = []
-    for node in descriptor_top_nodes:
-        descriptor_leafs = collect_leafs(node)
-        matched_scope = find_best_matches(description, context, descriptor_type, descriptor_leafs)
-        matched_scopes = matched_scopes + matched_scope
-
+    context = "Taxonomy of Scopes\n\n"
+    context += build_scope_context()
+    matched_scopes = find_matches(description, context, descriptor_type)
     return matched_scopes
 
 def build_ability_context():
@@ -251,9 +251,9 @@ def classify_content(file):
 
 def classify_text(text):
     classification = {
-        # "area": classify_area(text),
-        # "ability": classify_ability(text),
-        "scope": classify_scope(text)
+        "area": classify_area(text),
+        "abilities": classify_ability(text),
+        "scopes": classify_scope(text)
     }
     return classification
 
