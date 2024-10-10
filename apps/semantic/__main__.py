@@ -73,40 +73,38 @@ def entities_as_enum(entities):
     return Enum('SkillEnum', skill_map)
 
 
-def find_best_match(description, context, descriptor_type, descriptor_node, descriptor_parts):
+def find_best_match(description, context, descriptor_type):
     model = gemini.GenerativeModel(
         model_name="gemini-1.5-flash",
         system_instruction="You are presented with descriptions of learning material that you shall classify."
     )
 
-    descriptor_dict = {entity.name: id_as_name(entity.name) for entity in descriptor_parts}
-    DescriptorEnum = Enum('DescriptorEnum', descriptor_dict)
-
-    descriptor_node_name = id_as_name(descriptor_node.name)
     descriptor_type_name = id_as_name(descriptor_type.name)
 
-    prompt = """
+    prompt = ("""
                 Consider the following taxonomy:
-                
-                {3}
-                
-                Consider the following description of learning material: 
-                
+
                 {0}
-                
-                Determine the closest {1} within {2}.
-               
-            """.format(description, descriptor_type_name, descriptor_node_name, context)
+
+                Consider the following description of learning material
+
+                {1}
+
+                Find the most accurate {2} that matches the describe learning material, 
+                only using terminology that was defined in the taxonomy.
+
+                Return the best match without chapter number
+            """.format(context, description, descriptor_type))
 
     result = model.generate_content(
         prompt, generation_config=gemini.types.GenerationConfig(
             candidate_count=1,
             max_output_tokens=250,
+            response_mime_type="text/plain",
             temperature=0,
-            response_mime_type="text/x.enum",
-            response_schema=DescriptorEnum,
+            response_schema=str
         ))
-    return result.text
+    return node_of_value(result.text.strip())
 
 def find_matches(description, context, descriptor_type):
     model = gemini.GenerativeModel(
@@ -243,9 +241,9 @@ def expand_index_context_rec(hierarchy, context, nodes):
 
 def classify_area(description):
     descriptor_type = onto.Area
-    descriptor_node = onto.Mathematics
-    context = build_area_context([ descriptor_node ])
-    area = classify_description_rec(description, context, descriptor_type, descriptor_node)
+    nodes = [ onto.Mathematics ]
+    context = build_area_context(nodes)
+    area = find_best_match(description, context, descriptor_type)
     return area
 
 def classify_ability(description):
