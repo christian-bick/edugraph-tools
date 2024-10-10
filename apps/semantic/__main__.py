@@ -73,7 +73,7 @@ def entities_as_enum(entities):
     return Enum('SkillEnum', skill_map)
 
 
-def classify_description(description, context, descriptor_type, descriptor_node, descriptor_parts):
+def find_best_match(description, context, descriptor_type, descriptor_node, descriptor_parts):
     model = gemini.GenerativeModel(
         model_name="gemini-1.5-flash",
         system_instruction="You are presented with descriptions of learning material that you shall classify."
@@ -86,11 +86,16 @@ def classify_description(description, context, descriptor_type, descriptor_node,
     descriptor_type_name = id_as_name(descriptor_type.name)
 
     prompt = """
-                Consider the following description of learning material: {0}
-    
-                Determine the closest {1} of {2} from the given selection using the following taxonomy:
+                Consider the following taxonomy:
                 
                 {3}
+                
+                Consider the following description of learning material: 
+                
+                {0}
+                
+                Determine the closest {1} within {2}.
+               
             """.format(description, descriptor_type_name, descriptor_node_name, context)
 
     result = model.generate_content(
@@ -152,7 +157,7 @@ def classify_description_rec(description, context, descriptor_type, descriptor_n
         return descriptor_node
 
     descriptor_parts = descriptor_node.INDIRECT_hasPart
-    classification_value = classify_description(description, context, descriptor_type, descriptor_node, descriptor_parts)
+    classification_value = find_best_match(description, context, descriptor_type, descriptor_node, descriptor_parts)
 
     new_descriptor_node = node_of_value(classification_value)
 
@@ -187,29 +192,50 @@ def hierarchy_to_string(hierarchy):
     level_string = reduce(lambda tail, head: tail + str(head) + '.', hierarchy, "")
     return level_string[:-1]
 
-def expand_context(hierarchy, node):
+def expand_index_context(hierarchy, node):
+    return hierarchy_to_string(hierarchy) + ' ' + id_as_name(node.name) + '\n'
+
+def expand_definition_context(hierarchy, node):
 
     definition = node.isDefinedBy
 
-    added_context = hierarchy_to_string(hierarchy) + ' ' + id_as_name(node.name)
+    added_context = ""
 
     if isinstance(definition, list) and len(definition) > 0:
-        added_context += "\n\n{0}".format(definition[0])
+        added_context = expand_index_context(hierarchy, node)
+        added_context += "\n{0}\n\n".format(definition[0])
 
-    added_context += "\n\n"
     return added_context
 
-def expand_context_level(hierarchy, context, nodes):
+def expand_definition_context_rec(hierarchy, context, nodes):
     current_index = len(hierarchy)-1
     current_counter = 1
+
     for node in nodes:
         hierarchy[current_index] = current_counter
-        context += expand_context(hierarchy, node)
+        context += expand_definition_context(hierarchy, node)
 
         if not is_leaf_entity(node):
             descriptor_parts = node.INDIRECT_hasPart
             new_hierarchy = hierarchy + [1]
-            context = expand_context_level(new_hierarchy, context, descriptor_parts)
+            context = expand_definition_context_rec(new_hierarchy, context, descriptor_parts)
+
+        current_counter = current_counter + 1
+
+    return context
+
+def expand_index_context_rec(hierarchy, context, nodes):
+    current_index = len(hierarchy)-1
+    current_counter = 1
+
+    for node in nodes:
+        hierarchy[current_index] = current_counter
+        context += expand_index_context(hierarchy, node)
+
+        if not is_leaf_entity(node):
+            descriptor_parts = node.INDIRECT_hasPart
+            new_hierarchy = hierarchy + [1]
+            context = expand_index_context_rec(new_hierarchy, context, descriptor_parts)
 
         current_counter = current_counter + 1
 
@@ -218,32 +244,42 @@ def expand_context_level(hierarchy, context, nodes):
 def classify_area(description):
     descriptor_type = onto.Area
     descriptor_node = onto.Mathematics
-    context = build_area_context()
+    context = build_area_context([ descriptor_node ])
     area = classify_description_rec(description, context, descriptor_type, descriptor_node)
     return area
 
 def classify_ability(description):
     descriptor_type = onto.Ability
-    context = "Taxonomy of Abilities\n\n"
-    context += build_ability_context()
+    nodes = [onto.AnalyticalCapability]
+    context = build_ability_context(nodes)
     matched_areas = find_matches(description, context, descriptor_type)
     return matched_areas
 
 def classify_scope(description):
     descriptor_type = onto.Scope
-    context = "Taxonomy of Scopes\n\n"
-    context += build_scope_context()
+    nodes = [onto.RepresentationalScope, onto.AbstractionScope, onto.MeasurementScope]
+    context = build_scope_context(nodes)
     matched_scopes = find_matches(description, context, descriptor_type)
     return matched_scopes
 
-def build_ability_context():
-    return expand_context_level([1], "", [onto.AnalyticalCapability])
+def build_area_context(nodes):
+    context = "Taxonomy of Areas\n\n"
+    context = expand_index_context_rec([1], context, nodes)
+    context = expand_definition_context_rec([1], context, nodes)
+    return context
 
-def build_scope_context():
-    return expand_context_level([1], "",[onto.RepresentationalScope, onto.AbstractionScope, onto.MeasurementScope])
+def build_ability_context(nodes):
+    context = "Taxonomy of Abilities\n\n"
+    context = expand_index_context_rec([1], context, nodes)
+    context = expand_definition_context_rec([1], context, nodes)
+    return context
 
-def build_area_context():
-    return expand_context_level([1], "",[onto.Mathematics])
+def build_scope_context(nodes):
+    context = "Taxonomy of Scopes\n\n"
+    context = expand_index_context_rec([1], context, nodes)
+    context = expand_definition_context_rec([1], context, nodes)
+    return expand_definition_context_rec([1], context, nodes)
+
 
 def classify_content(file):
     description = describe_content(file)
@@ -306,5 +342,7 @@ The intention is to provide a clear and step-by-step guide to long multiplicatio
 #print(classification)
 
 result = classify_text(description)
+
+#result = build_area_context([onto.Mathematics])
 
 print(result)
