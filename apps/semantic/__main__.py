@@ -1,299 +1,21 @@
-import json
-import typing
-from functools import reduce
-from lib2to3.fixes.fix_input import context
-from re import finditer
 
-from enum import Enum
-
-from google.protobuf.descriptor import Descriptor
-
-from semantic import *
 import google.generativeai as gemini
 import os
 
+from owlready2 import get_ontology
+
+from semantic.gemini_classifier import GeminiClassifier
+
+from semantic.gemini_prompt_strategy import GeminiPromptStrategy
+
 gemini.configure(api_key=os.environ["API_KEY_GEMINI"])
 
-def camel_case_split(identifier):
-    matches = finditer('.+?(?:(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|$)', identifier)
-    return [m.group(0) for m in matches]
-
-def list_as_words(list):
-    return reduce(lambda a, b: a + ' ' +b, list).strip()
-
-def id_as_name(name):
-    name_list = camel_case_split(name)
-    name_words = list_as_words(name_list)
-    return name_words
-
-def describe_content(file):
-    model = gemini.GenerativeModel(
-        model_name="gemini-1.5-flash",
-        system_instruction="You are presented with learning material that you shall describe as accurately as possible."
-    )
-    uploaded_file = gemini.upload_file(path=file)
-
-    prompt = """Describe the provided file using the following pattern:
-    
-        Type of learning material:
-        
-        <Description of its physical or digital nature in 1 sentence>
-        
-        Content description:
-        
-        <For text files, a summary of the text, for pictures, a description of the picture, using up to 
-        500 words>
-        
-        Used forms of representation:
-        
-        <Description of different forms of representation in up to 5 bullet points>
-        
-        Field and area of learning:
-        
-        <Describe the field and area of learning in 1-2 sentences>
-        
-        <Describe the main learning abilities used when interacting with the material in 1-3 sentence>
-        
-        <Describe the intention behind the learning material>
-        
-        Other observations:
-        
-        <Optionally add other significant observations about the learning material>
-    """
-
-    result = model.generate_content(
-        [uploaded_file, prompt], generation_config=gemini.types.GenerationConfig(
-        candidate_count=1,
-        max_output_tokens=2000,
-    ))
-    return result.text
-
-def entities_as_enum(entities):
-    skill_map = {entity.name: id_as_name(entity.name) for entity in entities}
-    return Enum('SkillEnum', skill_map)
 
 
-def find_best_match(description, context, descriptor_type):
-    model = gemini.GenerativeModel(
-        model_name="gemini-1.5-flash",
-        system_instruction="You are presented with descriptions of learning material that you shall classify."
-    )
-
-    descriptor_type_name = id_as_name(descriptor_type.name)
-
-    prompt = ("""
-                Consider the following taxonomy:
-
-                {0}
-
-                Consider the following description of learning material
-
-                {1}
-
-                Find the most accurate {2} that matches the describe learning material, 
-                * only using terminology that was defined in the taxonomy
-                * preferring low-level {2}s over high-level {2}s 
-
-                Only return the best match without chapter number
-            """.format(context, description, descriptor_type_name))
-
-    result = model.generate_content(
-        prompt, generation_config=gemini.types.GenerationConfig(
-            candidate_count=1,
-            max_output_tokens=250,
-            response_mime_type="application/json",
-            temperature=0,
-            response_schema=list[str]
-        ))
-    result_list = json.loads(result.text)
-    return [node_of_value(value) for value in result_list]
-
-def find_matches(description, context, descriptor_type):
-    model = gemini.GenerativeModel(
-        model_name="gemini-1.5-flash",
-        system_instruction="You are presented with descriptions of learning material that you shall classify."
-    )
-
-    descriptor_type_name = id_as_name(descriptor_type.name)
-
-    prompt = ("""
-                Consider the following taxonomy:
-
-                {0}
-                
-                Consider the following description of learning material
-                
-                {1}
-                
-                Find the applicable {2}s for the described learning material,
-                * only using terminology that was defined in the taxonomy
-                * only using the conditions as defined in the taxonomy
-                * preferring low-level {2}s over high-level {2}s 
-                
-                Return matched results without their chapter numbers
-            """.format(context, description, descriptor_type_name))
-
-    result = model.generate_content(
-        prompt, generation_config=gemini.types.GenerationConfig(
-            candidate_count=1,
-            max_output_tokens=250,
-            response_mime_type="application/json",
-            temperature=0,
-            response_schema=list[str]
-        ))
-    result_list = json.loads(result.text)
-    return [node_of_value(value) for value in result_list]
-
-def is_leaf_entity(node):
-    children = node.INDIRECT_hasPart
-    return not (isinstance(children, list) and len(children) > 0)
-
-def node_of_value(value):
-    classification_key = value.replace(" ", "")
-    return getattr(onto, classification_key)
-
-def classify_description_rec(description, context, descriptor_type, descriptor_node):
-    if is_leaf_entity(descriptor_node):
-        return descriptor_node
-
-    descriptor_parts = descriptor_node.INDIRECT_hasPart
-    classification_value = find_best_match(description, context, descriptor_type, descriptor_node, descriptor_parts)
-
-    new_descriptor_node = node_of_value(classification_value)
-
-    return classify_description_rec(description, context, descriptor_type, new_descriptor_node)
-
-def collect_leafs(descriptor_node):
-    if is_leaf_entity(descriptor_node):
-        return [ descriptor_node ]
 
 
-    descriptor_parts = descriptor_node.INDIRECT_hasPart
-    leaves = reduce(lambda tail, head: collect_leafs(head) + tail, descriptor_parts, [])
-    return leaves
-
-def cluster_nodes(nodes):
-    clusters = defaultdict(list)
-    for node in nodes:
-        parent_node = node.INDIRECT_partOf[0]
-        key = parent_node.name
-        clusters[key].append(node)
-    return clusters
-
-def list_parents(nodes):
-    leaf_parents = {}
-    for node in nodes:
-        parent_node = node.INDIRECT_partOf[0]
-        key = parent_node.name
-        leaf_parents[key] = parent_node
-    return leaf_parents.values()
-
-def hierarchy_to_string(hierarchy):
-    level_string = reduce(lambda tail, head: tail + str(head) + '.', hierarchy, "")
-    return level_string[:-1]
-
-def expand_index_context(hierarchy, node):
-    return hierarchy_to_string(hierarchy) + ' ' + id_as_name(node.name) + '\n'
-
-def expand_definition_context(hierarchy, node):
-
-    definition = node.isDefinedBy
-
-    added_context = ""
-
-    if isinstance(definition, list) and len(definition) > 0:
-        added_context = expand_index_context(hierarchy, node)
-        added_context += "\n{0}\n\n".format(definition[0])
-
-    return added_context
-
-def expand_definition_context_rec(hierarchy, context, nodes):
-    current_index = len(hierarchy)-1
-    current_counter = 1
-
-    for node in nodes:
-        hierarchy[current_index] = current_counter
-        context += expand_definition_context(hierarchy, node)
-
-        if not is_leaf_entity(node):
-            descriptor_parts = node.INDIRECT_hasPart
-            new_hierarchy = hierarchy + [1]
-            context = expand_definition_context_rec(new_hierarchy, context, descriptor_parts)
-
-        current_counter = current_counter + 1
-
-    return context
-
-def expand_index_context_rec(hierarchy, context, nodes):
-    current_index = len(hierarchy)-1
-    current_counter = 1
-
-    for node in nodes:
-        hierarchy[current_index] = current_counter
-        context += expand_index_context(hierarchy, node)
-
-        if not is_leaf_entity(node):
-            descriptor_parts = node.INDIRECT_hasPart
-            new_hierarchy = hierarchy + [1]
-            context = expand_index_context_rec(new_hierarchy, context, descriptor_parts)
-
-        current_counter = current_counter + 1
-
-    return context
-
-def classify_area(description):
-    descriptor_type = onto.Area
-    nodes = [ onto.Mathematics ]
-    context = build_area_context(nodes)
-    area = find_best_match(description, context, descriptor_type)
-    return area
-
-def classify_ability(description):
-    descriptor_type = onto.Ability
-    nodes = [onto.AnalyticalCapability]
-    context = build_ability_context(nodes)
-    matched_areas = find_matches(description, context, descriptor_type)
-    return matched_areas
-
-def classify_scope(description):
-    descriptor_type = onto.Scope
-    nodes = [onto.RepresentationalScope, onto.AbstractionScope, onto.MeasurementScope]
-    context = build_scope_context(nodes)
-    matched_scopes = find_matches(description, context, descriptor_type)
-    return matched_scopes
-
-def build_area_context(nodes):
-    context = "Taxonomy of Areas\n\n"
-    context = expand_index_context_rec([1], context, nodes)
-    context = expand_definition_context_rec([1], context, nodes)
-    return context
-
-def build_ability_context(nodes):
-    context = "Taxonomy of Abilities\n\n"
-    context = expand_index_context_rec([1], context, nodes)
-    context = expand_definition_context_rec([1], context, nodes)
-    return context
-
-def build_scope_context(nodes):
-    context = "Taxonomy of Scopes\n\n"
-    context = expand_index_context_rec([1], context, nodes)
-    context = expand_definition_context_rec([1], context, nodes)
-    return expand_definition_context_rec([1], context, nodes)
 
 
-def classify_content(file):
-    description = describe_content(file)
-    return classify_text(description)
-
-def classify_text(text):
-    classification = {
-        "area": classify_area(text),
-        "abilities": classify_ability(text),
-        "scopes": classify_scope(text)
-    }
-    return classification
-
-file = "./../examples/LongMultiplication-01.png"
 
 description = """
 **Type of learning material:** 
@@ -341,8 +63,14 @@ The intention is to provide a clear and step-by-step guide to long multiplicatio
 ##classification = classify_text(description)
 #print(classification)
 
-result = classify_text(description)
 
-#result = build_area_context([onto.Mathematics])
+
+onto = get_ontology("./../core-ontology.rdf").load()
+onto.base_iri = "http://edugraph.io/edu#"
+
+example_file = "./../examples/LongMultiplication-01.png"
+
+classifier = GeminiClassifier(onto, GeminiPromptStrategy)
+result = classifier.classify_content(example_file)
 
 print(result)

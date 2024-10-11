@@ -1,4 +1,5 @@
 from flask import Flask
+from semantic import *
 
 app = Flask(__name__, static_folder=None)
 
