@@ -8,6 +8,7 @@ $color-2-light: #8acae6;
 $color-2-dark: #023047;
 
 $gray-lightest: #f8f8f8;
+$gray-dark: #202020;
 $gray-darkest: #080808;
 
 body {
@@ -16,8 +17,22 @@ body {
   width: 100vw;
   height: 100vh;
 
-  font-family: "Candara Light", sans-serif;
+  font-size: 1rem;
+  font-family: "Candara", sans-serif;
   color: $gray-darkest;
+}
+
+h1 {
+  font-family: "Candara Light", sans-serif;
+  font-size: 4rem;
+  color: $color-2-dark;
+}
+
+input {
+  font-family: "Roboto Light", sans-serif;
+  font-size: 1rem;
+  color: $gray-dark;
+  padding: 0.5em;
 }
 
 main {
@@ -40,10 +55,39 @@ main {
 #view-init {
   display: flex;
   justify-content: center;
-  h1 {
-    font-size: 4rem;
-    color: $color-2-dark;
-    align-self: center;
+  align-items: center;
+}
+
+#view-credentials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    max-width: 30rem;
+    flex: 1 1 auto;
+
+    label {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.2rem;
+    }
+
+    input {
+      border: 0;
+      outline: 1px solid $gray-darkest;
+      margin: 0 0 2rem 0;
+    }
+
+    p {
+      font-size: 0.9rem;
+      padding: 0;
+      margin: 0.5rem 0 0 0;
+    }
   }
 }
 

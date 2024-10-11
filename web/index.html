@@ -12,8 +12,18 @@
         <h1>Welcome to EduGraph</h1>
       </div>
       <div id="view-credentials" class="center-full" style="display: none">
-        <label for="gemini api-key">Gemini API Key</label>
-        <input id="gemini api-key" type="text">
+        <fieldset id="gemini api-fieldset">
+          <label for="gemini api-input">Gemini API Key</label>
+          <input id="gemini api-input" type="text" placeholder="Enter key">
+          <p>
+            Your API key will <em>not</em> be saved on the server, only in the local storage
+            of your browser.
+          </p>
+          <p>
+            If you don't have a Gemini API key yet, you can get it
+            <a href="https://aistudio.google.com/app/apikey" target="_blank">here</a>
+          </p>
+        </fieldset>
       </div>
       <div id="view-classification" class="center-horizontal" style="display: none">
         <div id="view-classification-input" class="flex-split-half">
