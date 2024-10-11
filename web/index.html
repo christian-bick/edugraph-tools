@@ -3,13 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla Sass Boilerplate</title>
+    <title>EduGraph</title>
     <script type="module" src="main.js" defer></script>
   </head>
   <body>
-    <main class="container">
-      <h1>Hello, Sass!</h1>
-      <p>This is a simple example of using Sass with HTML.</p>
+    <main>
+      <div id="view-init" class="center-full">
+        <h1>Welcome to EduGraph</h1>
+      </div>
+      <div id="view-credentials" class="center-full" style="display: none">
+        <label for="gemini api-key">Gemini API Key</label>
+        <input id="gemini api-key" type="text">
+      </div>
+      <div id="view-classification" class="center-horizontal" style="display: none">
+        <div id="view-classification-input" class="flex-split-half">
+          Left side
+        </div>
+        <div id="view-classification-result" class="flex-split-half">
+          Right side
+        </div>
+      </div>
     </main>
   </body>
 </html>
