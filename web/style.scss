@@ -43,13 +43,18 @@ main {
   justify-content: stretch;
 
   display: grid;
-  grid-template-columns: 2rem auto minmax(300px, 1000px) auto 2rem;
+  grid-template-columns: 2rem auto minmax(300px, 100%) auto 2rem;
   grid-template-rows: 2rem auto auto auto 2rem;
 }
 
 .center-full {
   grid-column: 3 / 3;
   grid-row: 3 / 3;
+}
+
+.center-horizontal {
+  grid-column: 3 / 3;
+  grid-row: 2 / 5;
 }
 
 #view-init {
@@ -91,4 +96,35 @@ main {
   }
 }
 
+#view-classification {
+  display: flex;
+  flex-direction: row;
 
+  #view-classification-input {
+    flex: 0 1 30%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    #upload-dropzone {
+      width: 50%;
+      aspect-ratio : 1 / 1;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      border: 1px dashed   $gray-dark;
+
+      font-size: 1.5rem;
+      color: $gray-dark;
+    }
+  }
+
+  #view-classification-result {
+    flex: 1 0 auto;
+    background-color: $gray-lightest;
+  }
+
+}
