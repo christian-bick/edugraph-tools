@@ -1,7 +1,7 @@
 import "./style.scss";
 import {Dropzone} from "dropzone";
 
-const UPLOAD_URL = "test"
+const UPLOAD_URL = "/api/upload"
 
 const switchView = (oldId, newId) => {
     document.getElementById(newId).style.display = "flex";
