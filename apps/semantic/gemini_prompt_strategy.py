@@ -33,6 +33,64 @@ Other observations:
 <Optionally add other significant observations about the learning material>
 """
 
+system_instruction = """
+You are presented with learning material that you shall classify using a given taxonomy.
+
+The taxonomy will always consist of two parts, an outline and definition section. 
+
+Here is an example of a taxonomy for gastronomic terms:
+
+---
+Taxonomy of Gastronomy
+
+A) Outline
+
+1 Drinks
+1.1 Non-alcoholic Drinks
+1.2 Alcoholic Drinks
+1.2.1 Beer
+1.2.2 Wine
+2 Food
+2.1 Italian
+2.2 French
+
+B) Definitions
+
+1 Drinks
+
+Beverages.
+
+1.1 Non-alcoholic
+
+Beverages without alcohol.
+
+1.2.1 Beer 
+
+A malty alcoholic drink
+
+1.2.2 Wine
+
+An alcoholic drink made of grapes
+
+2 Food
+
+2.1 Italian
+
+Food typically prepared in Italy
+
+2.2 French
+
+Food typically prepared in France
+---
+
+The hierarchy of terms in the outline expresses a "part of" relationship. In the example, beer is part of alcoholic 
+beverages and alcoholic beverages are part of drinks. Use this hierarchy to find the most specific classification 
+matches.
+
+Sometimes, terms in the outline are defined in definition section. When available, use these definitions when 
+determining classification matches.
+"""
+
 class GeminiPromptStrategy:
 
     def __init__(self, gemini_file):
@@ -41,7 +99,7 @@ class GeminiPromptStrategy:
     def find_best_match(self, taxonomy, descriptor_type):
         model = gemini.GenerativeModel(
             model_name="gemini-1.5-flash",
-            system_instruction="You are presented with learning material that you shall classify."
+            system_instruction=system_instruction
         )
 
         descriptor_type_name = OntologyUtil.entity_native_name(descriptor_type)
@@ -56,11 +114,10 @@ class GeminiPromptStrategy:
                     {2}
     
                     Then find the most accurate {1} that matches the describe learning material, 
-                    * only using terminology that was defined in the taxonomy
-                    * preferring low-level {1}s over high-level {1}s 
+                    only using {1}s that were defined in the taxonomy.
     
                     Do not return the description.
-                    Return the single best match without chapter number.
+                    Return the single best match without its outline number.
                 """.format(taxonomy, descriptor_type_name, description_template))
 
         result = model.generate_content(
@@ -77,7 +134,7 @@ class GeminiPromptStrategy:
     def find_matches(self, taxonomy, descriptor_type):
         model = gemini.GenerativeModel(
             model_name="gemini-1.5-flash",
-            system_instruction="You are presented with learning material that you shall classify."
+            system_instruction=system_instruction
         )
 
         descriptor_type_name = OntologyUtil.entity_native_name(descriptor_type)
@@ -91,13 +148,11 @@ class GeminiPromptStrategy:
                     
                     {2}
     
-                    Then find the applicable {1}s for the described learning material,
-                    * only using terminology that was defined in the taxonomy
-                    * only using the conditions as defined in the taxonomy
-                    * preferring low-level {1}s over high-level {1}s 
+                    Then find accurately matching {1}s for the described learning material,
+                    only using {1}s that were defined in the taxonomy.
     
                     Do not return the description.
-                    Return matched results without their chapter numbers.
+                    Return the best matches without their outline number.
                 """.format(taxonomy, descriptor_type_name, description_template))
 
         result = model.generate_content(
