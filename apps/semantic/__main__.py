@@ -1,20 +1,13 @@
 
-import google.generativeai as gemini
-import os
-
-from owlready2 import get_ontology
 
 from semantic.gemini_classifier import GeminiClassifier
 
 from semantic.gemini_prompt_strategy import GeminiPromptStrategy
-
-gemini.configure(api_key=os.environ["API_KEY_GEMINI"])
-
-onto = get_ontology("./../core-ontology.rdf").load()
-onto.base_iri = "http://edugraph.io/edu#"
+from semantic.ontology_loader import OntologyLoader
 
 example_file = "./../examples/LongMultiplication-01.png"
 
+onto = OntologyLoader.load_from_path("./../core-ontology.rdf")
 classifier = GeminiClassifier(onto, GeminiPromptStrategy)
 result = classifier.classify_content(example_file)
 

@@ -1,6 +1,6 @@
 from functools import reduce
 
-from semantic.ontology_helper import OntologyHelper
+from semantic.ontology_util import OntologyUtil
 
 class ContextBuilder:
 
@@ -44,7 +44,7 @@ class ContextBuilder:
             hierarchy[current_index] = current_counter
             self.expand_definition_context(hierarchy, node)
 
-            if not OntologyHelper.is_leaf_entity(node):
+            if not OntologyUtil.is_leaf_entity(node):
                 descriptor_parts = node.INDIRECT_hasPart
                 new_hierarchy = hierarchy + [1]
                 self.expand_definition_context_rec(new_hierarchy, descriptor_parts)
@@ -53,7 +53,7 @@ class ContextBuilder:
 
     def expand_index_context(self, hierarchy, node):
         hierarchy_as_string = (
-            ContextBuilder.hierarchy_to_string(hierarchy) + ' ' + OntologyHelper.id_as_name(node.name) + '\n'
+            ContextBuilder.hierarchy_to_string(hierarchy) + ' ' + OntologyUtil.entity_native_name(node) + '\n'
         )
         self.context += hierarchy_as_string
 
@@ -65,7 +65,7 @@ class ContextBuilder:
             hierarchy[current_index] = current_counter
             self.expand_index_context(hierarchy, node)
 
-            if not OntologyHelper.is_leaf_entity(node):
+            if not OntologyUtil.is_leaf_entity(node):
                 descriptor_parts = node.INDIRECT_hasPart
                 new_hierarchy = hierarchy + [1]
                 self.expand_index_context_rec(new_hierarchy, descriptor_parts)

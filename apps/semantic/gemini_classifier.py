@@ -1,13 +1,11 @@
 from semantic.gemini_file_storage import GeminiFileStorage
 from semantic.gemini_prompt_strategy import GeminiPromptStrategy
 from semantic.gimini_context_builder import ContextBuilder
-from semantic.ontology_helper import OntologyHelper
 
 class GeminiClassifier:
 
     def __init__(self, onto, ClassifierStrategy = GeminiPromptStrategy):
         self.onto = onto
-        self.onto_helper = OntologyHelper(onto)
         self.context_builder = ContextBuilder()
         self.ClassifierStrategy = ClassifierStrategy
 
@@ -41,4 +39,3 @@ class GeminiClassifier:
             "scopes": self.classify_scope(classifier)
         }
         return classification
-

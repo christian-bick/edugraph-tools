@@ -2,7 +2,7 @@ import google.generativeai as gemini
 import json
 import os
 
-from semantic.ontology_helper import OntologyHelper
+from semantic.ontology_util import OntologyUtil
 
 gemini.configure(api_key=os.environ["API_KEY_GEMINI"])
 
@@ -44,7 +44,7 @@ class GeminiPromptStrategy:
             system_instruction="You are presented with learning material that you shall classify."
         )
 
-        descriptor_type_name = OntologyHelper.id_as_name(descriptor_type.name)
+        descriptor_type_name = OntologyUtil.entity_native_name(descriptor_type)
 
         prompt = ("""
                     Consider the following taxonomy:
@@ -80,7 +80,7 @@ class GeminiPromptStrategy:
             system_instruction="You are presented with learning material that you shall classify."
         )
 
-        descriptor_type_name = OntologyHelper.id_as_name(descriptor_type.name)
+        descriptor_type_name = OntologyUtil.entity_native_name(descriptor_type)
 
         prompt = ("""
                     Consider the following taxonomy:
