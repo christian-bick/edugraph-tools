@@ -1,4 +1,5 @@
 import os
+from tkinter.font import names
 
 import google.generativeai as gemini
 
@@ -13,3 +14,7 @@ class GeminiFileStorage:
             name=name,
             mime_type=mime_type
         )
+
+    @staticmethod
+    def get(name):
+        return gemini.get_file(name=name)

@@ -1,4 +1,3 @@
-from semantic.gemini_file_storage import GeminiFileStorage
 from semantic.gemini_prompt_strategy import GeminiPromptStrategy
 from semantic.gimini_context_builder import ContextBuilder
 
@@ -31,8 +30,7 @@ class GeminiClassifier:
         return matched_scopes
 
     def classify_content(self, file):
-        gemini_file = GeminiFileStorage.upload(file)
-        classifier = self.ClassifierStrategy(gemini_file)
+        classifier = self.ClassifierStrategy(file)
         classification = {
             "area": self.classify_area(classifier),
             "abilities": self.classify_ability(classifier),
