@@ -4,8 +4,6 @@ import os
 
 from semantic.ontology_util import OntologyUtil
 
-gemini.configure(api_key=os.environ["API_KEY_GEMINI"])
-
 description_template = """
 Type of learning material:
 

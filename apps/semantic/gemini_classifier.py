@@ -1,5 +1,5 @@
 from semantic.gemini_prompt_strategy import GeminiPromptStrategy
-from semantic.gimini_context_builder import ContextBuilder
+from semantic.context_builder import ContextBuilder
 
 class GeminiClassifier:
 
