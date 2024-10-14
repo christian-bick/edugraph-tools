@@ -29,7 +29,7 @@ def classify():
     mime_type = file_upload.mimetype
     name = str(uuid4())
     file = GeminiFileStorage.upload(name, mime_type, BytesIO(file_upload.stream.read()))
-    classifier = GeminiClassifier(ontology, GeminiPromptStrategy)
+    classifier = GeminiClassifier(onto, GeminiPromptStrategy)
     classification = classifier.classify_content(file)
     return classification
 

@@ -12,7 +12,7 @@ class OntologyUtil:
         self.onto = onto
 
     def entity_of_natural_name(self, value):
-        classification_key = value.replace(" ", "")
+        classification_key = OntologyUtil.entity_name_of_natural_name(value)
         return getattr(self.onto, classification_key)
 
     def list_entities(self, entity_type):
@@ -30,6 +30,10 @@ class OntologyUtil:
     @staticmethod
     def __list_as_words(list_of_words):
         return reduce(lambda a, b: a + ' ' +b, list_of_words).strip()
+
+    @staticmethod
+    def entity_name_of_natural_name(value):
+        return value.replace(" ", "")
 
     @staticmethod
     def natural_name_of_entity(entity):

@@ -1,5 +1,7 @@
 from semantic.gemini_prompt_strategy import GeminiPromptStrategy
 from semantic.context_builder import ContextBuilder
+from semantic.ontology_util import OntologyUtil
+
 
 class GeminiClassifier:
 
@@ -12,27 +14,27 @@ class GeminiClassifier:
         descriptor_type = self.onto.Area
         nodes = [ self.onto.Mathematics ]
         context = self.context_builder.build_area_context(nodes)
-        area = classifier.find_best_match(context, descriptor_type)
-        return area
+        matched_areas = classifier.find_best_match(context, descriptor_type)
+        return [ OntologyUtil.entity_name_of_natural_name(natural_name) for natural_name in matched_areas ]
 
     def classify_ability(self, classifier):
         descriptor_type = self.onto.Ability
         nodes = [self.onto.AnalyticalCapability]
         context = self.context_builder.build_ability_context(nodes)
-        matched_areas = classifier.find_matches(context, descriptor_type)
-        return matched_areas
+        matched_abilities = classifier.find_matches(context, descriptor_type)
+        return [ OntologyUtil.entity_name_of_natural_name(natural_name) for natural_name in matched_abilities ]
 
     def classify_scope(self, classifier):
         descriptor_type = self.onto.Scope
         nodes = [self.onto.RepresentationalScope, self.onto.AbstractionScope, self.onto.MeasurementScope]
         context = self.context_builder.build_scope_context(nodes)
         matched_scopes = classifier.find_matches(context, descriptor_type)
-        return matched_scopes
+        return [ OntologyUtil.entity_name_of_natural_name(natural_name) for natural_name in matched_scopes ]
 
     def classify_content(self, file):
         classifier = self.ClassifierStrategy(file)
         classification = {
-            "area": self.classify_area(classifier),
+            "areas": self.classify_area(classifier),
             "abilities": self.classify_ability(classifier),
             "scopes": self.classify_scope(classifier)
         }

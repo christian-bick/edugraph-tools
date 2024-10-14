@@ -117,6 +117,29 @@ main {
   #view-classification-result {
     flex: 1 0 auto;
     background-color: $gray-lightest;
+    flex-direction: column;
+
+    display: inherit;
+
+    .visual-container {
+      flex: 1 0 50%;
+      display: flex;
+
+      &.visual-container-top {
+
+      }
+
+      &.visual-container-bottom {
+        flex-direction: row;
+        height: 100%;
+      }
+
+      .visuals {
+        flex: 1 0 auto;
+        display: flex;
+      }
+    }
+
   }
 
 }

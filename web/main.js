@@ -1,21 +1,125 @@
 import "./style.scss";
+import * as echarts from 'echarts';
 
 const UPLOAD_URL = "/api/classify"
+const ONTOLOGY_URL = "/api/ontology"
 
-const switchView = (oldEl, newEl) => {
+let onto;
+
+let viewInit;
+let viewClassification;
+let viewUpload;
+let viewProgress;
+let viewResult;
+
+let visualAreas;
+let visualAbilities;
+let visualScopes;
+
+function switchView(oldEl, newEl)  {
     newEl.style.display = "flex";
     oldEl.style.display = "none";
 }
 
-const init = () => {
-    const viewInit = document.getElementById('view-init')
-    const viewClassification = document.getElementById('view-init')
+function init() {
+    viewInit = document.getElementById('view-init')
+    viewClassification = document.getElementById('view-init')
+    viewUpload = document.getElementById('view-upload');
+    viewProgress = document.getElementById('view-progress');
+    viewResult = document.getElementById('view-result');
+
     setTimeout(() => switchView(viewInit, viewClassification), 1000)
     initFileUpload()
-
+    initOntology()
 }
 
-const initFileUpload = () => {
+function initOntology() {
+    fetch(ONTOLOGY_URL, {
+        method: 'GET',
+    })
+        .then(response => response.json())
+        .then(data => {
+            onto = data
+            initVisuals()
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+function mapEntity(entity, highlighted = []) {
+    const obj = {
+        name: entity.natural_name,
+    }
+    if (entity.children && entity.children.length) {
+        obj.label = {
+            show: false,
+        }
+    } else {
+        obj.value = 1
+        obj.label = {
+            show: false,
+        }
+    }
+    if (highlighted.includes(entity.name)) {
+        obj.itemStyle = {
+            color: 'red'
+        }
+    }
+    return obj
+}
+
+function mapEntities(entities,  highlighted = []) {
+    return entities.map(entity => {
+        const obj = mapEntity(entity, highlighted);
+        if (entity.children && entity.children.length) {
+            obj.children = mapEntities(entity.children, highlighted)
+        }
+        return obj
+    })
+}
+
+function createChart(name, entities, element, color, highlighted = []) {
+    const chartArea = echarts.init(element);
+    const chartData = [{
+        name: name,
+        children: mapEntities(entities, highlighted),
+    }]
+    const chartOptions = {
+        series: {
+            type: 'sunburst',
+            emphasis: {
+                focus: 'ancestor'
+            },
+            data: chartData,
+            radius: [0, '100%'],
+            label: {
+                rotate: null,
+                fontSize: '14',
+                fontWeight: 'bold',
+            },
+            itemStyle: {
+                color: color
+            },
+        }
+    };
+    chartArea.setOption(chartOptions);
+}
+
+function initVisuals() {
+    visualAreas = document.getElementById('visual-areas')
+    visualAbilities = document.getElementById('visual-abilities')
+    visualScopes = document.getElementById('visual-scopes')
+    updateVisuals()
+}
+
+function updateVisuals(classified = { areas: [], abilities: [], scopes: [] }) {
+    createChart('Areas', onto.areas, visualAreas, "#ffb703", classified.areas)
+    createChart('Abilities', onto.abilities, visualAbilities, "#8acae6", classified.abilities)
+    createChart('Scopes', onto.scopes, visualScopes, "#87d387", classified.scopes)
+}
+
+function initFileUpload() {
     const viewUpload = document.getElementById('view-upload');
     const viewProgress = document.getElementById('view-progress');
     const viewResult = document.getElementById('view-result');
@@ -31,7 +135,6 @@ const initFileUpload = () => {
     function preventDefaults (e) {
         e.preventDefault();
         e.stopPropagation();
-
     }
 
     // Highlight drop area when item is dragged over it
@@ -44,11 +147,11 @@ const initFileUpload = () => {
             false);
     });
 
-    function highlight(e) {
+    function highlight() {
         uploadDropzone.classList.add('highlight');
     }
 
-    function unhighlight(e) {
+    function unhighlight() {
         uploadDropzone.classList.remove('highlight');
     }
 
@@ -80,23 +183,19 @@ const initFileUpload = () => {
     }
 
     function uploadFile(file) {
-        let url = UPLOAD_URL;
         let formData = new FormData();
         formData.append('file', file);
 
         switchView(viewUpload, viewProgress)
 
-        fetch(url, {
+        fetch(UPLOAD_URL, {
             method: 'POST',
             body: formData
         })
-            .then(response => {
-                previewFile(file)
-                console.log(response.json())
-            })
-
+            .then(response => response.json())
             .then(data => {
-                console.log('Success:', data);
+                previewFile(file)
+                updateVisuals(data)
             })
             .catch(error => {
                 console.error('Error:', error);
