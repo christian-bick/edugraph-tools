@@ -3,10 +3,10 @@ from uuid import uuid4
 
 from flask import Flask, request
 
-from semantic.gemini_classifier import GeminiClassifier
-from semantic.gemini_file_storage import GeminiFileStorage
-from semantic.gemini_prompt_strategy import GeminiPromptStrategy
-from semantic.ontology_loader import OntologyLoader
+from semantic import GeminiClassifier
+from semantic import GeminiFileStorage
+from semantic import GeminiPromptStrategy
+from semantic import OntologyLoader
 from dotenv import load_dotenv
 
 load_dotenv()
