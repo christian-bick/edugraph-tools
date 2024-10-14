@@ -1,15 +1,5 @@
-@use 'sass:color';
-
-$color-1: #fb8500;
-$color-1-light: #ffb703;
-$color-1-dark: #60181A;
-$color-2: #219ebc;
-$color-2-light: #8acae6;
-$color-2-dark: #023047;
-
-$gray-lightest: #f8f8f8;
-$gray-dark: #202020;
-$gray-darkest: #080808;
+@import "styles/loading-animation.scss";
+@import "styles/color-palette";
 
 body {
   margin: 0;
@@ -63,39 +53,6 @@ main {
   align-items: center;
 }
 
-#view-credentials {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  fieldset {
-    border: 0;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    max-width: 30rem;
-    flex: 1 1 auto;
-
-    label {
-      margin: 0 0 0.5rem 0;
-      font-size: 1.2rem;
-    }
-
-    input {
-      border: 0;
-      outline: 1px solid $gray-darkest;
-      margin: 0 0 2rem 0;
-    }
-
-    p {
-      font-size: 0.9rem;
-      padding: 0;
-      margin: 0.5rem 0 0 0;
-    }
-  }
-}
-
 #view-classification {
   display: flex;
   flex-direction: row;
@@ -104,21 +61,56 @@ main {
     flex: 0 1 30%;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
 
-    #upload-dropzone {
-      width: 50%;
-      aspect-ratio : 1 / 1;
-
+    .input-container {
+      flex: 1 0 100%;
       display: flex;
+
       justify-content: center;
       align-items: center;
+      flex-direction: column;
 
-      border: 1px dashed   $gray-dark;
+      #upload-dropzone {
+        width: 50%;
+        aspect-ratio: 1 / 1;
 
-      font-size: 1.5rem;
-      color: $gray-dark;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        border: 2px dashed $color-1;
+        color: $color-2;
+
+        font-size: 1.5rem;
+
+        .highlight {
+          background-color: $color-1;
+        }
+      }
+
+      #view-result {
+        display: flex;
+        justify-content: center;
+      }
+
+      .file-preview {
+        width: 80%;
+        height: auto;
+      }
+    }
+
+    .button {
+      margin-top: 1rem;
+      color: $color-2;
+      font-size: 1.2rem;
+      border: 1px solid $color-1;
+      border-radius: 0.3em;
+      padding: 0.5em;
+    }
+
+    #upload-input {
+      display: none;
     }
   }
 

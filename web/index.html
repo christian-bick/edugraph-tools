@@ -11,26 +11,27 @@
       <div id="view-init" class="center-full">
         <h1>Welcome to EduGraph</h1>
       </div>
-      <div id="view-credentials" class="center-full" style="display: none">
-        <fieldset id="gemini api-fieldset">
-          <label for="gemini api-input">Gemini API Key</label>
-          <input id="gemini api-input" type="text" placeholder="Enter key">
-          <p>
-            Your API key will <em>not</em> be saved on the server, only in the local storage
-            of your browser.
-          </p>
-          <p>
-            If you don't have a Gemini API key yet, you can get it
-            <a href="https://aistudio.google.com/app/apikey" target="_blank">here</a>
-          </p>
-        </fieldset>
-      </div>
-      <div id="view-classification" class="center-horizontal" style="display: none">
-        <div id="view-classification-input" class="flex-split-half">
-          <div id="upload-dropzone">
+      <div id="view-classification" class="center-horizontal" >
+        <div id="view-classification-input">
+          <div id="view-upload" class="input-container">
+            <input type="file" id="upload-input" multiple accept="image/*">
+            <div id="upload-dropzone">
+              <p>Drop files here</p>
+            </div>
+            <label class="button" for="upload-input">Or select a file</label>
+          </div>
+          <div id="view-progress" class="input-container" style="display: none">
+            <div class="loader">
+              <svg viewBox="0 0 48 48">
+                <circle cx="24" cy="24" r="20" />
+              </svg>
+            </div>
+          </div>
+          <div id="view-result" class="input-container" style="display: none">
+            <img class="file-preview" src=""  alt=""/>
           </div>
         </div>
-        <div id="view-classification-result" class="flex-split-half">
+        <div id="view-classification-result">
 
         </div>
       </div>
