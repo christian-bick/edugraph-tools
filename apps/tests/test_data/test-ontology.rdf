@@ -2232,14 +2232,6 @@ The ability to organize and categorize concepts by identifying similarities, dif
     
 
 
-    <!-- http://edugraph.io/edu#MultiDimensionalThinking -->
-
-    <owl:NamedIndividual rdf:about="http://edugraph.io/edu#MultiDimensionalThinking">
-        <rdf:type rdf:resource="http://edugraph.io/edu#Ability"/>
-    </owl:NamedIndividual>
-    
-
-
     <!-- http://edugraph.io/edu#MuscularEndurance -->
 
     <owl:NamedIndividual rdf:about="http://edugraph.io/edu#MuscularEndurance">
@@ -2467,14 +2459,6 @@ The ability to organize and categorize concepts by identifying similarities, dif
         <rdf:type rdf:resource="http://edugraph.io/edu#Scope"/>
         <partOfScope rdf:resource="http://edugraph.io/edu#DimensionalAbstraction"/>
         <rdfs:isDefinedBy>Involves one spatial dimension.</rdfs:isDefinedBy>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://edugraph.io/edu#PassiveCommunication -->
-
-    <owl:NamedIndividual rdf:about="http://edugraph.io/edu#PassiveCommunication">
-        <rdf:type rdf:resource="http://edugraph.io/edu#Ability"/>
     </owl:NamedIndividual>
     
 

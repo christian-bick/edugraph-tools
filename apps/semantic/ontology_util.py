@@ -3,6 +3,9 @@ from enum import Enum
 from functools import reduce
 from re import finditer
 
+from pyparsing import Empty
+
+
 class OntologyUtil:
 
     def __init__(self, onto):
@@ -11,6 +14,13 @@ class OntologyUtil:
     def entity_of_natural_name(self, value):
         classification_key = value.replace(" ", "")
         return getattr(self.onto, classification_key)
+
+    def list_entities(self, entity_type):
+        return list(self.onto.search(type=entity_type))
+
+    def list_root_entities(self, entity_type):
+        abilities = self.list_entities(entity_type)
+        return list(filter(lambda entity: OntologyUtil.is_root_entity(entity), abilities))
 
     @staticmethod
     def __camel_case_split(identifier):
@@ -35,4 +45,9 @@ class OntologyUtil:
     @staticmethod
     def is_leaf_entity(entity):
         children = entity.INDIRECT_hasPart
-        return not (isinstance(children, list) and len(children) > 0)
+        return children is None or len(children) == 0
+
+    @staticmethod
+    def is_root_entity(entity):
+        parents = entity.INDIRECT_partOf
+        return parents is None or len(parents) == 0
