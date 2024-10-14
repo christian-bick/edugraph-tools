@@ -1636,11 +1636,6 @@ edu:MotoricSpeed rdf:type owl:NamedIndividual ,
                  edu:partOfAbility edu:Motoric .
 
 
-###  http://edugraph.io/edu#MultiDimensionalThinking
-edu:MultiDimensionalThinking rdf:type owl:NamedIndividual ,
-                                      edu:Ability .
-
-
 ###  http://edugraph.io/edu#MuscularEndurance
 edu:MuscularEndurance rdf:type owl:NamedIndividual ,
                                edu:Ability ;
@@ -1804,11 +1799,6 @@ edu:OneDimensional rdf:type owl:NamedIndividual ,
                             edu:Scope ;
                    edu:partOfScope edu:DimensionalAbstraction ;
                    rdfs:isDefinedBy "Involves one spatial dimension." .
-
-
-###  http://edugraph.io/edu#PassiveCommunication
-edu:PassiveCommunication rdf:type owl:NamedIndividual ,
-                                  edu:Ability .
 
 
 ###  http://edugraph.io/edu#PassiveVocabulary
