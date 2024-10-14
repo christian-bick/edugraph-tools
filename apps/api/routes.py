@@ -1,7 +1,7 @@
 from io import BytesIO
 from uuid import uuid4
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 from api.ontology_serializer import serialize_entity_tree
 from semantic import GeminiClassifier
@@ -35,11 +35,11 @@ def classify():
 
 @app.route("/ontology", methods=["GET"])
 def ontology():
-    return {
+    return jsonify({
         "areas": serialize_entity_tree(root_areas),
         "abilities": serialize_entity_tree(root_abilities),
         "scopes": serialize_entity_tree(root_scopes)
-    }
+    })
 
 def create_app():
     return app
