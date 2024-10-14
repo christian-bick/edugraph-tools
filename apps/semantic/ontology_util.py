@@ -36,30 +36,3 @@ class OntologyUtil:
     def is_leaf_entity(entity):
         children = entity.INDIRECT_hasPart
         return not (isinstance(children, list) and len(children) > 0)
-
-    @staticmethod
-    def find_entity_leafs(entity):
-        if OntologyUtil.is_leaf_entity(entity):
-            return [entity]
-
-        descriptor_parts = entity.INDIRECT_hasPart
-        leafs = reduce(lambda tail, head: OntologyUtil.find_entity_leafs(head) + tail, descriptor_parts, [])
-        return leafs
-
-    @staticmethod
-    def cluster_entities_by_parent(entity):
-        clusters = defaultdict(list)
-        for entity in entity:
-            parent_node = entity.INDIRECT_partOf[0]
-            key = parent_node.name
-            clusters[key].append(entity)
-        return clusters
-
-    @staticmethod
-    def list_entities_parents(entities):
-        leaf_parents = {}
-        for entity in entities:
-            parent_node = entity.INDIRECT_partOf[0]
-            key = parent_node.name
-            leaf_parents[key] = parent_node
-        return leaf_parents.values()
