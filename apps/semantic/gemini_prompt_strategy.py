@@ -100,7 +100,7 @@ class GeminiPromptStrategy:
             system_instruction=system_instruction
         )
 
-        descriptor_type_name = OntologyUtil.entity_native_name(descriptor_type)
+        descriptor_type_name = OntologyUtil.natural_name_of_entity(descriptor_type)
 
         prompt = ("""
                     Consider the following taxonomy:
@@ -135,7 +135,7 @@ class GeminiPromptStrategy:
             system_instruction=system_instruction
         )
 
-        descriptor_type_name = OntologyUtil.entity_native_name(descriptor_type)
+        descriptor_type_name = OntologyUtil.natural_name_of_entity(descriptor_type)
 
         prompt = ("""
                     Consider the following taxonomy:

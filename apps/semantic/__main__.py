@@ -1,3 +1,5 @@
+import os
+
 from semantic.gemini_classifier import GeminiClassifier
 from google import generativeai as gemini
 from semantic.gemini_prompt_strategy import GeminiPromptStrategy

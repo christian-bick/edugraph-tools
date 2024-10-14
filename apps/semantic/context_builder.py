@@ -75,7 +75,7 @@ class ContextBuilder:
 
     def add_index_context(self, hierarchy, node):
         hierarchy_as_string = (
-            ContextBuilder.hierarchy_to_string(hierarchy) + ' ' + OntologyUtil.entity_native_name(node) + '\n'
+            ContextBuilder.hierarchy_to_string(hierarchy) + ' ' + OntologyUtil.natural_name_of_entity(node) + '\n'
         )
         self.context += hierarchy_as_string
 

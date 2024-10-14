@@ -8,7 +8,7 @@ class OntologyUtil:
     def __init__(self, onto):
         self.onto = onto
 
-    def node_of_natural_name(self, value):
+    def entity_of_natural_name(self, value):
         classification_key = value.replace(" ", "")
         return getattr(self.onto, classification_key)
 
@@ -22,14 +22,14 @@ class OntologyUtil:
         return reduce(lambda a, b: a + ' ' +b, list_of_words).strip()
 
     @staticmethod
-    def entity_native_name(entity):
+    def natural_name_of_entity(entity):
         name_list = OntologyUtil.__camel_case_split(entity.name)
         name_words = OntologyUtil.__list_as_words(name_list)
         return name_words
 
     @staticmethod
     def entities_as_enum(entities):
-        skill_map = {entity.name: OntologyUtil.entity_native_name(entity) for entity in entities}
+        skill_map = {entity.name: OntologyUtil.natural_name_of_entity(entity) for entity in entities}
         return Enum('SkillEnum', skill_map)
 
     @staticmethod
@@ -38,12 +38,12 @@ class OntologyUtil:
         return not (isinstance(children, list) and len(children) > 0)
 
     @staticmethod
-    def collect_entity_leafs(entity):
+    def find_entity_leafs(entity):
         if OntologyUtil.is_leaf_entity(entity):
             return [entity]
 
         descriptor_parts = entity.INDIRECT_hasPart
-        leafs = reduce(lambda tail, head: OntologyUtil.collect_entity_leafs(head) + tail, descriptor_parts, [])
+        leafs = reduce(lambda tail, head: OntologyUtil.find_entity_leafs(head) + tail, descriptor_parts, [])
         return leafs
 
     @staticmethod
