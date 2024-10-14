@@ -7,6 +7,9 @@ from semantic.gemini_classifier import GeminiClassifier
 from semantic.gemini_file_storage import GeminiFileStorage
 from semantic.gemini_prompt_strategy import GeminiPromptStrategy
 from semantic.ontology_loader import OntologyLoader
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__, static_folder=None)
 
