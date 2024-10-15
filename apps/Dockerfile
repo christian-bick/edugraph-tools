@@ -29,3 +29,5 @@ RUN poetry install $(test "$ENV" == production && echo "--only=main") --no-inter
 
 # Creating folders, and files for a project:
 COPY /api /semantic app.py /app/
+
+ENTRYPOINT [ python run flask ]

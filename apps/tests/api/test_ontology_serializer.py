@@ -1,7 +1,7 @@
 from api.ontology_serializer import serialize_entity_tree
-from semantic import OntologyLoader
+from semantic.ontology_loader import load_from_path
 
-onto = OntologyLoader.load_from_path("./tests/test_data/test-ontology.rdf")
+onto = load_from_path("./tests/test_data/test-ontology.rdf")
 
 class TestTreeSerialization:
 
