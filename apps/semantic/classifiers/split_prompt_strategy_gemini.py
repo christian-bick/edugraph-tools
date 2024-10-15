@@ -1,92 +1,97 @@
 import google.generativeai as gemini
 import json
-import os
-
-from semantic.ontology_util import OntologyUtil
-
-description_template = """
-Type of learning material:
-
-<Description of its physical or digital nature in 1 sentence>
-
-Content description:
-
-<For text files, a summary of the text, for pictures, a description of the picture, using up to 
-500 words>
-
-Used forms of representation:
-
-<Description of different forms of representation in up to 5 bullet points>
-
-Field and area of learning:
-
-<Describe the field and area of learning in 1-2 sentences>
-
-<Describe the main learning abilities used when interacting with the material in 1-3 sentence>
-
-<Describe the intention behind the learning material>
-
-Other observations:
-
-<Optionally add other significant observations about the learning material>
-"""
 
 system_instruction = """
 You are presented with learning material that you shall classify using a given taxonomy.
 
+You will know that a taxonomy starts when you see the line:
+
+Taxonomy for <placeholder>
+
 The taxonomy will always consist of two parts, an outline and definition section. 
 
-Here is an example of a taxonomy for gastronomic terms:
+You will know that the outline starts when you see the line:
+
+A) Outline of <placeholder>
+
+You will know that the definitions starts when you see the line:
+
+b) Definitions of <placeholder>
+
+Between the "---" is an example of an outline for gastronomic terms :
 
 ---
-Taxonomy of Gastronomy
-
-A) Outline
-
 1 Drinks
-1.1 Non-alcoholic Drinks
-1.2 Alcoholic Drinks
+1.1 Non-alcoholic
+1.2 Alcoholic
 1.2.1 Beer
 1.2.2 Wine
 2 Food
 2.1 Italian
 2.2 French
+---
 
-B) Definitions
+Each item in the outline consists of an index and the term, consequently:
 
+* "1 Drinks" describes the term "Drinks" at index "1"
+* "1.1 Non-alcoholic" describes the term "Non-alcoholic" at index "1.1"
+
+Further, the index in the outline express a parent-child relationship, consequently:
+
+* "1.1" and "1.2" are children of "1" and
+* "1.2.1" and "1.2.2" are children of "1.2"
+* "Alcoholic" is a child element of "Drinks". 
+* "Food" is a parent element of "Italian" and "French"
+* "Drinks" and "Food" root elements
+* "Beer", "Wine", "Italian" and "French" are leaf elements
+
+Between the "---" is an example of definitions for gastronomic terms :
+
+---
 1 Drinks
 
-Beverages.
+All types of beverages.
 
 1.1 Non-alcoholic
 
 Beverages without alcohol.
 
+1.2 Alcoholic
+
+Beverages that contain alcohol.
+
 1.2.1 Beer 
 
-A malty alcoholic drink
+A malty alcoholic drink.
 
 1.2.2 Wine
 
-An alcoholic drink made of grapes
+An alcoholic drink made of grapes.
 
 2 Food
 
 2.1 Italian
 
-Food typically prepared in Italy
+Dishes that are typically prepared in Italy.
 
 2.2 French
 
-Food typically prepared in France
+Dishes that are typically prepared in France.
 ---
 
-The hierarchy of terms in the outline expresses a "part of" relationship. In the example, beer is part of alcoholic 
-beverages and alcoholic beverages are part of drinks. Use this hierarchy to find the most specific classification 
-matches.
+Each definition has a title and a description. The title always starts with an index and always exactly matches an 
+item in the previously explained outline. The descriptions follows in the next following paragraphs and ends with 
+the next title.
 
-Sometimes, terms in the outline are defined in definition section. When available, use these definitions when 
-determining classification matches.
+Consequently:
+
+* "1 Drinks" is the title with index "1" for term "Drinks"
+* "All types of beverages." is the description of "Drinks"
+* "1.2 Alcoholic" is the title with index "1.2" for term "Alcoholic"
+* "Beverages that contain alcohol." is the description of "Alcoholic"
+
+Sometimes, a definition does not contain a description. However when available, use the description when 
+determining classification matches. Otherwise, use the best description available to you.
 """
 
 class SplitPromptStrategyGemini:
@@ -94,29 +99,26 @@ class SplitPromptStrategyGemini:
     def __init__(self, gemini_file):
         self.gemini_file = gemini_file
 
-    def find_best_match(self, taxonomy, descriptor_type):
+    def find_best_match(self, taxonomy, description_instruction):
         model = gemini.GenerativeModel(
             model_name="gemini-1.5-flash",
             system_instruction=system_instruction
         )
 
-        descriptor_type_name = OntologyUtil.natural_name_of_entity(descriptor_type)
-
         prompt = ("""
-                    Consider the following taxonomy:
-    
+                    1) For the provided file: {1}
+                    
+                    2) Consider the following taxonomy of entities within "---":
+                    
+                    ---
                     {0}
+                    ---
                     
-                    Describe the provided file using the following pattern:
-                    
-                    {2}
-    
-                    Then find the most accurate {1} that matches the describe learning material, 
-                    only using {1}s that were defined in the taxonomy.
-    
-                    Do not return the description.
-                    Return the single best match without its outline number.
-                """.format(taxonomy, descriptor_type_name, description_template))
+                    3) Find the term that best matches the description of the learning material. Try to be as
+                    specific as possible.
+                     
+                    4) Only return the matched term, without index and description.
+                """.format(taxonomy, description_instruction))
 
         result = model.generate_content(
             [self.gemini_file, prompt], generation_config=gemini.types.GenerationConfig(
@@ -129,29 +131,26 @@ class SplitPromptStrategyGemini:
         result_list = json.loads(result.text)
         return result_list
 
-    def find_matches(self, taxonomy, descriptor_type):
+    def find_matches(self, taxonomy, description_instruction):
         model = gemini.GenerativeModel(
             model_name="gemini-1.5-flash",
             system_instruction=system_instruction
         )
 
-        descriptor_type_name = OntologyUtil.natural_name_of_entity(descriptor_type)
-
         prompt = ("""
-                    Consider the following taxonomy:
+                    1) For the provided file: {1}
+                    
+                    2) Consider the following taxonomy of entities within "---":
     
+                    ---
                     {0}
+                    ---
                     
-                    Describe the provided file using the following pattern:
-                    
-                    {2}
+                    3) Find the terms that best match the description of the learning material. Try to be as
+                    specific as possible.
     
-                    Then find accurately matching {1}s for the described learning material,
-                    only using {1}s that were defined in the taxonomy.
-    
-                    Do not return the description.
-                    Return the best matches without their outline number.
-                """.format(taxonomy, descriptor_type_name, description_template))
+                    4) Only return the matched terms, without index and description.
+                """.format(taxonomy, description_instruction))
 
         result = model.generate_content(
             [self.gemini_file, prompt], generation_config=gemini.types.GenerationConfig(

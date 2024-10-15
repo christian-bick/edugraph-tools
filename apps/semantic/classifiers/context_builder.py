@@ -1,6 +1,4 @@
-from functools import reduce
-
-from semantic.ontology_util import OntologyUtil
+from semantic.ontology_util import *
 
 taxonomy_header_template = "Taxonomy of {0}\n\n"
 outline_header_template = "\nA) {0} Outline\n\n"
@@ -25,7 +23,7 @@ def build_outline(hierarchy, entities):
         hierarchy[depth] = index + 1
         content += __build_outline_item(hierarchy, entity)
 
-        if not OntologyUtil.is_leaf_entity(entity):
+        if not is_leaf_entity(entity):
             entity_parts = entity.INDIRECT_hasPart
             new_hierarchy = hierarchy + [1]
             content += build_outline(new_hierarchy, entity_parts)
@@ -41,7 +39,7 @@ def build_definitions(hierarchy, entities):
         hierarchy[depth] = index + 1
         content += __build_definition_item(hierarchy, entity)
 
-        if not OntologyUtil.is_leaf_entity(entity):
+        if not is_leaf_entity(entity):
             entity_parts = entity.INDIRECT_hasPart
             new_hierarchy = hierarchy + [1]
             content += build_definitions(new_hierarchy, entity_parts)
@@ -50,7 +48,7 @@ def build_definitions(hierarchy, entities):
 
 
 def __build_outline_item(hierarchy, entity):
-    return __build_outline_index(hierarchy) + ' ' + OntologyUtil.natural_name_of_entity(entity) + '\n'
+    return __build_outline_index(hierarchy) + ' ' + natural_name_of_entity(entity) + '\n'
 
 def __build_definition_item(hierarchy, entity):
     annotated_definitions = entity.isDefinedBy
