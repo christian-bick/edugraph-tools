@@ -6,95 +6,75 @@ taxonomy_header_template = "Taxonomy of {0}\n\n"
 outline_header_template = "\nA) {0} Outline\n\n"
 definition_header_template = "\nB) {0} Definitions\n\n"
 
-class ContextBuilder:
 
-    def __init__(self):
-        self.context = None
+def build_taxonomy(name, entities):
+    taxonomy = ""
+    taxonomy += __build_taxonomy_header(name)
+    taxonomy += __build_outline_header(name)
+    taxonomy += build_outline([1], entities)
+    taxonomy += __build_definition_header(name)
+    taxonomy += build_definitions([1], entities)
+    return taxonomy
 
-    def add_taxonomy_header(self, name):
-        self.context += "Taxonomy of {0}\n\n".format(name)
 
-    def add_outline_header(self, name):
-        self.context += "\n\nA) {0} Outline\n\n".format(name)
+def build_outline(hierarchy, entities):
+    depth = len(hierarchy) - 1
+    content = ""
 
-    def add_definition_header(self, name):
-        self.context += "\n\nB) {0} Definitions\n\n".format(name)
+    for index, entity in enumerate(entities):
+        hierarchy[depth] = index + 1
+        content += __build_outline_item(hierarchy, entity)
 
-    def build_area_context(self, nodes):
-        name = "Area"
-        self.context = ""
-        self.add_taxonomy_header(name)
-        self.add_outline_header(name)
-        self.add_outline_context_rec([1], nodes)
-        self.add_definition_header(name)
-        self.add_definition_context_rec([1], nodes)
-        return self.context
+        if not OntologyUtil.is_leaf_entity(entity):
+            entity_parts = entity.INDIRECT_hasPart
+            new_hierarchy = hierarchy + [1]
+            content += build_outline(new_hierarchy, entity_parts)
 
-    def build_ability_context(self, nodes):
-        name = "Ability"
-        self.context = ""
-        self.add_taxonomy_header(name)
-        self.add_outline_header(name)
-        self.add_outline_context_rec([1], nodes)
-        self.add_definition_header(name)
-        self.add_definition_context_rec([1], nodes)
-        return self.context
+    return content
 
-    def build_scope_context(self, nodes):
-        name = "Scope"
-        self.context = ""
-        self.add_taxonomy_header(name)
-        self.add_outline_header(name)
-        self.add_outline_context_rec([1], nodes)
-        self.add_definition_header(name)
-        self.add_definition_context_rec([1], nodes)
-        return self.context
 
-    def add_definition_context(self, hierarchy, node):
+def build_definitions(hierarchy, entities):
+    depth = len(hierarchy) - 1
+    content = ""
 
-        definition = node.isDefinedBy
+    for index, entity in enumerate(entities):
+        hierarchy[depth] = index + 1
+        content += __build_definition_item(hierarchy, entity)
 
-        if isinstance(definition, list) and len(definition) > 0:
-            self.add_index_context(hierarchy, node)
-            self.context += "\n{0}\n\n".format(definition[0])
+        if not OntologyUtil.is_leaf_entity(entity):
+            entity_parts = entity.INDIRECT_hasPart
+            new_hierarchy = hierarchy + [1]
+            content += build_definitions(new_hierarchy, entity_parts)
 
-    def add_definition_context_rec(self, hierarchy, nodes):
-        current_index = len(hierarchy)-1
-        current_counter = 1
+    return content
 
-        for node in nodes:
-            hierarchy[current_index] = current_counter
-            self.add_definition_context(hierarchy, node)
 
-            if not OntologyUtil.is_leaf_entity(node):
-                descriptor_parts = node.INDIRECT_hasPart
-                new_hierarchy = hierarchy + [1]
-                self.add_definition_context_rec(new_hierarchy, descriptor_parts)
+def __build_outline_item(hierarchy, entity):
+    return __build_outline_index(hierarchy) + ' ' + OntologyUtil.natural_name_of_entity(entity) + '\n'
 
-            current_counter = current_counter + 1
+def __build_definition_item(hierarchy, entity):
+    annotated_definitions = entity.isDefinedBy
+    definition = ""
 
-    def add_index_context(self, hierarchy, node):
-        hierarchy_as_string = (
-            ContextBuilder.hierarchy_to_string(hierarchy) + ' ' + OntologyUtil.natural_name_of_entity(node) + '\n'
-        )
-        self.context += hierarchy_as_string
+    if isinstance(annotated_definitions, list) and len(annotated_definitions) > 0:
+        definition += __build_outline_item(hierarchy, entity)
+        definition += "\n{0}\n\n".format(annotated_definitions[0])
 
-    def add_outline_context_rec(self, hierarchy, nodes):
-        current_index = len(hierarchy)-1
-        current_counter = 1
+    return definition
 
-        for node in nodes:
-            hierarchy[current_index] = current_counter
-            self.add_index_context(hierarchy, node)
 
-            if not OntologyUtil.is_leaf_entity(node):
-                descriptor_parts = node.INDIRECT_hasPart
-                new_hierarchy = hierarchy + [1]
-                self.add_outline_context_rec(new_hierarchy, descriptor_parts)
+def __build_taxonomy_header(name):
+    return "Taxonomy of {0}\n\n".format(name)
 
-            current_counter = current_counter + 1
 
-    @staticmethod
-    def hierarchy_to_string(hierarchy):
-        level_string = reduce(lambda tail, head: tail + str(head) + '.', hierarchy, "")
-        return level_string[:-1]
+def __build_outline_header(name):
+    return "A) Outline of {0}\n\n".format(name)
+
+
+def __build_definition_header(name):
+    return "\n\nB) Definitions of {0}\n\n".format(name)
+
+
+def __build_outline_index(hierarchy):
+    level_string = reduce(lambda tail, head: tail + str(head) + '.', hierarchy, "")
+    return level_string[:-1]
