@@ -37,4 +37,4 @@ COPY /semantic $APP_DIR/semantic/
 
 EXPOSE 5000
 
-ENTRYPOINT ["flask", "run"]
+CMD flask run --debug --host=0.0.0.0

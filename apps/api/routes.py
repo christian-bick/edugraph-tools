@@ -21,7 +21,7 @@ root_scopes = onto_util.list_root_entities(onto.Scope)
 
 @app.route("/")
 def root():
-    return "Hello, World!"
+    return "OK"
 
 @app.route("/classify", methods=["POST"])
 def classify():
