@@ -1,3 +1,5 @@
+import typing
+
 import google.generativeai as gemini
 import json
 
@@ -79,9 +81,7 @@ Dishes that are typically prepared in Italy.
 Dishes that are typically prepared in France.
 ---
 
-Each definition has a title and a description. The title always starts with an index and always exactly matches an 
-item in the previously explained outline. The descriptions follows in the next following paragraphs and ends with 
-the next title.
+Each definition has a title and a description. The title always starts with an index and always exactly matches an item in the previously explained outline. The descriptions follows in the next following paragraphs and ends with the next title.
 
 Consequently:
 
@@ -90,35 +90,53 @@ Consequently:
 * "1.2 Alcoholic" is the title with index "1.2" for term "Alcoholic"
 * "Beverages that contain alcohol." is the description of "Alcoholic"
 
-Sometimes, a definition does not contain a description. However when available, use the description when 
-determining classification matches. Otherwise, use the best description available to you.
+Sometimes, a definition does not contain a description. However when available, use the description when determining classification matches.
 """
+
+single_prompt = """
+Step 1: {1}
+
+Step 2: Consider the following taxonomy within "---" for classification:
+
+---
+{0}
+---
+
+Step 3: Only using terms from the taxonomy, {2}. When responding the matched term, respond without its index and description.
+"""
+
+multi_prompt = """
+Step 1: {1}
+                    
+Step 2: Consider the following taxonomy within "---" for classification:
+
+---
+{0}
+---
+
+Step 3: Only using terms from the taxonomy, {2}. When responding the matched terms, respond without their index and description.
+"""
+
+class PromptSingleResponse(typing.TypedDict):
+    step_1: str
+    step_3: str
+
+class PromptMultiResponse(typing.TypedDict):
+    step_1: str
+    step_3: list[str]
 
 class SplitPromptStrategyGemini:
 
     def __init__(self, gemini_file):
         self.gemini_file = gemini_file
 
-    def find_best_match(self, taxonomy, description_instruction):
+    def find_best_match(self, taxonomy, priming_instruction, matching_instruction):
         model = gemini.GenerativeModel(
             model_name="gemini-1.5-flash",
             system_instruction=system_instruction
         )
 
-        prompt = ("""
-                    1) For the provided file: {1}
-                    
-                    2) Consider the following taxonomy of entities within "---":
-                    
-                    ---
-                    {0}
-                    ---
-                    
-                    3) Find the term that best matches the description of the learning material. Try to be as
-                    specific as possible.
-                     
-                    4) Only return the matched term, without index and description.
-                """.format(taxonomy, description_instruction))
+        prompt = single_prompt.format(taxonomy, priming_instruction, matching_instruction)
 
         result = model.generate_content(
             [self.gemini_file, prompt], generation_config=gemini.types.GenerationConfig(
@@ -126,31 +144,18 @@ class SplitPromptStrategyGemini:
                 max_output_tokens=250,
                 response_mime_type="application/json",
                 temperature=0,
-                response_schema=list[str]
+                response_schema=PromptSingleResponse
             ))
-        result_list = json.loads(result.text)
-        return result_list
+        result_obj = json.loads(result.text)
+        return [ result_obj['step_3'] ]
 
-    def find_matches(self, taxonomy, description_instruction):
+    def find_matches(self, taxonomy, priming_instruction, matching_instruction):
         model = gemini.GenerativeModel(
             model_name="gemini-1.5-flash",
             system_instruction=system_instruction
         )
 
-        prompt = ("""
-                    1) For the provided file: {1}
-                    
-                    2) Consider the following taxonomy of entities within "---":
-    
-                    ---
-                    {0}
-                    ---
-                    
-                    3) Find the terms that best match the description of the learning material. Try to be as
-                    specific as possible.
-    
-                    4) Only return the matched terms, without index and description.
-                """.format(taxonomy, description_instruction))
+        prompt = multi_prompt.format(taxonomy, priming_instruction, matching_instruction)
 
         result = model.generate_content(
             [self.gemini_file, prompt], generation_config=gemini.types.GenerationConfig(
@@ -158,7 +163,7 @@ class SplitPromptStrategyGemini:
                 max_output_tokens=250,
                 response_mime_type="application/json",
                 temperature=0,
-                response_schema=list[str]
+                response_schema=PromptMultiResponse
             ))
-        result_list = json.loads(result.text)
-        return result_list
+        result_obj = json.loads(result.text)
+        return result_obj['step_3']

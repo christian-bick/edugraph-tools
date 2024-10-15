@@ -12,16 +12,18 @@ class SplitPromptClassifier:
         taxonomy = build_taxonomy("Areas", entities)
         matched_areas = classifier.find_best_match(
             taxonomy=taxonomy,
-            description_instruction="Describe the area of learning in one sentence."
+            priming_instruction="Describe the precise area of learning covered by the provided learning material in one sentence.",
+            matching_instruction="find the term that best matches the description provided in step 1"
         )
         return [ entity_name_of_natural_name(natural_name) for natural_name in matched_areas ]
 
     def classify_ability(self, classifier):
         entities = [self.onto.AnalyticalCapability]
-        context = build_taxonomy("Abilities", entities)
+        taxonomy = build_taxonomy("Abilities", entities)
         matched_abilities = classifier.find_matches(
-            taxonomy=context,
-            description_instruction="Describe the challenged student abilities in one sentence."
+            taxonomy=taxonomy,
+            priming_instruction="Describe the student abilities challenged by the provided learning material in one sentence.",
+            matching_instruction="find the terms that best match the description provided in step 1"
         )
         return [ entity_name_of_natural_name(natural_name) for natural_name in matched_abilities ]
 
@@ -30,7 +32,8 @@ class SplitPromptClassifier:
         taxonomy = build_taxonomy("Scopes", entities)
         matched_scopes = classifier.find_matches(
             taxonomy=taxonomy,
-            description_instruction="Describe the what the learning material in up to 500 words."
+            priming_instruction="Describe the representative aspects of the learning material in up tp 500 words.",
+            matching_instruction="find the terms that best match the description of the learning material"
         )
         return [ entity_name_of_natural_name(natural_name) for natural_name in matched_scopes ]
 

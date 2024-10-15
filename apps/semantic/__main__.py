@@ -15,7 +15,12 @@ gemini.configure(api_key=os.environ["API_KEY_GEMINI"])
 example_file = "./../examples/LongMultiplication-01.png"
 
 onto = load_from_path("./../core-ontology.rdf")
-file = upload_file('example-file', 'image/png', example_file)
+
+file = None
+try:
+    file = gemini.get_file('example-file')
+except():
+    file = upload_file('example-file', 'image/png', example_file)
 
 classifier = SplitPromptClassifier(onto, SplitPromptStrategyGemini)
 result = classifier.classify_content(example_file)
