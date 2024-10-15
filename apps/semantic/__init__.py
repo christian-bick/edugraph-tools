@@ -1,1 +1,0 @@
-from .ontology_util import OntologyUtil

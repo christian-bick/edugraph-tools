@@ -3,7 +3,7 @@ from uuid import uuid4
 
 from flask import Flask, request, jsonify
 
-from semantic import OntologyUtil
+from semantic.ontology_util import OntologyUtil
 from semantic.classifiers import SplitPromptClassifier
 from semantic.classifiers import SplitPromptStrategyGemini
 from semantic.gemini_file_storage import upload_file
@@ -12,7 +12,7 @@ from .ontology_serializer import serialize_entity_tree
 
 app = Flask(__name__, static_folder=None)
 
-onto = load_from_path("./../core-ontology.rdf")
+onto = load_from_path("./core-ontology.rdf")
 onto_util = OntologyUtil(onto)
 
 root_areas = onto_util.list_root_entities(onto.Area)

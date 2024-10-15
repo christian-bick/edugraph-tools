@@ -1,0 +1,11 @@
+services:
+  web:
+    build: ./web
+    depends_on:
+        - api
+    ports:
+      - "3000:3000"
+  api:
+    build: ./apps
+    ports:
+      - "5000:5000"
