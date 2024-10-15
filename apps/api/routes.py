@@ -3,12 +3,12 @@ from uuid import uuid4
 
 from flask import Flask, request, jsonify
 
-from api.ontology_serializer import serialize_entity_tree
-from semantic import GeminiClassifier
 from semantic import GeminiFileStorage
-from semantic import GeminiPromptStrategy
 from semantic import OntologyLoader
-from semantic.ontology_util import OntologyUtil
+from semantic import OntologyUtil
+from semantic.classifiers import SplitPromptClassifier
+from semantic.classifiers import SplitPromptStrategyGemini
+from .ontology_serializer import serialize_entity_tree
 
 app = Flask(__name__, static_folder=None)
 
@@ -29,7 +29,7 @@ def classify():
     mime_type = file_upload.mimetype
     name = str(uuid4())
     file = GeminiFileStorage.upload(name, mime_type, BytesIO(file_upload.stream.read()))
-    classifier = GeminiClassifier(onto, GeminiPromptStrategy)
+    classifier = SplitPromptClassifier(onto, SplitPromptStrategyGemini)
     classification = classifier.classify_content(file)
     return classification
 

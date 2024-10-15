@@ -1,9 +1,6 @@
-from collections import defaultdict
 from enum import Enum
 from functools import reduce
 from re import finditer
-
-from pyparsing import Empty
 
 
 class OntologyUtil:

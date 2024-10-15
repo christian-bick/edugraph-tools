@@ -89,7 +89,7 @@ Sometimes, terms in the outline are defined in definition section. When availabl
 determining classification matches.
 """
 
-class GeminiPromptStrategy:
+class SplitPromptStrategyGemini:
 
     def __init__(self, gemini_file):
         self.gemini_file = gemini_file

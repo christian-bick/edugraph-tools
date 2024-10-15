@@ -1,11 +1,10 @@
-from semantic.gemini_prompt_strategy import GeminiPromptStrategy
-from semantic.context_builder import ContextBuilder
 from semantic.ontology_util import OntologyUtil
+from .context_builder import ContextBuilder
 
 
-class GeminiClassifier:
+class SplitPromptClassifier:
 
-    def __init__(self, onto, ClassifierStrategy = GeminiPromptStrategy):
+    def __init__(self, onto, ClassifierStrategy):
         self.onto = onto
         self.context_builder = ContextBuilder()
         self.ClassifierStrategy = ClassifierStrategy
