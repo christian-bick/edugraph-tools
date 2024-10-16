@@ -2,6 +2,7 @@ from io import BytesIO
 from uuid import uuid4
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 from semantic.ontology_util import OntologyUtil
 from semantic.classifiers import SplitPromptClassifier
@@ -42,4 +43,5 @@ def ontology():
     })
 
 def create_app():
+    CORS(app)
     return app
