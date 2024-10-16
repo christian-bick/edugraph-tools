@@ -1,8 +1,10 @@
 import "./style.scss";
 import * as echarts from 'echarts';
 
-const UPLOAD_URL = "/api/classify"
-const ONTOLOGY_URL = "/api/ontology"
+const API_URL = import.meta.env.PROD ? "https://edu-graph-api-575953891979.europe-west3.run.app" : "/api"
+
+const UPLOAD_URL = `${API_URL}/classify`
+const ONTOLOGY_URL = `${API_URL}/ontology`
 
 let onto;
 
