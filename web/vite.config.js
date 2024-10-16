@@ -1,7 +1,7 @@
 import {defineConfig} from "vite";
 
 function getBase(command) {
-    return command === 'build' ? '/edu-graph/' : '/';
+    return command === 'build' ? '/' : '/';
 }
 
 export default defineConfig(({command}) => {
