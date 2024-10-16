@@ -1,10 +1,8 @@
 FROM python:3.12.6
 
+ARG APP_DIR="/usr/src/app"
+
 ARG ENV
-ARG APP_DIR
-
-ENV APP_DIR="/usr/src/app"
-
 ENV ENV=${ENV} \
   PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
@@ -37,4 +35,4 @@ COPY /semantic $APP_DIR/semantic/
 
 EXPOSE 5000
 
-CMD flask run --debug --host=0.0.0.0
+CMD flask run --host=0.0.0.0 $(test "$ENV" != production) --debug

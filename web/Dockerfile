@@ -12,7 +12,7 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 ENV PATH=$APP_DIR/node_modules/.bin:$PATH
 
-COPY *.js *.html *.scss $APP_DIR/
+COPY *.js *.html *.scss *.json $APP_DIR/
 COPY /styles $APP_DIR/styles/
 
 EXPOSE 3000
