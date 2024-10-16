@@ -1,8 +1,7 @@
 FROM node:22.9.0
 
 ENV NODE_ENV=development
-
-ENV APP_DIR="/usr/src/app"
+ARG APP_DIR="/usr/src/app"
 
 WORKDIR $APP_DIR
 
@@ -13,9 +12,9 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 ENV PATH=$APP_DIR/node_modules/.bin:$PATH
 
-COPY *.js *.html *.scss *.json $APP_DIR/
+COPY *.js *.html *.scss $APP_DIR/
 COPY /styles $APP_DIR/styles/
 
 EXPOSE 3000
 
-CMD npm run dev
+CMD ["npm", "run", "dev"]
