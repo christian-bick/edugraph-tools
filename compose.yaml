@@ -8,4 +8,4 @@ services:
   api:
     build: ./apps
     ports:
-      - "5000:5000"
+      - "8080:8080"

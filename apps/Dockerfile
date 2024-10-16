@@ -1,6 +1,8 @@
 FROM python:3.12.6
 
 ARG APP_DIR="/usr/src/app"
+ARG PORT=8080
+ENV PORT=${PORT}
 
 ARG ENV
 ENV ENV=${ENV} \
@@ -22,17 +24,17 @@ ENV ENV=${ENV} \
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # Copy only requirements to cache them in docker layer
-WORKDIR $APP_DIR
-COPY poetry.lock pyproject.toml $APP_DIR
+WORKDIR ${APP_DIR}
+COPY poetry.lock pyproject.toml ${APP_DIR}
 
 # Project initialization:
 RUN poetry install $(test "$ENV" == production && echo "--only=main") --no-interaction --no-ansi
 
 # Creating folders, and files for a project:
-COPY app.py .env core-ontology.rdf $APP_DIR
-COPY /api $APP_DIR/api/
-COPY /semantic $APP_DIR/semantic/
+COPY app.py .env core-ontology.rdf ${APP_DIR}
+COPY /api ${APP_DIR}/api/
+COPY /semantic ${APP_DIR}/semantic/
 
-EXPOSE 5000
+EXPOSE ${PORT}
 
-CMD flask run --host=0.0.0.0 $(test "$ENV" != production) --debug
+CMD flask run --host=0.0.0.0 --port=$PORT $(test "$ENV" != production && echo "--debug")
