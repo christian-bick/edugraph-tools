@@ -4,9 +4,7 @@ ARG APP_DIR="/usr/src/app"
 ARG PORT=8080
 ENV PORT=${PORT}
 
-ARG ENV
-ENV ENV=${ENV} \
-  PYTHONFAULTHANDLER=1 \
+ENV PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
   PYTHONHASHSEED=random \
   PIP_NO_CACHE_DIR=off \
@@ -28,7 +26,7 @@ WORKDIR ${APP_DIR}
 COPY poetry.lock pyproject.toml ${APP_DIR}
 
 # Project initialization:
-RUN poetry install $(test "$ENV" == production && echo "--only=main") --no-interaction --no-ansi
+RUN poetry install --only=main --no-interaction --no-ansi
 
 # Creating folders, and files for a project:
 COPY app.py .env core-ontology.rdf ${APP_DIR}
@@ -37,4 +35,4 @@ COPY /semantic ${APP_DIR}/semantic/
 
 EXPOSE ${PORT}
 
-CMD flask run --host=0.0.0.0 --port=$PORT $(test "$ENV" != production && echo "--debug")
+CMD ["sh", "-c", "flask run --host=0.0.0.0 --port=$PORT"]
