@@ -1,9 +1,5 @@
 import {defineConfig} from "vite";
 
-function getBase(command) {
-    return command === 'build' ? '/' : '/';
-}
-
 export default defineConfig(({command}) => {
     return {
         base: getBase(command),
