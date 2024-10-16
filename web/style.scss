@@ -70,6 +70,11 @@ main {
       align-items: center;
       flex-direction: column;
 
+      p {
+          color: $color-2;
+          font-size: 1.2rem;
+      }
+
       #upload-dropzone {
         width: 50%;
         aspect-ratio: 1 / 1;
@@ -82,7 +87,10 @@ main {
         border: 2px dashed $color-1;
         color: $color-2;
 
-        font-size: 1.5rem;
+        p {
+          color: $color-2;
+          font-size: 1.5rem;
+        }
 
         .highlight {
           background-color: $color-1;
@@ -116,7 +124,6 @@ main {
 
   #view-classification-result {
     flex: 1 0 auto;
-    background-color: $gray-lightest;
     flex-direction: column;
 
     display: inherit;

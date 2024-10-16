@@ -8,7 +8,11 @@ def entity_name_of_natural_name(value):
 
 
 def natural_name_of_entity(entity):
-    name_list = __camel_case_split(entity.name)
+    return natural_name_of_entity_name(entity.name)
+
+
+def natural_name_of_entity_name(entity_name):
+    name_list = __camel_case_split(entity_name)
     name_words = __list_as_words(name_list)
     return name_words
 

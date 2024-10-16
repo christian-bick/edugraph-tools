@@ -1,7 +1,7 @@
 import "./style.scss";
 import * as echarts from 'echarts';
 
-const API_URL = import.meta.env.PROD ? "https://edu-graph-api-575953891979.europe-west3.run.app" : "/api"
+const API_URL = import.meta.env.PROD ? "https://edu-graph-api-575953891979.europe-west3.run.app" : "http://localhost:8080"
 
 const UPLOAD_URL = `${API_URL}/classify`
 const ONTOLOGY_URL = `${API_URL}/ontology`
@@ -10,27 +10,27 @@ let onto;
 
 let viewInit;
 let viewClassification;
-let viewUpload;
-let viewProgress;
-let viewResult;
+let viewUploadStart;
+let viewUploadProgress;
+let viewUploadResult;
+let viewClassificationResult;
 
 let visualAreas;
 let visualAbilities;
 let visualScopes;
 
-function switchView(oldEl, newEl)  {
+let visualClassification;
+
+function switchView(oldEl, newEl) {
     newEl.style.display = "flex";
     oldEl.style.display = "none";
 }
 
 function init() {
     viewInit = document.getElementById('view-init')
-    viewClassification = document.getElementById('view-init')
-    viewUpload = document.getElementById('view-upload');
-    viewProgress = document.getElementById('view-progress');
-    viewResult = document.getElementById('view-result');
+    viewClassification = document.getElementById('view-classification')
+    viewClassificationResult = document.getElementById('view-classification-result');
 
-    setTimeout(() => switchView(viewInit, viewClassification), 1000)
     initFileUpload()
     initOntology()
 }
@@ -49,40 +49,95 @@ function initOntology() {
         });
 }
 
-function mapEntity(entity, highlighted = []) {
-    const obj = {
-        name: entity.natural_name,
+function updateClassificationChart({visual, entities: {areas, abilities, scopes}}) {
+    const mapEntities = (entities) => {
+        return entities.map(entity => ({value: 1, name: entity.natural_name}))
     }
-    if (entity.children && entity.children.length) {
-        obj.label = {
-            show: false,
+    const buildLevel = (level, name, entities) => {
+        const backgroundColors = {
+            1: "#ffb703",
+            2: "#8acae6",
+            3: "#87d387"
         }
-    } else {
-        obj.value = 1
-        obj.label = {
-            show: false,
+        const fontColors = {
+            1: "#60181A",
+            2: "#023047",
+            3: "#28603b"
+        }
+        const innerRadius = ((level - 1) * 30) + '%' // 0, 35, 70
+        const outerRadius = ((level) * 30) - 5 + '%' // 30, 65, 100
+        return {
+            name: name,
+            type: 'pie',
+            selectedMode: 'none',
+            padAngle: entities.length > 1 ? 3 : 0,
+            radius: [innerRadius, outerRadius],
+            label: {
+                overflow: 'break',
+                width: 120,
+                position: level === 1 ? 'center' : 'inner',
+                fontSize: 16,
+                color: fontColors[level]
+            },
+            labelLine: {
+                show: false
+            },
+            itemStyle: {
+                color: backgroundColors[level]
+            },
+            data: mapEntities(entities),
         }
     }
-    if (highlighted.includes(entity.name)) {
-        obj.itemStyle = {
-            color: 'red'
-        }
-    }
-    return obj
+    const chartOptions = {
+        title: {
+            text: 'Classification of Learning Material',
+            left: 'center',
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a}'
+        },
+        series: [
+            buildLevel(1, 'Area', areas),
+            buildLevel(2, 'Ability', abilities),
+            buildLevel(3, 'Scope', scopes),
+        ]
+    };
+    visual.setOption(chartOptions);
 }
 
-function mapEntities(entities,  highlighted = []) {
-    return entities.map(entity => {
-        const obj = mapEntity(entity, highlighted);
+function createTaxonomyChart(name, entities, element, color, highlighted = []) {
+    const chartArea = echarts.init(element);
+    const mapEntity = (entity, highlighted = []) => {
+        const obj = {
+            name: entity.natural_name,
+        }
         if (entity.children && entity.children.length) {
-            obj.children = mapEntities(entity.children, highlighted)
+            obj.label = {
+                show: false,
+            }
+        } else {
+            obj.value = 1
+            obj.label = {
+                show: false,
+            }
+        }
+        if (highlighted.includes(entity.name)) {
+            obj.itemStyle = {
+                color: 'red'
+            }
         }
         return obj
-    })
-}
-
-function createChart(name, entities, element, color, highlighted = []) {
-    const chartArea = echarts.init(element);
+    }
+    const mapEntities = (entities, highlighted = []) => {
+        return entities.map(entity => {
+            const obj = mapEntity(entity, highlighted);
+            if (entity.children && entity.children.length) {
+                obj.children = mapEntities(entity.children, highlighted)
+            }
+            return obj
+        })
+    }
     const chartData = [{
         name: name,
         children: mapEntities(entities, highlighted),
@@ -109,22 +164,38 @@ function createChart(name, entities, element, color, highlighted = []) {
 }
 
 function initVisuals() {
-    visualAreas = document.getElementById('visual-areas')
-    visualAbilities = document.getElementById('visual-abilities')
-    visualScopes = document.getElementById('visual-scopes')
-    updateVisuals()
+    /**
+     visualAreas = document.getElementById('visual-areas')
+     visualAbilities = document.getElementById('visual-abilities')
+     visualScopes = document.getElementById('visual-scopes')
+     **/
+    visualClassification = echarts.init(viewClassificationResult);
+    updateClassificationChart({
+        visual: visualClassification,
+        entities: {
+            areas: [{natural_name: "Area"}],
+            abilities: [{natural_name: "Abilities"}],
+            scopes: [{natural_name: "Scopes"}],
+        }
+    })
 }
 
-function updateVisuals(classified = { areas: [], abilities: [], scopes: [] }) {
-    createChart('Areas', onto.areas, visualAreas, "#ffb703", classified.areas)
-    createChart('Abilities', onto.abilities, visualAbilities, "#8acae6", classified.abilities)
-    createChart('Scopes', onto.scopes, visualScopes, "#87d387", classified.scopes)
+function updateVisuals(entities) {
+    updateClassificationChart({
+        visual: visualClassification,
+        entities
+    })
+    /**
+     createTaxonomyChart('Areas', onto.areas, visualAreas, "#ffb703", classified.areas)
+     createTaxonomyChart('Abilities', onto.abilities, visualAbilities, "#8acae6", classified.abilities)
+     createTaxonomyChart('Scopes', onto.scopes, visualScopes, "#87d387", classified.scopes)
+     **/
 }
 
 function initFileUpload() {
-    const viewUpload = document.getElementById('view-upload');
-    const viewProgress = document.getElementById('view-progress');
-    const viewResult = document.getElementById('view-result');
+    viewUploadStart = document.getElementById('view-upload-start');
+    viewUploadProgress = document.getElementById('view-upload-progress');
+    viewUploadResult = document.getElementById('view-upload-result');
 
     const uploadDropzone = document.getElementById('upload-dropzone');
     const uploadInput = document.getElementById('upload-input');
@@ -134,7 +205,7 @@ function initFileUpload() {
         uploadDropzone.addEventListener(eventName, preventDefaults, false);
     });
 
-    function preventDefaults (e) {
+    function preventDefaults(e) {
         e.preventDefault();
         e.stopPropagation();
     }
@@ -177,9 +248,9 @@ function initFileUpload() {
 
     function previewFile(file) {
         const reader = new FileReader();
-        reader.onload = function(e) {
-            viewResult.innerHTML = `<img class="file-preview" src="${e.target.result}" alt="${file.name}"/>`;
-            switchView(viewProgress, viewResult)
+        reader.onload = function (e) {
+            viewUploadResult.innerHTML = `<img class="file-preview" src="${e.target.result}" alt="${file.name}"/>`;
+            switchView(viewUploadProgress, viewUploadResult)
         }
         reader.readAsDataURL(file);
     }
@@ -188,7 +259,7 @@ function initFileUpload() {
         let formData = new FormData();
         formData.append('file', file);
 
-        switchView(viewUpload, viewProgress)
+        switchView(viewUploadStart, viewUploadProgress)
 
         fetch(UPLOAD_URL, {
             method: 'POST',

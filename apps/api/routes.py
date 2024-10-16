@@ -9,7 +9,7 @@ from semantic.classifiers import SplitPromptClassifier
 from semantic.classifiers import SplitPromptStrategyGemini
 from semantic.gemini_file_storage import upload_file
 from semantic.ontology_loader import load_from_path
-from .ontology_serializer import serialize_entity_tree
+from .ontology_serializer import serialize_entity_tree, serialize_entities_with_names
 
 app = Flask(__name__, static_folder=None)
 
@@ -32,7 +32,11 @@ def classify():
     file = upload_file(name, mime_type, BytesIO(file_upload.stream.read()))
     classifier = SplitPromptClassifier(onto, SplitPromptStrategyGemini)
     classification = classifier.classify_content(file)
-    return classification
+    return jsonify({
+        "areas": serialize_entities_with_names(classification["areas"]),
+        "abilities": serialize_entities_with_names(classification["abilities"]),
+        "scopes": serialize_entities_with_names(classification["scopes"])
+    })
 
 @app.route("/ontology", methods=["GET"])
 def ontology():

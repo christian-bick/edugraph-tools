@@ -1,4 +1,4 @@
-from semantic.ontology_util import is_leaf_entity, natural_name_of_entity
+from semantic.ontology_util import *
 
 
 def serialize_entity(entity):
@@ -6,6 +6,15 @@ def serialize_entity(entity):
         "name": entity.name,
         "natural_name": natural_name_of_entity(entity)
     }
+
+def serialize_entity_with_name(entity_name):
+    return {
+        "name": entity_name,
+        "natural_name": natural_name_of_entity_name(entity_name)
+    }
+
+def serialize_entities_with_names(entity_name_list):
+    return [ serialize_entity_with_name(name) for name in entity_name_list ]
 
 def serialize_entity_tree(entities):
     def serialize_with_children(entity):
