@@ -22,11 +22,13 @@ let filePreviewMore;
 
 let visualClassification;
 
-let classifiedEntities = {
-    areas: [],
-    abilities: [],
-    scopes: [],
-};
+const classifiedEntitiesDefault = {
+    areas: [{natural_name: "Area"}],
+    abilities: [{natural_name: "Abilities"}],
+    scopes: [{natural_name: "Scopes"}],
+}
+
+let classifiedEntities = null;
 
 function switchView(oldEl, newEl) {
     newEl.style.display = "flex";
@@ -128,7 +130,7 @@ function updateClassificationChart({visual, entities: {areas, abilities, scopes}
     visual.setOption(chartOptions);
 }
 
-function createTaxonomyChart(name, entities, visual, color, highlighted = []) {
+function createTaxonomyChart(name, entities, visual, color, highlighted) {
     const mapEntity = (entity, highlighted = []) => {
         const obj = {
             name: entity.natural_name,
@@ -186,11 +188,6 @@ function createTaxonomyChart(name, entities, visual, color, highlighted = []) {
 }
 
 function initVisuals() {
-    const defaultClassification = {
-        areas: [{natural_name: "Area"}],
-        abilities: [{natural_name: "Abilities"}],
-        scopes: [{natural_name: "Scopes"}],
-    }
 
     if (!visualClassification) {
         visualClassification = echarts.init(visualContainer);
@@ -198,20 +195,22 @@ function initVisuals() {
 
     updateClassificationChart({
         visual: visualClassification,
-        entities: defaultClassification
+        entities: classifiedEntitiesDefault
     })
 
     visualClassification.on('click', (source) => {
-        if (source.name === 'Area') {
-            createTaxonomyChart('Area Taxonomy', onto.areas, visualClassification, "#ffb703", classifiedEntities.areas);
-        } else if (source.name === 'Abilities') {
-            createTaxonomyChart('Ability Taxonomy', onto.areas, visualClassification, "#8acae6", classifiedEntities.areas);
-        } else if (source.name === 'Scopes') {
-            createTaxonomyChart('Scope Taxonomy', onto.areas, visualClassification, "#87d387", classifiedEntities.areas);
+        console.log(source);
+        const highlightedEntities = classifiedEntities || classifiedEntitiesDefault
+        if (source.seriesName === 'Area') {
+            createTaxonomyChart('Area Taxonomy', onto.areas, visualClassification, "#ffb703", highlightedEntities.areas);
+        } else if (source.seriesName === 'Ability') {
+            createTaxonomyChart('Ability Taxonomy', onto.abilities, visualClassification, "#8acae6", highlightedEntities.abilities);
+        } else if (source.seriesName === 'Scope') {
+            createTaxonomyChart('Scope Taxonomy', onto.scopes, visualClassification, "#87d387", highlightedEntities.scopes);
         } else if (source.name === 'Area Taxonomy' || source.name === 'Ability Taxonomy' || source.name === 'Scope Taxonomy') {
             updateClassificationChart({
                 visual: visualClassification,
-                entities: defaultClassification
+                entities: highlightedEntities
             });
         }
     })
@@ -220,7 +219,7 @@ function initVisuals() {
 function updateVisuals() {
     updateClassificationChart({
         visual: visualClassification,
-        entities: classifiedEntities
+        entities: classifiedEntities || classifiedEntitiesDefault
     })
 }
 
