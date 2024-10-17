@@ -130,7 +130,10 @@ function updateClassificationChart({visual, entities: {areas, abilities, scopes}
     visual.setOption(chartOptions);
 }
 
-function createTaxonomyChart(name, entities, visual, color, highlighted) {
+function createTaxonomyChart({name, entities, visual, color, highlighted}) {
+    const isHighlighted = (entity) => {
+        return highlighted.map(h => h.natural_name).includes(entity.natural_name)
+    }
     const mapEntity = (entity, highlighted = []) => {
         const obj = {
             name: entity.natural_name,
@@ -143,9 +146,15 @@ function createTaxonomyChart(name, entities, visual, color, highlighted) {
             obj.value = 1
             obj.label = {
                 show: false,
+                blur: {
+                    show: true,
+                },
             }
         }
-        if (highlighted.includes(entity.name)) {
+        if (isHighlighted(entity)) {
+            obj.label = {
+                show: true,
+            }
             obj.itemStyle = {
                 color: 'red'
             }
@@ -168,6 +177,7 @@ function createTaxonomyChart(name, entities, visual, color, highlighted) {
     const chartOptions = {
         series: {
             type: 'sunburst',
+            nodeClick: false,
             emphasis: {
                 focus: 'ancestor'
             },
@@ -199,14 +209,31 @@ function initVisuals() {
     })
 
     visualClassification.on('click', (source) => {
-        console.log(source);
         const highlightedEntities = classifiedEntities || classifiedEntitiesDefault
         if (source.seriesName === 'Area') {
-            createTaxonomyChart('Area Taxonomy', onto.areas, visualClassification, "#ffb703", highlightedEntities.areas);
+            createTaxonomyChart({
+                name: 'Area Taxonomy',
+                entities: onto.areas,
+                visual: visualClassification,
+                color: "#ffb703",
+                highlighted: highlightedEntities.areas
+            });
         } else if (source.seriesName === 'Ability') {
-            createTaxonomyChart('Ability Taxonomy', onto.abilities, visualClassification, "#8acae6", highlightedEntities.abilities);
+            createTaxonomyChart({
+                name: 'Ability Taxonomy',
+                entities: onto.abilities,
+                visual: visualClassification,
+                color: "#8acae6",
+                highlighted: highlightedEntities.abilities
+            });
         } else if (source.seriesName === 'Scope') {
-            createTaxonomyChart('Scope Taxonomy', onto.scopes, visualClassification, "#87d387", highlightedEntities.scopes);
+            createTaxonomyChart({
+                name: 'Scope Taxonomy',
+                entities: onto.scopes,
+                visual: visualClassification,
+                color: "#87d387",
+                highlighted: highlightedEntities.scopes
+            });
         } else if (source.name === 'Area Taxonomy' || source.name === 'Ability Taxonomy' || source.name === 'Scope Taxonomy') {
             updateClassificationChart({
                 visual: visualClassification,
