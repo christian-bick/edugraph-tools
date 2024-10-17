@@ -15,9 +15,7 @@ let viewUploadProgress;
 let viewUploadResult;
 let viewClassificationResult;
 
-let visualAreas;
-let visualAbilities;
-let visualScopes;
+let visualContainer;
 
 let filePreview;
 let filePreviewMore;
@@ -33,6 +31,8 @@ function init() {
     viewInit = document.getElementById('view-init')
     viewClassification = document.getElementById('view-classification')
     viewClassificationResult = document.getElementById('view-classification-result');
+
+    visualContainer = document.getElementById('visual-container');
 
     viewUploadStart = document.getElementById('view-upload-start');
     viewUploadProgress = document.getElementById('view-upload-progress');
@@ -180,7 +180,7 @@ function createTaxonomyChart(name, entities, element, color, highlighted = []) {
 
 function initVisuals() {
     if (!visualClassification) {
-        visualClassification = echarts.init(viewClassificationResult);
+        visualClassification = echarts.init(visualContainer);
     }
     updateClassificationChart({
         visual: visualClassification,
