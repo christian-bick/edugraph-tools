@@ -128,7 +128,10 @@ main {
           img {
             flex: 0 1 auto;
             width: auto;
-            height: 100%;
+            height: auto;
+
+            max-width: 90%;
+            max-height: 90%;
           }
         }
       }
