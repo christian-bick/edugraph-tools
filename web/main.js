@@ -19,7 +19,8 @@ let visualAreas;
 let visualAbilities;
 let visualScopes;
 
-let classifyMore;
+let filePreview;
+let filePreviewMore;
 
 let visualClassification;
 
@@ -37,9 +38,11 @@ function init() {
     viewUploadProgress = document.getElementById('view-upload-progress');
     viewUploadResult = document.getElementById('view-upload-result');
 
-    classifyMore = document.getElementById('classify-more');
-    classifyMore.onclick = () => {
+    filePreview = document.getElementById('file-preview');
+    filePreviewMore = document.getElementById('file-preview-more');
+    filePreviewMore.onclick = () => {
         switchView(viewUploadResult, viewUploadStart)
+        initVisuals()
     };
 
     initFileUpload()
@@ -176,7 +179,9 @@ function createTaxonomyChart(name, entities, element, color, highlighted = []) {
 }
 
 function initVisuals() {
-    visualClassification = echarts.init(viewClassificationResult);
+    if (!visualClassification) {
+        visualClassification = echarts.init(viewClassificationResult);
+    }
     updateClassificationChart({
         visual: visualClassification,
         entities: {
@@ -219,7 +224,8 @@ function initExampleUpload() {
 function previewFile(file) {
     const reader = new FileReader();
     reader.onload = function (e) {
-        viewUploadResult.innerHTML = `<img class="file-preview" src="${e.target.result}" alt="${file.name}"/>`;
+        filePreview.src = e.target.result;
+        filePreview.alt = file.name;
         switchView(viewUploadProgress, viewUploadResult)
     }
     reader.readAsDataURL(file);

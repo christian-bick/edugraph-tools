@@ -133,9 +133,20 @@ main {
         }
       }
 
-      .file-preview {
+      #file-preview {
         width: 100%;
         height: auto;
+      }
+
+      #file-preview-more {
+        margin-top: 1rem;
+        background-color: white;
+        border: 2px solid $color-1;
+        border-radius: 0.5rem ;
+        font-size: 1rem;
+        padding: 0.7rem;
+        color: $color-2;
+        cursor: pointer;
       }
     }
 
