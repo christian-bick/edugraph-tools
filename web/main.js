@@ -211,7 +211,8 @@ function initExampleUpload() {
         imageEl.onclick = (e) => {
             const url = e.target.currentSrc
             const name = url.split('/').pop()
-            const type = 'image/' + name.split('.').pop()
+            const ending = 'image/' + name.split('.').pop()
+            const type = ending === 'jpg' ? 'jpeg' : ending
             fetch(url)
                 .then(response => response.blob())
                 .then(blob => new File([blob], name, {type}))
