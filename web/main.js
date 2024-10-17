@@ -50,6 +50,7 @@ function init() {
     filePreviewMore = document.getElementById('file-preview-more');
     filePreviewMore.onclick = () => {
         switchView(viewUploadResult, viewUploadStart)
+        classifiedEntities = null
         initVisuals()
     };
 
@@ -134,7 +135,7 @@ function createTaxonomyChart({name, entities, visual, color, highlighted}) {
     const isHighlighted = (entity) => {
         return highlighted.map(h => h.natural_name).includes(entity.natural_name)
     }
-    const mapEntity = (entity, highlighted = []) => {
+    const mapEntity = (entity) => {
         const obj = {
             name: entity.natural_name,
         }
@@ -161,7 +162,7 @@ function createTaxonomyChart({name, entities, visual, color, highlighted}) {
         }
         return obj
     }
-    const mapEntities = (entities, highlighted = []) => {
+    const mapEntities = (entities) => {
         return entities.map(entity => {
             const obj = mapEntity(entity, highlighted);
             if (entity.children && entity.children.length) {
