@@ -58,13 +58,18 @@ main {
   flex-direction: row;
 
   #view-classification-input {
-    flex: 0 1 30%;
-
+    flex: 1 1 auto;
     display: flex;
 
+    justify-content: center;
+    align-items: center;
+
     .input-container {
-      flex: 1 0 100%;
+      flex: 0 1 auto;
       display: flex;
+
+      width: 100%;
+      max-width: 300px;
 
       justify-content: center;
       align-items: center;
@@ -76,34 +81,60 @@ main {
       }
 
       #upload-dropzone {
-        width: 50%;
+        flex: 0 1 auto;
+        display: flex;
+
+        width: 100%;
         aspect-ratio: 1 / 1;
 
-        display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
 
         border: 2px dashed $color-1;
-        color: $color-2;
 
-        p {
-          color: $color-2;
-          font-size: 1.5rem;
-        }
-
-        .highlight {
-          background-color: $color-1;
-        }
+        color: $color-1;
+        font-size: 1.5rem;
+        cursor: pointer;
       }
 
-      #view-result {
+      #upload-example {
+        flex: 0 1 auto;
         display: flex;
-        justify-content: center;
+
+        width: 100%;
+
+        justify-content: space-between;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        row-gap: 1rem;
+
+        .example-container {
+          flex: 0 1 auto;
+          display: flex;
+
+          width: 45%;
+          height: auto;
+          aspect-ratio: 1 / 1;
+
+          justify-content: center;
+          align-items: center;
+
+          background-color: $gray-lightest;
+
+          cursor: pointer;
+
+          img {
+            flex: 0 1 auto;
+            width: auto;
+            height: 100%;
+          }
+        }
       }
 
       .file-preview {
-        width: 80%;
+        width: 100%;
         height: auto;
       }
     }
@@ -129,7 +160,7 @@ main {
     display: inherit;
 
     .visual-container {
-      flex: 1 0 50%;
+      flex: 1 0 auto;
       display: flex;
 
       &.visual-container-top {

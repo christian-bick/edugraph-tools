@@ -19,6 +19,8 @@ let visualAreas;
 let visualAbilities;
 let visualScopes;
 
+let classifyMore;
+
 let visualClassification;
 
 function switchView(oldEl, newEl) {
@@ -31,8 +33,19 @@ function init() {
     viewClassification = document.getElementById('view-classification')
     viewClassificationResult = document.getElementById('view-classification-result');
 
+    viewUploadStart = document.getElementById('view-upload-start');
+    viewUploadProgress = document.getElementById('view-upload-progress');
+    viewUploadResult = document.getElementById('view-upload-result');
+
+    classifyMore = document.getElementById('classify-more');
+    classifyMore.onclick = () => {
+        switchView(viewUploadResult, viewUploadStart)
+    };
+
     initFileUpload()
+    initExampleUpload()
     initOntology()
+    initVisuals()
 }
 
 function initOntology() {
@@ -42,7 +55,6 @@ function initOntology() {
         .then(response => response.json())
         .then(data => {
             onto = data
-            initVisuals()
         })
         .catch(error => {
             console.error('Error:', error);
@@ -164,11 +176,6 @@ function createTaxonomyChart(name, entities, element, color, highlighted = []) {
 }
 
 function initVisuals() {
-    /**
-     visualAreas = document.getElementById('visual-areas')
-     visualAbilities = document.getElementById('visual-abilities')
-     visualScopes = document.getElementById('visual-scopes')
-     **/
     visualClassification = echarts.init(viewClassificationResult);
     updateClassificationChart({
         visual: visualClassification,
@@ -192,11 +199,54 @@ function updateVisuals(entities) {
      **/
 }
 
-function initFileUpload() {
-    viewUploadStart = document.getElementById('view-upload-start');
-    viewUploadProgress = document.getElementById('view-upload-progress');
-    viewUploadResult = document.getElementById('view-upload-result');
+function initExampleUpload() {
+    const uploadExample = document.getElementById('upload-example');
+    const imageElements = uploadExample.getElementsByTagName('img');
+    for (let imageEl of imageElements) {
+        imageEl.onclick = (e) => {
+            const url = e.target.currentSrc
+            const name = url.split('/').pop()
+            const type = 'image/' + name.split('.').pop()
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob => new File([blob], name, {type}))
+                .then(uploadFile)
+            ;
+        }
+    }
+}
 
+function previewFile(file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        viewUploadResult.innerHTML = `<img class="file-preview" src="${e.target.result}" alt="${file.name}"/>`;
+        switchView(viewUploadProgress, viewUploadResult)
+    }
+    reader.readAsDataURL(file);
+}
+
+function uploadFile(file) {
+    let formData = new FormData();
+    formData.append('file', file);
+
+    switchView(viewUploadStart, viewUploadProgress)
+
+    return fetch(UPLOAD_URL, {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            previewFile(file)
+            updateVisuals(data)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            switchView(viewUploadProgress, viewUploadStart)
+        });
+}
+
+function initFileUpload() {
     const uploadDropzone = document.getElementById('upload-dropzone');
     const uploadInput = document.getElementById('upload-input');
 
@@ -233,46 +283,15 @@ function initFileUpload() {
 
     function handleDrop(e) {
         let dt = e.dataTransfer;
-
         let files = dt.files;
-
-        handleFiles(files);
+        return handleFiles(files);
     }
 
     // Handle files from input element
     uploadInput.addEventListener('change', handleFiles, false);
 
     function handleFiles(files) {
-        uploadFile(files[0]);
-    }
-
-    function previewFile(file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            viewUploadResult.innerHTML = `<img class="file-preview" src="${e.target.result}" alt="${file.name}"/>`;
-            switchView(viewUploadProgress, viewUploadResult)
-        }
-        reader.readAsDataURL(file);
-    }
-
-    function uploadFile(file) {
-        let formData = new FormData();
-        formData.append('file', file);
-
-        switchView(viewUploadStart, viewUploadProgress)
-
-        fetch(UPLOAD_URL, {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                previewFile(file)
-                updateVisuals(data)
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+        return uploadFile(files[0]);
     }
 }
 
