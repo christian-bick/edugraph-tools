@@ -124,6 +124,18 @@ function updateClassificationChart({visual, entities: {areas, abilities, scopes}
             trigger: 'item',
             formatter: '{a}'
         },
+        legend: {
+            textStyle: {
+                fontSize: autoFontSize(),
+            },
+            data: [{
+                name: 'Area'
+            }, {
+                name: 'Ability'
+            }, {
+                name: 'Scope'
+            }]
+        },
         series: [
             buildLevel(1, 'Area', areas),
             buildLevel(2, 'Ability', abilities),
