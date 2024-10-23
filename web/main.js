@@ -107,7 +107,7 @@ function updateClassificationChart({visual, entities: {areas, abilities, scopes}
                 overflow: 'break',
                 width: 120,
                 position: level === 1 ? 'center' : 'inner',
-                fontSize: 16,
+                fontSize: autoFontSize(),
                 color: fontColors[level]
             },
             labelLine: {
@@ -193,7 +193,7 @@ function createTaxonomyChart({name, entities, visual, color, highlighted}) {
             radius: [0, '100%'],
             label: {
                 rotate: null,
-                fontSize: '14',
+                fontSize: autoFontSize(),
                 fontWeight: 'bold',
             },
             itemStyle: {
@@ -205,6 +205,11 @@ function createTaxonomyChart({name, entities, visual, color, highlighted}) {
     visual.setOption(chartOptions);
 }
 
+function autoFontSize() {
+    let width = viewClassificationResult.offsetWidth;
+    return Math.max(10, Math.round(width / 90));
+}
+
 function initVisuals() {
 
     if (!visualClassification) {
@@ -213,11 +218,18 @@ function initVisuals() {
 
     // Obsolete at the moment
     /**
-    updateClassificationChart({
-        visual: visualClassification,
-        entities: classifiedEntitiesDefault
-    })
-    **/
+     updateClassificationChart({
+     visual: visualClassification,
+     entities: classifiedEntitiesDefault
+     })
+     **/
+
+    window.addEventListener('resize', function () {
+        visualClassification.resize({
+            width: 'auto',
+            height: 'auto'
+        });
+    });
 
     visualClassification.on('click', (source) => {
         const highlightedEntities = classifiedEntities || classifiedEntitiesDefault

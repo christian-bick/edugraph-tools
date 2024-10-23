@@ -59,6 +59,10 @@ main {
   display: flex;
   flex-direction: row;
 
+  @media (max-width: $break-lg) {
+    flex-direction: column;
+  }
+
   #view-classification-input {
     flex: 1 1 auto;
     display: flex;
