@@ -211,10 +211,13 @@ function initVisuals() {
         visualClassification = echarts.init(visualContainer);
     }
 
+    // Obsolete at the moment
+    /**
     updateClassificationChart({
         visual: visualClassification,
         entities: classifiedEntitiesDefault
     })
+    **/
 
     visualClassification.on('click', (source) => {
         const highlightedEntities = classifiedEntities || classifiedEntitiesDefault
@@ -272,7 +275,7 @@ function initExampleUpload() {
             fetch(url)
                 .then(response => response.blob())
                 .then(blob => new File([blob], name, {type}))
-                .then(uploadFile)
+                .then(file => uploadFile(file))
             ;
         }
     }
@@ -289,8 +292,10 @@ function previewFile(file) {
 }
 
 function uploadFile(file) {
+    const name = file.name;
     let formData = new FormData();
     formData.append('file', file);
+    formData.append('name', name);
 
     switchView(viewUploadStart, viewUploadProgress)
 
