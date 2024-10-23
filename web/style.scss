@@ -1,6 +1,8 @@
 @import "styles/loading-animation.scss";
 @import "styles/color-palette";
 
+$break-lg: 1200px;
+
 body {
   margin: 0;
   padding: 0;
@@ -181,11 +183,19 @@ main {
     justify-content: center;
     align-items: center;
 
+    @media (max-width: $break-lg) {
+      margin-top: 2rem;
+    }
+
     #visual-container {
       flex: 1 0 auto;
       width: 100%;
 
       display: flex;
+
+      @media (max-width: $break-lg) {
+        aspect-ratio: 1 / 1;
+      }
 
       justify-content: center;
       align-items: center;

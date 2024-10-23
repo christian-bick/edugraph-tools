@@ -31,8 +31,16 @@ const classifiedEntitiesDefault = {
 let classifiedEntities = null;
 
 function switchView(oldEl, newEl) {
-    newEl.style.display = "flex";
-    oldEl.style.display = "none";
+    activateView(newEl);
+    deactivateView(oldEl);
+}
+
+function activateView(el) {
+    el.style.display = 'flex';
+}
+
+function deactivateView(el) {
+    el.style.display = 'none';
 }
 
 function init() {
@@ -49,15 +57,14 @@ function init() {
     filePreview = document.getElementById('file-preview');
     filePreviewMore = document.getElementById('file-preview-more');
     filePreviewMore.onclick = () => {
+        deactivateView(viewClassificationResult)
         switchView(viewUploadResult, viewUploadStart)
         classifiedEntities = null
-        initVisuals()
     };
 
     initFileUpload()
     initExampleUpload()
     initOntology()
-    initVisuals()
 }
 
 function initOntology() {
@@ -244,7 +251,9 @@ function initVisuals() {
     })
 }
 
-function updateVisuals() {
+function showClassification() {
+    activateView(viewClassificationResult)
+    initVisuals()
     updateClassificationChart({
         visual: visualClassification,
         entities: classifiedEntities || classifiedEntitiesDefault
@@ -293,7 +302,7 @@ function uploadFile(file) {
         .then(data => {
             classifiedEntities = data;
             previewFile(file)
-            updateVisuals()
+            showClassification()
         })
         .catch(error => {
             console.error('Error:', error);
