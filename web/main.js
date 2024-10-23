@@ -105,7 +105,7 @@ function updateClassificationChart({visual, entities: {areas, abilities, scopes}
             radius: [innerRadius, outerRadius],
             label: {
                 overflow: 'break',
-                width: 120,
+                width: autoWidthSize(),
                 position: level === 1 ? 'center' : 'inner',
                 fontSize: autoFontSize(),
                 color: fontColors[level]
@@ -120,10 +120,6 @@ function updateClassificationChart({visual, entities: {areas, abilities, scopes}
         }
     }
     const chartOptions = {
-        title: {
-            text: 'Classification of Learning Material',
-            left: 'center',
-        },
         tooltip: {
             trigger: 'item',
             formatter: '{a}'
@@ -142,45 +138,58 @@ function createTaxonomyChart({name, entities, visual, color, highlighted}) {
     const isHighlighted = (entity) => {
         return highlighted.map(h => h.natural_name).includes(entity.natural_name)
     }
+    const isHighlightedSubTree = (entity) => {
+        if (isHighlighted(entity)) {
+            return true
+        } else if (entity.children && entity.children.length) {
+            return entity.children.map(isHighlightedSubTree).reduce((acc, value) => {
+                return acc || value
+            }, false);
+        } else {
+            return false
+        }
+    }
     const mapEntity = (entity) => {
         const obj = {
             name: entity.natural_name,
+            label: {
+                overflow: 'break',
+                width: autoWidthSize() + 20,
+                show: false,
+            },
+            itemStyle: {
+                color: color
+            }
         }
         if (entity.children && entity.children.length) {
-            obj.label = {
-                show: false,
-            }
         } else {
             obj.value = 1
-            obj.label = {
-                show: false,
-                blur: {
-                    show: true,
-                },
-            }
         }
-        if (isHighlighted(entity)) {
-            obj.label = {
-                show: true,
-            }
-            obj.itemStyle = {
-                color: 'red'
-            }
+        if (isHighlightedSubTree(entity)) {
+            obj.label.show = true
+            obj.itemStyle.color = 'red'
         }
         return obj
     }
     const mapEntities = (entities) => {
         return entities.map(entity => {
-            const obj = mapEntity(entity, highlighted);
+            const obj = mapEntity(entity);
             if (entity.children && entity.children.length) {
-                obj.children = mapEntities(entity.children, highlighted)
+                obj.children = mapEntities(entity.children)
             }
             return obj
         })
     }
     const chartData = [{
         name: name,
-        children: mapEntities(entities, highlighted),
+        label: {
+            fontSize: autoFontSize() + 2,
+            fontWeight: 'bold',
+        },
+        itemStyle: {
+            color: 'white'
+        },
+        children: mapEntities(entities),
     }]
     const chartOptions = {
         series: {
@@ -193,11 +202,7 @@ function createTaxonomyChart({name, entities, visual, color, highlighted}) {
             radius: [0, '100%'],
             label: {
                 rotate: null,
-                fontSize: autoFontSize(),
-                fontWeight: 'bold',
-            },
-            itemStyle: {
-                color: color
+                fontSize: autoFontSize()
             },
         }
     };
@@ -207,7 +212,12 @@ function createTaxonomyChart({name, entities, visual, color, highlighted}) {
 
 function autoFontSize() {
     let width = viewClassificationResult.offsetWidth;
-    return Math.max(10, Math.round(width / 90));
+    return Math.min(Math.max(6, Math.round(width / 80)), 16);
+}
+
+function autoWidthSize() {
+    let width = viewClassificationResult.offsetWidth;
+    return Math.max(50, Math.round(width / 10));
 }
 
 function initVisuals() {
@@ -235,7 +245,7 @@ function initVisuals() {
         const highlightedEntities = classifiedEntities || classifiedEntitiesDefault
         if (source.seriesName === 'Area') {
             createTaxonomyChart({
-                name: 'Area Taxonomy',
+                name: 'Areas',
                 entities: onto.areas,
                 visual: visualClassification,
                 color: "#ffb703",
@@ -243,7 +253,7 @@ function initVisuals() {
             });
         } else if (source.seriesName === 'Ability') {
             createTaxonomyChart({
-                name: 'Ability Taxonomy',
+                name: 'Abilities',
                 entities: onto.abilities,
                 visual: visualClassification,
                 color: "#8acae6",
@@ -251,13 +261,13 @@ function initVisuals() {
             });
         } else if (source.seriesName === 'Scope') {
             createTaxonomyChart({
-                name: 'Scope Taxonomy',
+                name: 'Scopes',
                 entities: onto.scopes,
                 visual: visualClassification,
                 color: "#87d387",
                 highlighted: highlightedEntities.scopes
             });
-        } else if (source.name === 'Area Taxonomy' || source.name === 'Ability Taxonomy' || source.name === 'Scope Taxonomy') {
+        } else if (source.name === 'Areas' || source.name === 'Abilities' || source.name === 'Scopes') {
             updateClassificationChart({
                 visual: visualClassification,
                 entities: highlightedEntities
