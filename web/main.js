@@ -12,8 +12,8 @@ let viewInit;
 let viewClassification;
 let viewUploadStart;
 let viewUploadProgress;
-let viewUploadResult;
 let viewClassificationResult;
+let viewClassificationInput;
 
 let visualContainer;
 
@@ -52,13 +52,13 @@ function init() {
 
     viewUploadStart = document.getElementById('view-upload-start');
     viewUploadProgress = document.getElementById('view-upload-progress');
-    viewUploadResult = document.getElementById('view-upload-result');
+    viewClassificationInput = document.getElementById('view-classification-input');
 
     filePreview = document.getElementById('file-preview');
     filePreviewMore = document.getElementById('file-preview-more');
     filePreviewMore.onclick = () => {
-        deactivateView(viewClassificationResult)
-        switchView(viewUploadResult, viewUploadStart)
+        switchView(viewClassificationResult, viewClassificationInput)
+        switchView(viewUploadProgress, viewUploadStart)
         classifiedEntities = null
     };
 
@@ -114,7 +114,9 @@ function updateClassificationChart({visual, entities: {areas, abilities, scopes}
                 show: false
             },
             itemStyle: {
-                color: backgroundColors[level]
+                color: backgroundColors[level],
+                borderWidth: '1',
+                borderColor: fontColors[level]
             },
             data: mapEntities(entities),
         }
@@ -125,7 +127,7 @@ function updateClassificationChart({visual, entities: {areas, abilities, scopes}
             formatter: '{a}'
         },
         legend: {
-            bottom: '1%',
+            top: '2%',
             textStyle: {
                 fontSize: autoFontSize(),
             },
@@ -147,7 +149,7 @@ function updateClassificationChart({visual, entities: {areas, abilities, scopes}
     visual.setOption(chartOptions);
 }
 
-function createTaxonomyChart({name, entities, visual, color, highlighted}) {
+function createTaxonomyChart({name, entities, visual, color, color2, highlighted}) {
     const isHighlighted = (entity) => {
         return highlighted.map(h => h.natural_name).includes(entity.natural_name)
     }
@@ -217,6 +219,11 @@ function createTaxonomyChart({name, entities, visual, color, highlighted}) {
                 rotate: null,
                 fontSize: autoFontSize()
             },
+            itemStyle: {
+                borderColor: color2,
+                borderWidth: 1,
+                borderType: 'solid'
+            }
         }
     };
     visual.clear();
@@ -262,6 +269,7 @@ function initVisuals() {
                 entities: onto.areas,
                 visual: visualClassification,
                 color: "#ffb703",
+                color2: "#60181A",
                 highlighted: highlightedEntities.areas
             });
         } else if (source.seriesName === 'Ability') {
@@ -270,6 +278,7 @@ function initVisuals() {
                 entities: onto.abilities,
                 visual: visualClassification,
                 color: "#8acae6",
+                color2: "#023047",
                 highlighted: highlightedEntities.abilities
             });
         } else if (source.seriesName === 'Scope') {
@@ -278,6 +287,7 @@ function initVisuals() {
                 entities: onto.scopes,
                 visual: visualClassification,
                 color: "#87d387",
+                color2: "#28603b",
                 highlighted: highlightedEntities.scopes
             });
         } else if (source.name === 'Areas' || source.name === 'Abilities' || source.name === 'Scopes') {
@@ -290,7 +300,7 @@ function initVisuals() {
 }
 
 function showClassification() {
-    activateView(viewClassificationResult)
+    switchView(viewClassificationInput, viewClassificationResult)
     initVisuals()
     updateClassificationChart({
         visual: visualClassification,
@@ -320,9 +330,7 @@ function initExampleUpload() {
 function previewFile(file) {
     const reader = new FileReader();
     reader.onload = function (e) {
-        filePreview.src = e.target.result;
-        filePreview.alt = file.name;
-        switchView(viewUploadProgress, viewUploadResult)
+        viewClassificationResult.style['background-image'] = `url(${e.target.result})`;
     }
     reader.readAsDataURL(file);
 }
