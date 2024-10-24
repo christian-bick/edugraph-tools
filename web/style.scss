@@ -101,13 +101,6 @@ main {
   justify-content: center;
   align-items: center;
 
-  column-gap: 2rem;
-  row-gap: 2rem;
-
-  @media (max-width: $break-lg) {
-    flex-direction: column;
-  }
-
   #view-classification-input {
     flex: 1 0 auto;
     display: flex;
@@ -202,15 +195,6 @@ main {
             max-width: 90%;
             max-height: 90%;
           }
-        }
-      }
-
-      #file-preview {
-        width: 100%;
-        height: auto;
-
-        @media (max-width: $break-lg) {
-          width: 70%;
         }
       }
     }

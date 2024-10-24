@@ -200,9 +200,10 @@ function createTaxonomyChart({name, entities, visual, color, color2, highlighted
         label: {
             fontSize: autoFontSize() + 2,
             fontWeight: 'bold',
+            color: 'white',
         },
         itemStyle: {
-            color: 'white'
+            color: color2
         },
         children: mapEntities(entities),
     }]
@@ -214,7 +215,7 @@ function createTaxonomyChart({name, entities, visual, color, color2, highlighted
                 focus: 'ancestor'
             },
             data: chartData,
-            radius: [0, '100%'],
+            radius: [0, '98%'],
             label: {
                 rotate: null,
                 fontSize: autoFontSize()
@@ -245,14 +246,6 @@ function initVisuals() {
     if (!visualClassification) {
         visualClassification = echarts.init(visualContainer);
     }
-
-    // Obsolete at the moment
-    /**
-     updateClassificationChart({
-     visual: visualClassification,
-     entities: classifiedEntitiesDefault
-     })
-     **/
 
     window.addEventListener('resize', function () {
         visualClassification.resize({
