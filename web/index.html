@@ -1,56 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>EduGraph</title>
     <script type="module" src="main.js" defer></script>
-  </head>
-  <body>
-    <main>
-      <div id="view-init" class="center-full" style="display: none">
+</head>
+<body>
+<nav>
+    Elementary Math Demo
+</nav>
+<main>
+    <div id="view-init" class="center-full" style="display: none">
         <h1>Welcome to EduGraph</h1>
-      </div>
-      <div id="view-classification" class="center-horizontal" >
+    </div>
+    <div id="view-classification" class="center-horizontal">
         <div id="view-classification-input">
-          <div id="view-upload-start" class="input-container">
-            <p class="title">Start Classification</p>
-            <input type="file" id="upload-input" multiple accept="image/*">
-            <label for="upload-input" id="upload-dropzone">
-              Upload a file
-            </label>
-            <p>or use an example</p>
-            <div id="upload-example">
-              <div class="example-container">
-                <img src="/examples/long-multiplication-01.png" alt="Long Multiplication">
-              </div>
-              <div class="example-container">
-                <img src="/examples/long-addition-01.png" alt="Long Multiplication">
-              </div>
-              <div class="example-container">
-                <img src="/examples/fraction-division-02.jpg" alt="Long Multiplication">
-              </div>
-              <div class="example-container">
-                <img src="/examples/square-root-01.jpg" alt="Long Multiplication">
-              </div>
+            <div id="view-upload-start" class="input-container">
+                <p class="title">Start Classification</p>
+                <input type="file" id="upload-input" multiple accept="image/*">
+                <label for="upload-input" id="upload-dropzone">
+                    Upload a file
+                </label>
+                <p>or use an example</p>
+                <div id="upload-example">
+                    <div class="example-container">
+                        <img src="/examples/long-multiplication-01.png" alt="Long Multiplication">
+                    </div>
+                    <div class="example-container">
+                        <img src="/examples/long-addition-01.png" alt="Long Multiplication">
+                    </div>
+                    <div class="example-container">
+                        <img src="/examples/fraction-division-02.jpg" alt="Long Multiplication">
+                    </div>
+                    <div class="example-container">
+                        <img src="/examples/square-root-01.jpg" alt="Long Multiplication">
+                    </div>
+                </div>
             </div>
-          </div>
-          <div id="view-upload-progress" class="input-container" style="display: none">
-            <div class="loader">
-              <svg viewBox="0 0 48 48">
-                <circle cx="24" cy="24" r="20" />
-              </svg>
+            <div id="view-upload-progress" class="input-container" style="display: none">
+                <div class="loader">
+                    <svg viewBox="0 0 48 48">
+                        <circle cx="24" cy="24" r="20"/>
+                    </svg>
+                </div>
             </div>
-          </div>
-          <div id="view-upload-result" class="input-container" style="display: none">
-            <img id="file-preview" src=""  alt=""/>
-            <button id="file-preview-more">Classify More</button>
-          </div>
+            <div id="view-upload-result" class="input-container" style="display: none">
+                <p class="title">Classification</p>
+                <img id="file-preview" src="" alt=""/>
+                <button id="file-preview-more">Classify More</button>
+            </div>
         </div>
         <div id="view-classification-result" style="display: none">
-          <div id="visual-container"></div>
+            <div id="visual-container"></div>
         </div>
-      </div>
-    </main>
-  </body>
+    </div>
+</main>
+<footer>
+        metagraph.tech
+</footer>
+</body>
 </html>

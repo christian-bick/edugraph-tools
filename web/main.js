@@ -125,6 +125,7 @@ function updateClassificationChart({visual, entities: {areas, abilities, scopes}
             formatter: '{a}'
         },
         legend: {
+            bottom: '1%',
             textStyle: {
                 fontSize: autoFontSize(),
             },

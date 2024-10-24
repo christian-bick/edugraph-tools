@@ -1,7 +1,8 @@
 @import "styles/loading-animation.scss";
 @import "styles/color-palette";
 
-$break-lg: 1200px;
+$break-lg: 1600px;
+$break-sm: 800px;
 
 body {
   margin: 0;
@@ -12,12 +13,21 @@ body {
   font-size: 1rem;
   font-family: "Candara", sans-serif;
   color: $gray-darkest;
+
+  display: grid;
+  grid-template-columns: 2rem auto minmax(300px, 100%) auto 2rem;
+  grid-template-rows: 2rem auto auto auto 2rem;
 }
 
 h1 {
   font-family: "Candara Light", sans-serif;
   font-size: 4rem;
   color: $color-2-dark;
+}
+
+p {
+  padding: 0;
+  margin: 0;
 }
 
 input {
@@ -27,25 +37,48 @@ input {
   padding: 0.5em;
 }
 
+nav {
+  grid-column: 1 / 6;
+  grid-row: 1 / 2;
+  background-color: gray;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+
+  @media (max-width: $break-sm) {
+    font-size: 1rem;
+  }
+}
+
+footer {
+  grid-column: 1 / 6;
+  grid-row: 5 / 6;
+  background-color: $gray-lightest;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: gray;
+  font-size: 1.1rem;
+
+  @media (max-width: $break-sm) {
+    font-size: 1rem;
+  }
+}
+
 main {
   margin: 0;
   padding: 0;
-  width: 100vw;
-  height: 100vh;
-  justify-content: stretch;
+  display: flex;
+  justify-content: center;
 
-  display: grid;
-  grid-template-columns: 2rem auto minmax(300px, 100%) auto 2rem;
-  grid-template-rows: 2rem auto auto auto 2rem;
-}
-
-.center-full {
-  grid-column: 3 / 3;
-  grid-row: 3 / 3;
-}
-
-.center-horizontal {
-  grid-column: 3 / 3;
+  grid-column: 2 / 5;
   grid-row: 2 / 5;
 }
 
@@ -57,32 +90,45 @@ main {
 
 #view-classification {
   display: flex;
-  flex-direction: row;
+  flex: 1 1;
+  width: 100%;
+  height: 100%;
+
+  justify-content: center;
+  align-items: center;
+
+  column-gap: 2rem;
+  row-gap: 2rem;
 
   @media (max-width: $break-lg) {
     flex-direction: column;
   }
 
   #view-classification-input {
-    flex: 1 1 auto;
+    flex: 1 0 auto;
     display: flex;
+
+    max-width: 20rem;
+    min-width: 18rem;
 
     justify-content: center;
     align-items: center;
+
+    padding: 1rem 0;
 
     .input-container {
       flex: 0 1 auto;
       display: flex;
 
-      width: 300px;
+      row-gap: 1.3rem;
 
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       flex-direction: column;
 
       p {
-          color: $color-2;
-          font-size: 1.2rem;
+        color: $color-2;
+        font-size: 1.2rem;
 
         &.title {
           font-weight: bold;
@@ -95,6 +141,11 @@ main {
         display: flex;
 
         width: 100%;
+
+        @media (max-width: $break-sm) {
+          width: 75%;
+        }
+
         aspect-ratio: 1 / 1;
 
         justify-content: center;
@@ -124,12 +175,14 @@ main {
           flex: 0 1 auto;
           display: flex;
 
-          width: 45%;
+          width: 46%;
           height: auto;
           aspect-ratio: 1 / 1;
 
           justify-content: center;
           align-items: center;
+
+          border: 1px lightgray solid;
 
           background-color: $gray-lightest;
 
@@ -149,16 +202,19 @@ main {
       #file-preview {
         width: 100%;
         height: auto;
+
+        @media (max-width: $break-lg) {
+          width: 70%;
+        }
       }
 
       #file-preview-more {
-        margin-top: 1rem;
-        background-color: white;
-        border: 2px solid $color-1;
-        border-radius: 0.5rem ;
+        background-color: $color-2-dark;
+        border: 3px solid $color-2-light;
+        border-radius: 0.5rem;
         font-size: 1rem;
-        padding: 0.7rem;
-        color: $color-2;
+        padding: 0.7rem   1rem;
+        color: white;
         cursor: pointer;
       }
     }
@@ -178,16 +234,18 @@ main {
   }
 
   #view-classification-result {
-    flex: 1 0 auto;
+    flex: 0 0;
     flex-direction: column;
     display: flex;
 
-    min-width: 70%;
+    width: auto;
+    height: 100%;
+    aspect-ratio: 1 / 1;
 
     @media (max-width: $break-lg) {
-      flex: 1 1 auto;
+      flex: 1 0;
       width: 100%;
-      margin-top: 2rem;
+      height: auto;
       aspect-ratio: 1 / 1;
     }
 
@@ -196,14 +254,9 @@ main {
 
     #visual-container {
       flex: 1 0 auto;
+
       width: 100%;
-
-      display: flex;
-
-      @media (max-width: $break-lg) {
-        flex: 1 1 auto;
-        aspect-ratio: 1 / 1;
-      }
+      height: 100%;
 
       justify-content: center;
       align-items: center;
