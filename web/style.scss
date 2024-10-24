@@ -225,7 +225,8 @@ main {
     @media (max-width: $break-lg) {
       flex: 1 0;
       width: 100%;
-      height: auto;
+      height: 100%;
+      aspect-ratio: unset;
     }
 
     background-position: center;

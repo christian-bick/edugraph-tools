@@ -14,6 +14,7 @@ let viewUploadStart;
 let viewUploadProgress;
 let viewClassificationResult;
 let viewClassificationInput;
+let viewUploadError;
 
 let visualContainer;
 
@@ -52,6 +53,7 @@ function init() {
 
     viewUploadStart = document.getElementById('view-upload-start');
     viewUploadProgress = document.getElementById('view-upload-progress');
+    viewUploadError = document.getElementById('view-upload-error');
     viewClassificationInput = document.getElementById('view-classification-input');
 
     filePreview = document.getElementById('file-preview');
@@ -292,6 +294,14 @@ function initVisuals() {
     })
 }
 
+function showUploadError() {
+    switchView(viewUploadProgress, viewUploadError);
+
+    setTimeout(() => {
+        switchView(viewUploadError, viewUploadStart);
+    }, 3000)
+}
+
 function showClassification() {
     switchView(viewClassificationInput, viewClassificationResult)
     initVisuals()
@@ -348,7 +358,7 @@ function uploadFile(file) {
         })
         .catch(error => {
             console.error('Error:', error);
-            switchView(viewUploadProgress, viewUploadStart)
+            showUploadError()
         });
 }
 
