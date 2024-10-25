@@ -23,6 +23,64 @@ let filePreviewMore;
 
 let visualClassification;
 
+let previousChartButton;
+let nextChartButton;
+
+const chartMap = {
+    classification: {
+        switch: () => {
+            updateClassificationChart({
+                visual: visualClassification,
+                entities: classifiedEntities || classifiedEntitiesDefault
+            })
+        },
+        previous: 'scopeTaxonomy',
+        next: 'areaTaxonomy',
+    },
+    areaTaxonomy: {
+        switch: () => {
+            updateTaxonomyChart({
+                name: 'Areas',
+                entities: onto.hasPart.areas,
+                visual: visualClassification,
+                color: "#ffb703",
+                color2: "#60181A",
+                highlighted: classifiedEntities.areas
+            });
+        },
+        previous: 'classification',
+        next: 'abilityTaxonomy',
+    },
+    abilityTaxonomy: {
+        switch: () => {
+            updateTaxonomyChart({
+                name: 'Abilities',
+                entities: onto.hasPart.abilities,
+                visual: visualClassification,
+                color: "#8acae6",
+                color2: "#023047",
+                highlighted: classifiedEntities.abilities
+            });
+        },
+        previous: 'areaTaxonomy',
+        next: 'scopeTaxonomy',
+    },
+    scopeTaxonomy: {
+        switch: () => {
+            updateTaxonomyChart({
+                name: 'Scopes',
+                entities: onto.hasPart.scopes,
+                visual: visualClassification,
+                color: "#87d387",
+                color2: "#28603b",
+                highlighted: classifiedEntities.scopes
+            });
+        },
+        previous: 'abilityTaxonomy',
+        next: 'classification',
+    }
+}
+
 const classifiedEntitiesDefault = {
     areas: [{natural_name: "Area"}],
     abilities: [{natural_name: "Abilities"}],
@@ -30,6 +88,17 @@ const classifiedEntitiesDefault = {
 }
 
 let classifiedEntities = null;
+
+function switchChart(name) {
+    const chartNavigation = chartMap[name]
+    chartNavigation.switch();
+    previousChartButton.onclick = () => {
+        switchChart(chartNavigation.previous)
+    };
+    nextChartButton.onclick = () => {
+        switchChart(chartNavigation.next)
+    };
+}
 
 function switchView(oldEl, newEl) {
     activateView(newEl);
@@ -63,6 +132,9 @@ function init() {
         switchView(viewUploadProgress, viewUploadStart)
         classifiedEntities = null
     };
+
+    previousChartButton = document.getElementById('previous-chart-button');
+    nextChartButton = document.getElementById('next-chart-button');
 
     initFileUpload()
     initExampleUpload()
@@ -151,7 +223,7 @@ function updateClassificationChart({visual, entities: {areas, abilities, scopes}
     visual.setOption(chartOptions);
 }
 
-function createTaxonomyChart({name, entities, visual, color, color2, highlighted}) {
+function updateTaxonomyChart({name, entities, visual, color, color2, highlighted}) {
     const isHighlighted = (entity) => {
         return highlighted.map(h => h.natural_name).includes(entity.natural_name)
     }
@@ -256,40 +328,17 @@ function initVisuals() {
         });
     });
 
+    switchChart('classification')
+
     visualClassification.on('click', (source) => {
-        const highlightedEntities = classifiedEntities || classifiedEntitiesDefault
         if (source.seriesName === 'Area') {
-            createTaxonomyChart({
-                name: 'Areas',
-                entities: onto.areas,
-                visual: visualClassification,
-                color: "#ffb703",
-                color2: "#60181A",
-                highlighted: highlightedEntities.areas
-            });
+            switchChart('areaTaxonomy')
         } else if (source.seriesName === 'Ability') {
-            createTaxonomyChart({
-                name: 'Abilities',
-                entities: onto.abilities,
-                visual: visualClassification,
-                color: "#8acae6",
-                color2: "#023047",
-                highlighted: highlightedEntities.abilities
-            });
+            switchChart('abilityTaxonomy')
         } else if (source.seriesName === 'Scope') {
-            createTaxonomyChart({
-                name: 'Scopes',
-                entities: onto.scopes,
-                visual: visualClassification,
-                color: "#87d387",
-                color2: "#28603b",
-                highlighted: highlightedEntities.scopes
-            });
+            switchChart('scopeTaxonomy')
         } else if (source.name === 'Areas' || source.name === 'Abilities' || source.name === 'Scopes') {
-            updateClassificationChart({
-                visual: visualClassification,
-                entities: highlightedEntities
-            });
+            switchChart('classification')
         }
     })
 }
@@ -305,10 +354,6 @@ function showUploadError() {
 function showClassification() {
     switchView(viewClassificationInput, viewClassificationResult)
     initVisuals()
-    updateClassificationChart({
-        visual: visualClassification,
-        entities: classifiedEntities || classifiedEntitiesDefault
-    })
 }
 
 function initExampleUpload() {
