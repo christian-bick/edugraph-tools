@@ -1812,7 +1812,6 @@ The ability to organize and categorize concepts by identifying similarities, dif
     <owl:NamedIndividual rdf:about="http://edugraph.io/edu#IntegerNotation">
         <rdf:type rdf:resource="http://edugraph.io/edu#Area"/>
         <expandsArea rdf:resource="http://edugraph.io/edu#DigitNotation"/>
-        <expandsArea rdf:resource="http://edugraph.io/edu#NumerationWithIntegers"/>
         <partOfArea rdf:resource="http://edugraph.io/edu#Arithmetic"/>
         <partOfArea rdf:resource="http://edugraph.io/edu#NumberNotation"/>
     </owl:NamedIndividual>

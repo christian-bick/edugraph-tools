@@ -191,12 +191,27 @@ function updateTreeChart({ visual, entities }) {
             {
                 type: 'tree',
                 data: mapEntities(entities),
-                layout: 'radial',
-                symbol: 'emptyCircle',
-                symbolSize: 7,
+                symbol: 'circle',
+                symbolSize: 15,
+                initialTreeDepth: 5,
+                expandAndCollapse: false,
                 emphasis: {
                     focus: 'descendant'
-                }
+                },
+                orient: 'TB',
+                label: {
+                    fontSize: autoFontSize() + 2,
+                    position: 'top',
+                    verticalAlign: 'middle',
+                    align: 'middle',
+                    offset: [0, -5]
+                },
+                leaves: {
+                    label: {
+                        position: 'bottom',
+                        offset: [0, 5]
+                    }
+                },
             }
         ]
     }
@@ -448,7 +463,7 @@ function uploadFile(file) {
         .then(response => response.json())
         .then(data => {
             classifiedEntities = data["classification"];
-            areaExtension = data["extends"]["areas"]
+            areaExtension = data["expansion"]["areas"]
             previewFile(file)
             showClassification()
         })

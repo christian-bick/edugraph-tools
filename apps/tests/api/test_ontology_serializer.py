@@ -10,6 +10,14 @@ class TestTreeSerialization:
         assert isinstance(result, list)
 
     def test_serialize_entity_tree_without_children(self):
-        result = serialize_entity_tree([ onto.Arithmetic ], "extendsArea")
+        result = serialize_entity_tree([ onto.Arithmetic ], "expandsArea")
         assert isinstance(result, list)
 
+    def test_serialize_entity_tree_2(self):
+        result = serialize_entity_tree([ onto.IntegerMultiplication ], "expandsArea")
+        assert isinstance(result, list)
+
+    def test_serialize_entity_tree_3(self):
+        result = serialize_entity_tree([ onto.IntegerArithmetic ], "expandsArea")
+        print(result)
+        assert isinstance(result, list)

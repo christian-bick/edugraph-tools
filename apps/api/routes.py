@@ -64,7 +64,7 @@ def classify():
 
         classifier = SplitPromptClassifier(onto, SplitPromptStrategyGemini)
         classification = classifier.classify_content(file)
-        classified_area = onto[classification["areas"][0]]
+        classified_area = getattr(onto, classification["areas"][0])
 
         result = jsonify({
             "classification": {
@@ -72,8 +72,8 @@ def classify():
                 "abilities": serialize_entities_with_names(classification["abilities"]),
                 "scopes": serialize_entities_with_names(classification["scopes"]),
             },
-            "extends": {
-                "areas": serialize_entity_tree([ classified_area ], "extends"),
+            "expansion": {
+                "areas": serialize_entity_tree([ classified_area ], "expandsArea"),
             }
         })
 
