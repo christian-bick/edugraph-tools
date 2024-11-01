@@ -12,7 +12,8 @@ from semantic.gemini_file_storage import upload_file
 from semantic.ontology_loader import load_from_path
 from semantic.ontology_util import OntologyUtil
 from .classification_cache import ClassificationCache
-from .ontology_serializer import serialize_entity_tree, serialize_entities_with_names
+from .ontology_serializer import serialize_entity_tree, serialize_entities_with_names, \
+    serialize_entity_tree_with_parent_relations
 
 app = Flask(__name__, static_folder=None)
 
@@ -73,7 +74,7 @@ def classify():
                 "scopes": serialize_entities_with_names(classification["scopes"]),
             },
             "expansion": {
-                "areas": serialize_entity_tree([ classified_area ], "expandsArea"),
+                "areas": serialize_entity_tree_with_parent_relations([ onto.IntegerMultiplication ], "expandsArea", "partOfArea"),
             }
         })
 

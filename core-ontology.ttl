@@ -1337,8 +1337,7 @@ edu:IntegerMultiplication rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#IntegerNotation
 edu:IntegerNotation rdf:type owl:NamedIndividual ,
                              edu:Area ;
-                    edu:expandsArea edu:DigitNotation ,
-                                    edu:NumerationWithIntegers ;
+                    edu:expandsArea edu:DigitNotation ;
                     edu:partOfArea edu:Arithmetic ,
                                    edu:NumberNotation .
 
