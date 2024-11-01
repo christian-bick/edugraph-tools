@@ -1,3 +1,5 @@
+from pyparsing import empty
+
 from semantic.ontology_util import *
 
 
@@ -16,15 +18,17 @@ def serialize_entity_with_name(entity_name):
 def serialize_entities_with_names(entity_name_list):
     return [ serialize_entity_with_name(name) for name in entity_name_list ]
 
-def serialize_entity_tree(entities):
+def serialize_entity_tree(entities, relationName):
     def serialize_with_children(entity):
         serialized_entity = serialize_entity(entity)
 
-        if not is_leaf_entity(entity):
-            child_entities = entity.INDIRECT_hasPart
-            serialized_children = serialize_entity_tree(child_entities)
+        children = []
+        if hasattr(entity, relationName):
+            children = getattr(entity, relationName)
+
+        if len(children) > 0:
             serialized_entity.update({
-                "children": serialized_children
+                "children": serialize_entity_tree(children, relationName)
             })
 
         return serialized_entity

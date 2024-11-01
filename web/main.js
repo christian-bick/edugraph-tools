@@ -17,11 +17,10 @@ let viewClassificationInput;
 let viewUploadError;
 
 let visualContainer;
+let visualClassification;
 
 let filePreview;
 let filePreviewMore;
-
-let visualClassification;
 
 let previousChartButton;
 let nextChartButton;
@@ -41,7 +40,7 @@ const chartMap = {
         switch: () => {
             updateTaxonomyChart({
                 name: 'Areas',
-                entities: onto.hasPart.areas,
+                entities: onto.taxonomy.areas,
                 visual: visualClassification,
                 color: "#ffb703",
                 color2: "#60181A",
@@ -55,7 +54,7 @@ const chartMap = {
         switch: () => {
             updateTaxonomyChart({
                 name: 'Abilities',
-                entities: onto.hasPart.abilities,
+                entities: onto.taxonomy.abilities,
                 visual: visualClassification,
                 color: "#8acae6",
                 color2: "#023047",
@@ -69,7 +68,7 @@ const chartMap = {
         switch: () => {
             updateTaxonomyChart({
                 name: 'Scopes',
-                entities: onto.hasPart.scopes,
+                entities: onto.taxonomy.scopes,
                 visual: visualClassification,
                 color: "#87d387",
                 color2: "#28603b",
@@ -77,6 +76,16 @@ const chartMap = {
             });
         },
         previous: 'abilityTaxonomy',
+        next: 'abilityExtension',
+    },
+    abilityExtension: {
+        switch: () => {
+            updateTreeChart({
+                visual: visualClassification,
+                entities: areaExtension,
+            })
+        },
+        previous: 'scopeTaxonomy',
         next: 'classification',
     }
 }
@@ -88,6 +97,7 @@ const classifiedEntitiesDefault = {
 }
 
 let classifiedEntities = null;
+let areaExtension = null;
 
 function switchChart(name) {
     const chartNavigation = chartMap[name]
@@ -152,6 +162,46 @@ function initOntology() {
         .catch(error => {
             console.error('Error:', error);
         });
+}
+
+function updateTreeChart({ visual, entities }) {
+    const mapEntity = (entity) => {
+        return {
+            name: entity.natural_name,
+            label: {
+                width: autoWidthSize() + 20,
+            },
+        }
+    }
+    const mapEntities = (entities) => {
+        return entities.map(entity => {
+            const obj = mapEntity(entity);
+            if (entity.children && entity.children.length) {
+                obj.children = mapEntities(entity.children)
+            }
+            return obj
+        })
+    }
+    const chartOptions = {
+        tooltip: {
+            trigger: 'item',
+            triggerOn: 'mousemove'
+        },
+        series: [
+            {
+                type: 'tree',
+                data: mapEntities(entities),
+                layout: 'radial',
+                symbol: 'emptyCircle',
+                symbolSize: 7,
+                emphasis: {
+                    focus: 'descendant'
+                }
+            }
+        ]
+    }
+    visual.clear();
+    visual.setOption(chartOptions);
 }
 
 function updateClassificationChart({visual, entities: {areas, abilities, scopes}}) {
@@ -397,7 +447,8 @@ function uploadFile(file) {
     })
         .then(response => response.json())
         .then(data => {
-            classifiedEntities = data;
+            classifiedEntities = data["classification"];
+            areaExtension = data["extends"]["areas"]
             previewFile(file)
             showClassification()
         })
