@@ -74,7 +74,7 @@ def classify():
                 "scopes": serialize_entities_with_names(classification["scopes"]),
             },
             "expansion": {
-                "areas": serialize_entity_tree_with_parent_relations([ onto.IntegerMultiplication ], "expandsArea", "partOfArea"),
+                "areas": serialize_entity_tree_with_parent_relations([ classified_area ], "expandsArea", "partOfArea"),
             }
         })
 

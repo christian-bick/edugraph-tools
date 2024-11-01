@@ -33,7 +33,7 @@ const chartMap = {
                 entities: classifiedEntities || classifiedEntitiesDefault
             })
         },
-        previous: 'scopeTaxonomy',
+        previous: 'abilityExtension',
         next: 'areaTaxonomy',
     },
     areaTaxonomy: {
