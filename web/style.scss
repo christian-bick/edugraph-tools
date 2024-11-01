@@ -15,7 +15,7 @@ body {
   color: $gray-darkest;
 
   display: grid;
-  grid-template-columns: 2rem auto minmax(300px, 100%) auto 2rem;
+  grid-template-columns: auto minmax(300px, 100%) auto;
   grid-template-rows: 3rem auto auto auto 3rem;
 }
 
@@ -38,7 +38,7 @@ input {
 }
 
 nav {
-  grid-column: 1 / 6;
+  grid-column: 1 / 4;
   grid-row: 1 / 2;
   background-color: $gray-lightest;
 
@@ -57,7 +57,7 @@ nav {
 }
 
 footer {
-  grid-column: 1 / 6;
+  grid-column: 1 / 4;
   grid-row: 5 / 6;
   background-color: $gray-lightest;
 
@@ -82,7 +82,7 @@ main {
   display: flex;
   justify-content: center;
 
-  grid-column: 2 / 5;
+  grid-column: 1 / 4;
   grid-row: 2 / 5;
 }
 
@@ -235,7 +235,7 @@ main {
 
     .classification-wrapper {
       backdrop-filter: grayscale(1) blur(3px);
-      background-color: rgba(255, 255, 255, 0.85);
+      background-color: rgba(255, 255, 255, 0.95);
 
       flex: 1 0 auto;
       width: 100%;
