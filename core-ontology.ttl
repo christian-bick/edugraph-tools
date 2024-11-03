@@ -276,7 +276,10 @@ Example: Using subject-specific terminology correctly in a class discussion or w
 ###  http://edugraph.io/edu#AdaptiveCreativity
 edu:AdaptiveCreativity rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
-                       edu:partOfAbility edu:CreativeCapability .
+                       edu:partOfAbility edu:CreativeCapability ;
+                       rdfs:isDefinedBy """The ability to adjust and modify ideas in response to new information or challenges. This involves being flexible and adaptable in one's thinking, and being willing to revise and refine ideas as needed.
+
+Example: A student modifying their design for a school project after receiving feedback from their teacher.""" .
 
 
 ###  http://edugraph.io/edu#AdditiveCount
@@ -744,7 +747,10 @@ edu:ConceptualThinking rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#ConvergentCreativity
 edu:ConvergentCreativity rdf:type owl:NamedIndividual ,
                                   edu:Ability ;
-                         edu:partOfAbility edu:CreativeCapability .
+                         edu:partOfAbility edu:CreativeCapability ;
+                         rdfs:isDefinedBy """Convergent Creativity: The ability to combine different ideas or perspectives to form a single, unified solution. This involves synthesizing information from various sources and finding common ground between different approaches.
+
+Example: Combing concepts from neuro-biology and computer science to create a new approach to signal processing.""" .
 
 
 ###  http://edugraph.io/edu#CountingSymbols
@@ -756,7 +762,8 @@ edu:CountingSymbols rdf:type owl:NamedIndividual ,
 
 ###  http://edugraph.io/edu#CreativeCapability
 edu:CreativeCapability rdf:type owl:NamedIndividual ,
-                                edu:Ability .
+                                edu:Ability ;
+                       rdfs:isDefinedBy "The ability to generate novel and valuable ideas. This involves thinking outside the box, exploring different perspectives, and coming up with original solutions to problems." .
 
 
 ###  http://edugraph.io/edu#DecimalAddition
@@ -944,13 +951,19 @@ Example: Understanding the definitions of new vocabulary words in a textbook."""
 ###  http://edugraph.io/edu#DivergentCreativity
 edu:DivergentCreativity rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
-                        edu:partOfAbility edu:CreativeCapability .
+                        edu:partOfAbility edu:CreativeCapability ;
+                        rdfs:isDefinedBy """The ability to generate a wide range of ideas or solutions. This involves brainstorming multiple possibilities and exploring different avenues before settling on a specific approach.
+
+Example: Exploring the color properties of different materials in water to create an immersive artwork about difusion and reflection.""" .
 
 
 ###  http://edugraph.io/edu#DiversityTolerance
 edu:DiversityTolerance rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
-                       edu:partOfAbility edu:SocialScaling .
+                       edu:partOfAbility edu:SocialScaling ;
+                       rdfs:isDefinedBy """The ability to accept and appreciate people from different backgrounds and cultures. This involves respecting and valuing diversity, and avoiding prejudice and discrimination.
+
+Example: A student embracing the diversity of their classmates and learning about different cultures.""" .
 
 
 ###  http://edugraph.io/edu#DynamicBalance
@@ -977,13 +990,17 @@ Example: Analyzing a character's dialogue and actions in a play to understand th
 
 ###  http://edugraph.io/edu#EmotionalCapability
 edu:EmotionalCapability rdf:type owl:NamedIndividual ,
-                                 edu:Ability .
+                                 edu:Ability ;
+                        rdfs:isDefinedBy "The ability to understand, manage, and express one's own emotions effectively, as well as to understand and respond appropriately to the emotions of others." .
 
 
 ###  http://edugraph.io/edu#EmotionalCreativity
 edu:EmotionalCreativity rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
-                        edu:partOfAbility edu:CreativeCapability .
+                        edu:partOfAbility edu:CreativeCapability ;
+                        rdfs:isDefinedBy """The ability to express emotions in creative and meaningful ways. This involves using art, music, writing, or other creative outlets to communicate feelings and connect with others on an emotional level.
+
+Example: Writing a poem or song to express one's feelings about a personal experience.""" .
 
 
 ###  http://edugraph.io/edu#Emotionalization
@@ -998,7 +1015,8 @@ Example: Delivering a speech with passion and conviction to inspire the audience
 ###  http://edugraph.io/edu#Empathy
 edu:Empathy rdf:type owl:NamedIndividual ,
                      edu:Ability ;
-            edu:partOfAbility edu:EmotionalCapability .
+            edu:partOfAbility edu:EmotionalCapability ;
+            rdfs:isDefinedBy "The ability to understand and share the feelings of others. This involves putting oneself in another person's shoes and imagining how they might be feeling in a given situation." .
 
 
 ###  http://edugraph.io/edu#Endurance
@@ -1492,7 +1510,8 @@ edu:IntervalsWithInfitity rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Introspection
 edu:Introspection rdf:type owl:NamedIndividual ,
                            edu:Ability ;
-                  edu:partOfAbility edu:EmotionalCapability .
+                  edu:partOfAbility edu:EmotionalCapability ;
+                  rdfs:isDefinedBy "The ability to reflect on one's own thoughts, feelings, and behaviors. This involves examining one's inner experiences to gain self-awareness and understanding." .
 
 
 ###  http://edugraph.io/edu#IntuitiveMathematics
@@ -1512,7 +1531,10 @@ edu:LaserRuler rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#LateralCreativty
 edu:LateralCreativty rdf:type owl:NamedIndividual ,
                               edu:Ability ;
-                     edu:partOfAbility edu:CreativeCapability .
+                     edu:partOfAbility edu:CreativeCapability ;
+                     rdfs:isDefinedBy """Lateral Creativity: The ability to think outside the box and come up with unconventional ideas. This involves challenging assumptions, breaking free from traditional patterns of thought, and exploring new and unexpected possibilities.
+
+Example: Exploring a simple low-tech solution in an otherwise high-tech environment.""" .
 
 
 ###  http://edugraph.io/edu#LengthMeasurement
@@ -1973,19 +1995,28 @@ edu:Patternbloks rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#PeerAwareness
 edu:PeerAwareness rdf:type owl:NamedIndividual ,
                            edu:Ability ;
-                  edu:partOfAbility edu:Empathy .
+                  edu:partOfAbility edu:Empathy ;
+                  rdfs:isDefinedBy """The ability to understand and recognize the emotions, needs, and perspectives of one's peers. This involves being attuned to the social dynamics within a peer group and being sensitive to the feelings of others.
+
+Example: A student noticing that a classmate is feeling excluded from a group activity and taking steps to include them.""" .
 
 
 ###  http://edugraph.io/edu#PeerRelatability
 edu:PeerRelatability rdf:type owl:NamedIndividual ,
                               edu:Ability ;
-                     edu:partOfAbility edu:Empathy .
+                     edu:partOfAbility edu:Empathy ;
+                     rdfs:isDefinedBy """The ability to connect with and relate to one's peers. This involves finding common ground, building relationships, and establishing rapport with others.
+
+Example: A student sharing their interests and experiences with a new classmate to build a connection.""" .
 
 
 ###  http://edugraph.io/edu#PeerSupport
 edu:PeerSupport rdf:type owl:NamedIndividual ,
                          edu:Ability ;
-                edu:partOfAbility edu:Empathy .
+                edu:partOfAbility edu:Empathy ;
+                rdfs:isDefinedBy """The ability to offer support and assistance to one's peers. This involves providing encouragement, guidance, and help to others when they are in need.
+
+Example: A student helping a classmate who is struggling with a school assignment by offering to study together or explaining the concepts.""" .
 
 
 ###  http://edugraph.io/edu#Performance
@@ -2035,7 +2066,10 @@ Example: Assessing the plausibility of a scientific theory based on available ev
 ###  http://edugraph.io/edu#PoliticalAwareness
 edu:PoliticalAwareness rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
-                       edu:partOfAbility edu:SocialScaling .
+                       edu:partOfAbility edu:SocialScaling ;
+                       rdfs:isDefinedBy """The ability to understand political systems and issues. This involves being informed about current events, government policies, and social issues.
+
+Example: Staying informed about current political debates and engaging in respectful discussions with people with different political views.""" .
 
 
 ###  http://edugraph.io/edu#PosturalEndurance
@@ -2455,31 +2489,46 @@ edu:Seeing rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#SelfAssessment
 edu:SelfAssessment rdf:type owl:NamedIndividual ,
                             edu:Ability ;
-                   edu:partOfAbility edu:Introspection .
+                   edu:partOfAbility edu:Introspection ;
+                   rdfs:isDefinedBy """The ability to evaluate one's own strengths and weaknesses. This involves objectively assessing one's skills, abilities, and knowledge in different areas.
+
+Example: Reflecting on our strengths and weaknesses in a particular subject to set realistic goals for improvement.""" .
 
 
 ###  http://edugraph.io/edu#SelfAwareness
 edu:SelfAwareness rdf:type owl:NamedIndividual ,
                            edu:Ability ;
-                  edu:partOfAbility edu:Introspection .
+                  edu:partOfAbility edu:Introspection ;
+                  rdfs:isDefinedBy """The ability to recognize and understand one's own emotions, thoughts, and behaviors. This involves being conscious of one's inner state and how it influences one's actions and interactions with others.
+
+Example: Recognizing when we are feeling stressed and taking steps to manage our stress levels.""" .
 
 
 ###  http://edugraph.io/edu#SelfConfidence
 edu:SelfConfidence rdf:type owl:NamedIndividual ,
                             edu:Ability ;
-                   edu:partOfAbility edu:Introspection .
+                   edu:partOfAbility edu:Introspection ;
+                   rdfs:isDefinedBy """Belief in one's own abilities and worth. This involves having a positive self-image and feeling capable of achieving one's goals.
+
+Example: Feeling confident in one's ability to give a presentation in front of the class.""" .
 
 
 ###  http://edugraph.io/edu#SelfMotivation
 edu:SelfMotivation rdf:type owl:NamedIndividual ,
                             edu:Ability ;
-                   edu:partOfAbility edu:Introspection .
+                   edu:partOfAbility edu:Introspection ;
+                   rdfs:isDefinedBy """The ability to set goals and work towards them independently. This involves having the drive and initiative to pursue one's objectives without relying on external pressure or incentives.
+
+Example: A student setting a goal to improve their grades and creating a study plan to achieve it.""" .
 
 
 ###  http://edugraph.io/edu#SelfRegulation
 edu:SelfRegulation rdf:type owl:NamedIndividual ,
                             edu:Ability ;
-                   edu:partOfAbility edu:Introspection .
+                   edu:partOfAbility edu:Introspection ;
+                   rdfs:isDefinedBy """The ability to manage one's emotions, thoughts, and behaviors effectively. This involves controlling impulses, managing stress, and adapting to changing situations.
+
+Example: A student staying calm and focused during a test despite feeling pressure.""" .
 
 
 ###  http://edugraph.io/edu#SensoricCapability
@@ -2490,7 +2539,10 @@ edu:SensoricCapability rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#ServiceOrientation
 edu:ServiceOrientation rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
-                       edu:partOfAbility edu:SocialScaling .
+                       edu:partOfAbility edu:SocialScaling ;
+                       rdfs:isDefinedBy """A willingness to help others and contribute to the community. This involves volunteering one's time and effort to support those in need and make a positive impact on society.
+
+Example: A student participating in a community service project to help those less fortunate.""" .
 
 
 ###  http://edugraph.io/edu#SetTheory
@@ -2558,7 +2610,8 @@ edu:Smelling rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#SocialScaling
 edu:SocialScaling rdf:type owl:NamedIndividual ,
                            edu:Ability ;
-                  edu:partOfAbility edu:EmotionalCapability .
+                  edu:partOfAbility edu:EmotionalCapability ;
+                  rdfs:isDefinedBy "The ability to adapting to different social contexts and interacting appropriately with others." .
 
 
 ###  http://edugraph.io/edu#SpatialGeneration

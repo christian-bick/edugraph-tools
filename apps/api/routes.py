@@ -6,8 +6,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from google.generativeai import get_file
 
-from semantic.classifiers import SplitPromptClassifier
-from semantic.classifiers import SplitPromptStrategyGemini
+from semantic.classifiers.split_prompt_classifier_v2 import SplitPromptClassifierV2
 from semantic.gemini_context_cache import GeminiContextCache
 from semantic.gemini_file_storage import upload_file
 from semantic.ontology_loader import load_from_path
@@ -66,17 +65,16 @@ def classify():
             file = upload_file(name, mime_type, BytesIO(request_file.stream.read()))
             app.logger.info('file %s added to gemini', name)
 
-
-
-        classifier = SplitPromptClassifier(onto, SplitPromptStrategyGemini)
+        classifier = SplitPromptClassifierV2(onto, cache)
         classification = classifier.classify_content(file)
-        classified_area = getattr(onto, classification["areas"][0])
+        print(classification)
+        classified_area = getattr(onto, classification["Area"][0])
 
         result = jsonify({
             "classification": {
-                "areas": serialize_entities_with_names(classification["areas"]),
-                "abilities": serialize_entities_with_names(classification["abilities"]),
-                "scopes": serialize_entities_with_names(classification["scopes"]),
+                "areas": serialize_entities_with_names(classification["Area"]),
+                "abilities": serialize_entities_with_names(classification["Ability"]),
+                "scopes": serialize_entities_with_names(classification["Scope"]),
             },
             "expansion": {
                 "areas": serialize_entity_tree_with_parent_relations([ classified_area ], "expandsArea", "partOfArea"),

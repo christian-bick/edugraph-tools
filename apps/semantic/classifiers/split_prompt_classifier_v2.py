@@ -1,39 +1,40 @@
+import typing
 import google.generativeai as gemini
-from semantic.ontology_util import entity_name_of_natural_name
+import json
+
+from semantic.classifiers.split_prompt_strategy_gemini_v2 import SplitPromptStrategyGeminiV2
+
+class PromptResponse(typing.TypedDict):
+    Area: list[str]
+    Ability: list[str]
+    Scope: list[str]
+
+
+prompt = """
+Classify the following file and return the matching descriptors divided by "Area", "Ability" and "Scope". Return a
+single best matching area, the best matching abilities (no more than 5) 
+and the best matching matching scopes (no more than 10).
+"""
 
 class SplitPromptClassifierV2:
 
-    def __init__(self, onto, ClassifierStrategy):
+    def __init__(self, onto, cache):
         self.onto = onto
-        self.ClassifierStrategy = ClassifierStrategy
-        self.cache = None
+        self.ClassifierStrategy = SplitPromptStrategyGeminiV2
+        self.cache = cache
 
-    def classify_area(self, classifier):
-        matched_areas = classifier.find_best_match(
-            priming_instruction="Describe the precise area of learning covered by the provided learning material in one sentence.",
-            matching_instruction="find the term that best matches the description provided in step 1"
-        )
-        return [ entity_name_of_natural_name(natural_name) for natural_name in matched_areas ]
+    def classify_content(self, file):
+        model = gemini.GenerativeModel.from_cached_content(cached_content=self.cache)
+        classifier = self.ClassifierStrategy(model, file)
 
-    def classify_ability(self, classifier):
-        matched_abilities = classifier.find_matches(
-            priming_instruction="Describe the student abilities challenged by the provided learning material in one sentence.",
-            matching_instruction="find the terms that best match the description provided in step 1"
-        )
-        return [ entity_name_of_natural_name(natural_name) for natural_name in matched_abilities ]
-
-    def classify_scope(self, classifier):
-        matched_scopes = classifier.find_matches(
-            priming_instruction="Describe the representative aspects of the learning material in up tp 500 words.",
-            matching_instruction="find the terms that best match the description of the learning material"
-        )
-        return [ entity_name_of_natural_name(natural_name) for natural_name in matched_scopes ]
-
-    def classify_content(self, cache, file):
-        classifier = self.ClassifierStrategy(file)
-        classification = {
-            "areas": self.classify_area(classifier),
-            "abilities": self.classify_ability(classifier),
-            "scopes": self.classify_scope(classifier)
-        }
-        return classification
+        result = model.generate_content(
+            [file, prompt], generation_config=gemini.types.GenerationConfig(
+                candidate_count=1,
+                max_output_tokens=250,
+                response_mime_type="application/json",
+                temperature=0,
+                response_schema=PromptResponse
+            ))
+        result_obj = json.loads(result.text)
+        print(result_obj)
+        return result_obj

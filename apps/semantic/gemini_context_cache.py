@@ -6,7 +6,19 @@ import google.generativeai as gemini
 from google.generativeai import caching
 
 onto_path = "./core-ontology.ttl"
-name = "core-ontology-1"
+name = "core-ontology-2"
+
+system_instruction = """
+You are a classifier of learning material, describing learning material along three dimensions:
+Area, ability and scope. You are provided with an ontology that is noted in the Web Ontology Language
+using the "plain/turtle" mimetype.
+
+The ontology describes 3 dimensions for classification: "Area", "Ability" and "Scope"
+which are each organized as hierarchical taxonomies via the inferred "partOf" object property.
+
+Further, the definition for each individual is provided through the "isDefinedBy" annotation. Use both during
+you classification efforts to identify the correct terms for classification.
+"""
 
 class GeminiContextCache:
     def __init__(self):
@@ -30,10 +42,7 @@ class GeminiContextCache:
         self.cache = caching.CachedContent.create(
             model='models/gemini-1.5-flash-001',
             display_name=name,  # used to identify the cache
-            system_instruction=(
-                'You are an expert video analyzer, and your job is to answer '
-                'the user\'s query based on the video file you have access to.'
-            ),
+            system_instruction=system_instruction,
             contents=[file],
             ttl=datetime.timedelta(minutes=60),
         )

@@ -1,11 +1,13 @@
-from .context_builder import build_taxonomy
 from semantic.ontology_util import entity_name_of_natural_name
+from .context_builder import build_taxonomy
+from .split_prompt_strategy_gemini import SplitPromptStrategyGemini
+
 
 class SplitPromptClassifier:
 
-    def __init__(self, onto, ClassifierStrategy):
+    def __init__(self, onto):
         self.onto = onto
-        self.ClassifierStrategy = ClassifierStrategy
+        self.ClassifierStrategy = SplitPromptStrategyGemini
 
     def classify_area(self, classifier):
         entities = [ self.onto.Mathematics ]
