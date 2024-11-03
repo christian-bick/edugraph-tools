@@ -267,7 +267,10 @@ edu:AbstractionScope rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#ActiveVocabulary
 edu:ActiveVocabulary rdf:type owl:NamedIndividual ,
                               edu:Ability ;
-                     edu:partOfAbility edu:LingusticArticulation .
+                     edu:partOfAbility edu:LingusticArticulation ;
+                     rdfs:isDefinedBy """Using a wide range of words in speaking and writing. This involves actively employing diverse vocabulary to express ideas precisely and effectively.
+
+Example: Using subject-specific terminology correctly in a class discussion or written assignment.""" .
 
 
 ###  http://edugraph.io/edu#AdaptiveCreativity
@@ -292,13 +295,8 @@ edu:AgileStrength rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Algebra
 edu:Algebra rdf:type owl:NamedIndividual ,
                      edu:Area ;
-            edu:partOfArea edu:Mathematics .
-
-
-###  http://edugraph.io/edu#AlgebraicNumberTheory
-edu:AlgebraicNumberTheory rdf:type owl:NamedIndividual ,
-                                   edu:Area ;
-                          edu:partOfArea edu:NumberTheory .
+            edu:partOfArea edu:Mathematics ;
+            rdfs:isDefinedBy "A generalization of arithmetic where letters represent unknown numbers, allowing us to explore patterns, solve equations, and model real-world situations." .
 
 
 ###  http://edugraph.io/edu#AnalogClock
@@ -338,7 +336,8 @@ edu:AnalogicalReasoning rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Analysis
 edu:Analysis rdf:type owl:NamedIndividual ,
                       edu:Area ;
-             edu:partOfArea edu:Mathematics .
+             edu:partOfArea edu:Mathematics ;
+             rdfs:isDefinedBy "A branch of mathematics that deals with continuous change and investigates concepts like limits, continuity, derivatives, integrals, and infinite series to study functions, their properties, and their behavior." .
 
 
 ###  http://edugraph.io/edu#AnalyticalCapability
@@ -373,12 +372,6 @@ edu:AnalyticalCapability rdf:type owl:NamedIndividual ,
 * A student interprets a foreign language film, analyzes the characters' motivations, and understands the cultural context of the story.""" .
 
 
-###  http://edugraph.io/edu#AnalyticalNumberTheory
-edu:AnalyticalNumberTheory rdf:type owl:NamedIndividual ,
-                                    edu:Area ;
-                           edu:partOfArea edu:NumberTheory .
-
-
 ###  http://edugraph.io/edu#AngleMeasurement
 edu:AngleMeasurement rdf:type owl:NamedIndividual ,
                               edu:Scope ;
@@ -396,19 +389,24 @@ edu:ArabicNumerals rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Arithmetic
 edu:Arithmetic rdf:type owl:NamedIndividual ,
                         edu:Area ;
-               edu:partOfArea edu:Mathematics .
+               edu:partOfArea edu:Mathematics ;
+               rdfs:isDefinedBy "The branch of mathematics that deals with the properties and manipulation of numbers." .
 
 
 ###  http://edugraph.io/edu#Articulation
 edu:Articulation rdf:type owl:NamedIndividual ,
                           edu:Ability ;
-                 edu:partOfAbility edu:Expression .
+                 edu:partOfAbility edu:Expression ;
+                 rdfs:isDefinedBy "Articulation refers to the clarity and effectiveness with which someone expresses themselves." .
 
 
 ###  http://edugraph.io/edu#ArtisticInterpretation
 edu:ArtisticInterpretation rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
-                           edu:partOfAbility edu:Interpretation .
+                           edu:partOfAbility edu:Interpretation ;
+                           rdfs:isDefinedBy """Understanding and appreciating artistic works, such as paintings, music, or literature. This involves analyzing the elements of art, such as form, style, and symbolism, to understand the artist's message and intent.
+
+Example: Interpreting the symbolism in a painting or the themes explored in a piece of music.""" .
 
 
 ###  http://edugraph.io/edu#AxiomDefinition
@@ -476,7 +474,8 @@ edu:Base8 rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#BaseOperations
 edu:BaseOperations rdf:type owl:NamedIndividual ,
                             edu:Area ;
-                   edu:partOfArea edu:NumberSense .
+                   edu:partOfArea edu:NumberSense ;
+                   rdfs:isDefinedBy "Base operations are the fundamental arithmetic actions performed on numbers that all other arithmetic operations are based one." .
 
 
 ###  http://edugraph.io/edu#BaseTenBlocks
@@ -489,19 +488,26 @@ edu:BaseTenBlocks rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#BiasDetection
 edu:BiasDetection rdf:type owl:NamedIndividual ,
                            edu:Ability ;
-                  edu:partOfAbility edu:Evaluation .
+                  edu:partOfAbility edu:Evaluation ;
+                  rdfs:isDefinedBy """Identifying prejudice or favoritism in information or arguments. This involves recognizing how personal opinions or perspectives can influence the way information is presented or interpreted.
+
+Example: Analyzing a news article to identify any potential bias in the reporting.""" .
 
 
 ###  http://edugraph.io/edu#BiasPrevention
 edu:BiasPrevention rdf:type owl:NamedIndividual ,
                             edu:Ability ;
-                   edu:partOfAbility edu:Expression .
+                   edu:partOfAbility edu:Expression ;
+                   rdfs:isDefinedBy """Identifying and avoiding biases in one's own thinking and communication. This involves being aware of personal prejudices and striving to present information objectively and fairly.
+
+Example: Considering diverse perspectives and avoiding stereotypes when writing about a historical conflict.""" .
 
 
 ###  http://edugraph.io/edu#Calculus
 edu:Calculus rdf:type owl:NamedIndividual ,
                       edu:Area ;
-             edu:partOfArea edu:Mathematics .
+             edu:partOfArea edu:Mathematics ;
+             rdfs:isDefinedBy "The mathematics of change and motion, providing tools for analyzing rates of change and accumulation. It deals with instantaneous rates of change that affect the slopes of curves, as well as with accumulation that affects areas under curves." .
 
 
 ###  http://edugraph.io/edu#CardiovascularEndurance
@@ -517,16 +523,11 @@ edu:CartesianCoordinateSystem rdf:type owl:NamedIndividual ,
                               rdfs:isDefinedBy "Represents functions and shapes in the cartesian coordinate system." .
 
 
-###  http://edugraph.io/edu#CircularLineDrawing
-edu:CircularLineDrawing rdf:type owl:NamedIndividual ,
-                                 edu:Area ;
-                        edu:partOfArea edu:SpatialModelling .
-
-
 ###  http://edugraph.io/edu#CircularShapeDrawing
 edu:CircularShapeDrawing rdf:type owl:NamedIndividual ,
                                   edu:Area ;
-                         edu:partOfArea edu:SpatialModelling .
+                         edu:partOfArea edu:SpatialModelling ;
+                         rdfs:isDefinedBy "Circular shape drawing is the ability to create drawings or models of circular shapes." .
 
 
 ###  http://edugraph.io/edu#CommunicationCapability
@@ -537,7 +538,8 @@ edu:CommunicationCapability rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#ComputationalMathematics
 edu:ComputationalMathematics rdf:type owl:NamedIndividual ,
                                       edu:Area ;
-                             edu:partOfArea edu:Mathematics .
+                             edu:partOfArea edu:Mathematics ;
+                             rdfs:isDefinedBy "The development and application of mathematical methods and algorithms for solving problems using computers." .
 
 
 ###  http://edugraph.io/edu#ConceptClassification
@@ -761,14 +763,18 @@ edu:CreativeCapability rdf:type owl:NamedIndividual ,
 edu:DecimalAddition rdf:type owl:NamedIndividual ,
                              edu:Area ;
                     edu:expandsArea edu:IntegerAdditon ;
-                    edu:partOfArea edu:DecimalArithmetic .
+                    edu:partOfArea edu:DecimalArithmetic ;
+                    rdfs:isDefinedBy """Adding two or more decimals together.
+
+Example:  2.7 + 1.8 = 4.5""" .
 
 
 ###  http://edugraph.io/edu#DecimalArithmetic
 edu:DecimalArithmetic rdf:type owl:NamedIndividual ,
                                edu:Area ;
                       edu:expandsArea edu:DecimalNotation ;
-                      edu:partOfArea edu:RationalsArithmetic .
+                      edu:partOfArea edu:RationalsArithmetic ;
+                      rdfs:isDefinedBy "Arithmetic operations performed on decimals (numbers represented with a decimal point)." .
 
 
 ###  http://edugraph.io/edu#DecimalDivision
@@ -776,7 +782,10 @@ edu:DecimalDivision rdf:type owl:NamedIndividual ,
                              edu:Area ;
                     edu:expandsArea edu:DecimalMultiplication ,
                                     edu:IntegerDivision ;
-                    edu:partOfArea edu:DecimalArithmetic .
+                    edu:partOfArea edu:DecimalArithmetic ;
+                    rdfs:isDefinedBy """Dividing one decimal by another.
+
+Example: 6.3 / 2.1 = 3""" .
 
 
 ###  http://edugraph.io/edu#DecimalExponentiation
@@ -784,7 +793,10 @@ edu:DecimalExponentiation rdf:type owl:NamedIndividual ,
                                    edu:Area ;
                           edu:expandsArea edu:DecimalMultiplication ,
                                           edu:IntegerExponentiation ;
-                          edu:partOfArea edu:DecimalArithmetic .
+                          edu:partOfArea edu:DecimalArithmetic ;
+                          rdfs:isDefinedBy """Raising a decimal to a power.
+
+Example: 1.2 ^ 2 = 1.44""" .
 
 
 ###  http://edugraph.io/edu#DecimalLogarithm
@@ -792,7 +804,8 @@ edu:DecimalLogarithm rdf:type owl:NamedIndividual ,
                               edu:Area ;
                      edu:expandsArea edu:DecimalExponentiation ,
                                      edu:IntegerLogarithm ;
-                     edu:partOfArea edu:DecimalArithmetic .
+                     edu:partOfArea edu:DecimalArithmetic ;
+                     rdfs:isDefinedBy "Finding the exponent to which a base (a decimal) must be raised to produce a given decimal." .
 
 
 ###  http://edugraph.io/edu#DecimalMultiplication
@@ -800,7 +813,10 @@ edu:DecimalMultiplication rdf:type owl:NamedIndividual ,
                                    edu:Area ;
                           edu:expandsArea edu:DecimalAddition ,
                                           edu:IntegerMultiplication ;
-                          edu:partOfArea edu:DecimalArithmetic .
+                          edu:partOfArea edu:DecimalArithmetic ;
+                          rdfs:isDefinedBy """Repeated addition of a decimal.
+
+Example: 3.5 * 2 = 3.5 + 3.5 = 7""" .
 
 
 ###  http://edugraph.io/edu#DecimalNotation
@@ -809,7 +825,8 @@ edu:DecimalNotation rdf:type owl:NamedIndividual ,
                     edu:expandsArea edu:IntegerNotation ,
                                     edu:NumerationWithRationals ;
                     edu:partOfArea edu:NumberNotation ,
-                                   edu:RationalsArithmetic .
+                                   edu:RationalsArithmetic ;
+                    rdfs:isDefinedBy "Decimal notation is a system of representing numbers using a base-ten place value system and a decimal point to separate whole and fractional parts." .
 
 
 ###  http://edugraph.io/edu#DecimalRoot
@@ -817,7 +834,10 @@ edu:DecimalRoot rdf:type owl:NamedIndividual ,
                          edu:Area ;
                 edu:expandsArea edu:DecimalExponentiation ,
                                 edu:IntegerRoot ;
-                edu:partOfArea edu:DecimalArithmetic .
+                edu:partOfArea edu:DecimalArithmetic ;
+                rdfs:isDefinedBy """Finding the decimal that, when raised to a certain power, produces a given decimal.
+
+Example: The square root of 2.25 is 1.5""" .
 
 
 ###  http://edugraph.io/edu#DecimalSubtraction
@@ -825,14 +845,18 @@ edu:DecimalSubtraction rdf:type owl:NamedIndividual ,
                                 edu:Area ;
                        edu:expandsArea edu:DecimalAddition ,
                                        edu:IntegerSubtraction ;
-                       edu:partOfArea edu:DecimalArithmetic .
+                       edu:partOfArea edu:DecimalArithmetic ;
+                       rdfs:isDefinedBy """Finding the difference between two decimals.
+
+Example: 5.8 - 2.3 = 3.5""" .
 
 
 ###  http://edugraph.io/edu#Decrement
 edu:Decrement rdf:type owl:NamedIndividual ,
                        edu:Area ;
               edu:expandsArea edu:Increment ;
-              edu:partOfArea edu:BaseOperations .
+              edu:partOfArea edu:BaseOperations ;
+              rdfs:isDefinedBy "Decrement is the act of reducing a quantity by a specific amount." .
 
 
 ###  http://edugraph.io/edu#DeductiveReasoning
@@ -863,29 +887,28 @@ edu:DerivedCount rdf:type owl:NamedIndividual ,
                  rdfs:isDefinedBy "Counts manifested objects based on logical derivation of know facts." .
 
 
-###  http://edugraph.io/edu#DescreteMathematics
-edu:DescreteMathematics rdf:type owl:NamedIndividual ,
-                                 edu:Area ;
-                        edu:partOfArea edu:Mathematics .
-
-
 ###  http://edugraph.io/edu#DialogModeration
 edu:DialogModeration rdf:type owl:NamedIndividual ,
                               edu:Ability ;
-                     edu:partOfAbility edu:Facilitation .
+                     edu:partOfAbility edu:Facilitation ;
+                     rdfs:isDefinedBy """Guiding and managing a conversation between two or more people. This involves ensuring that the conversation stays focused, productive, and respectful.
+
+Example: A student mediating a disagreement between two classmates by helping them to listen to each other and find common ground.""" .
 
 
 ###  http://edugraph.io/edu#Difference
 edu:Difference rdf:type owl:NamedIndividual ,
                         edu:Area ;
                edu:expandsArea edu:Decrement ;
-               edu:partOfArea edu:BaseOperations .
+               edu:partOfArea edu:BaseOperations ;
+               rdfs:isDefinedBy "Difference represents the amount by which one quantity is greater or less than another." .
 
 
 ###  http://edugraph.io/edu#DigitNotation
 edu:DigitNotation rdf:type owl:NamedIndividual ,
                            edu:Area ;
-                  edu:partOfArea edu:NumberNotation .
+                  edu:partOfArea edu:NumberNotation ;
+                  rdfs:isDefinedBy "Digit notation uses symbols from 0 to 9 to represent any number." .
 
 
 ###  http://edugraph.io/edu#DigitalClock
@@ -909,16 +932,13 @@ edu:DimensionalAbstraction rdf:type owl:NamedIndividual ,
                            rdfs:isDefinedBy "Involves spatial dimensions with or without time or hyperdimensional concepts." .
 
 
-###  http://edugraph.io/edu#DiophantineGeometry
-edu:DiophantineGeometry rdf:type owl:NamedIndividual ,
-                                 edu:Area ;
-                        edu:partOfArea edu:NumberTheory .
-
-
 ###  http://edugraph.io/edu#DirectUnderstanding
 edu:DirectUnderstanding rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
-                        edu:partOfAbility edu:Understanding .
+                        edu:partOfAbility edu:Understanding ;
+                        rdfs:isDefinedBy """Comprehending the literal meaning of information. This involves understanding the explicit message conveyed by words, images, or other forms of communication.
+
+Example: Understanding the definitions of new vocabulary words in a textbook.""" .
 
 
 ###  http://edugraph.io/edu#DivergentCreativity
@@ -939,28 +959,20 @@ edu:DynamicBalance rdf:type owl:NamedIndividual ,
                    edu:partOfAbility edu:Balance .
 
 
-###  http://edugraph.io/edu#ElementaryNumberTheory
-edu:ElementaryNumberTheory rdf:type owl:NamedIndividual ,
-                                    edu:Area ;
-                           edu:partOfArea edu:NumberTheory .
-
-
-###  http://edugraph.io/edu#ElipticLineDrawing
-edu:ElipticLineDrawing rdf:type owl:NamedIndividual ,
-                                edu:Area ;
-                       edu:partOfArea edu:SpatialModelling .
-
-
 ###  http://edugraph.io/edu#ElipticShapeDrawing
 edu:ElipticShapeDrawing rdf:type owl:NamedIndividual ,
                                  edu:Area ;
-                        edu:partOfArea edu:SpatialModelling .
+                        edu:partOfArea edu:SpatialModelling ;
+                        rdfs:isDefinedBy "Elliptical shape drawing is the ability to create drawings or models of elliptical shapes." .
 
 
 ###  http://edugraph.io/edu#EmotionExtraction
 edu:EmotionExtraction rdf:type owl:NamedIndividual ,
                                edu:Ability ;
-                      edu:partOfAbility edu:Extraction .
+                      edu:partOfAbility edu:Extraction ;
+                      rdfs:isDefinedBy """Recognizing and understanding the emotions expressed in communication. This involves interpreting the feelings conveyed through language, tone of voice, and nonverbal cues.
+
+Example: Analyzing a character's dialogue and actions in a play to understand their emotional state.""" .
 
 
 ###  http://edugraph.io/edu#EmotionalCapability
@@ -977,7 +989,10 @@ edu:EmotionalCreativity rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Emotionalization
 edu:Emotionalization rdf:type owl:NamedIndividual ,
                               edu:Ability ;
-                     edu:partOfAbility edu:Expression .
+                     edu:partOfAbility edu:Expression ;
+                     rdfs:isDefinedBy """Expressing emotions effectively in communication. This involves using language, tone of voice, and nonverbal cues to convey feelings and create an emotional connection with the audience.
+
+Example: Delivering a speech with passion and conviction to inspire the audience.""" .
 
 
 ###  http://edugraph.io/edu#Empathy
@@ -995,19 +1010,26 @@ edu:Endurance rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#ErrorCorrection
 edu:ErrorCorrection rdf:type owl:NamedIndividual ,
                              edu:Ability ;
-                    edu:partOfAbility edu:Evaluation .
+                    edu:partOfAbility edu:Evaluation ;
+                    rdfs:isDefinedBy """Finding and fixing mistakes in written or spoken work. This involves carefully reviewing work for accuracy and making necessary corrections to improve clarity and understanding.
+
+Example: Proofreading an essay for grammatical errors and typos before submitting it.""" .
 
 
 ###  http://edugraph.io/edu#ErrorDetection
 edu:ErrorDetection rdf:type owl:NamedIndividual ,
                             edu:Ability ;
-                   edu:partOfAbility edu:Evaluation .
+                   edu:partOfAbility edu:Evaluation ;
+                   rdfs:isDefinedBy """Noticing mistakes or inconsistencies in information. This involves recognizing when something is incorrect, illogical, or doesn't fit with the overall context.
+
+Example: Identifying a factual error in a textbook or spotting a contradiction in a scientific argument.""" .
 
 
 ###  http://edugraph.io/edu#Evaluation
 edu:Evaluation rdf:type owl:NamedIndividual ,
                         edu:Ability ;
-               edu:partOfAbility edu:Processing .
+               edu:partOfAbility edu:Processing ;
+               rdfs:isDefinedBy "Carefully judging the quality, value, or significance of something. This involves assessing information or ideas based on criteria, evidence, and reasoning." .
 
 
 ###  http://edugraph.io/edu#ExplosiveStrength
@@ -1019,25 +1041,39 @@ edu:ExplosiveStrength rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Expression
 edu:Expression rdf:type owl:NamedIndividual ,
                         edu:Ability ;
-               edu:partOfAbility edu:CommunicationCapability .
+               edu:partOfAbility edu:CommunicationCapability ;
+               rdfs:isDefinedBy "The act of conveying thoughts, feelings, or information. This involves encoding information into a form that can be understood by others. It can be verbal, nonverbal, or visual." .
 
 
 ###  http://edugraph.io/edu#Extraction
 edu:Extraction rdf:type owl:NamedIndividual ,
                         edu:Ability ;
-               edu:partOfAbility edu:Processing .
+               edu:partOfAbility edu:Processing ;
+               rdfs:isDefinedBy """Taking out specific information or elements from a larger source. This involves identifying and isolating key details, facts, or ideas from a text, image, or other source of information.
+
+Example:  Extracting key quotes from a novel to use as evidence in a literary analysis essay.""" .
 
 
 ###  http://edugraph.io/edu#Facilitation
 edu:Facilitation rdf:type owl:NamedIndividual ,
                           edu:Ability ;
-                 edu:partOfAbility edu:CommunicationCapability .
+                 edu:partOfAbility edu:CommunicationCapability ;
+                 rdfs:isDefinedBy """The act of making a process or activity easier for others. This involves guiding, supporting, and encouraging individuals or groups to achieve a common goal.
+
+Example: Facilitating a discussion and encouraging participation through written questions individually prepared by participants.""" .
 
 
 ###  http://edugraph.io/edu#Formalization
 edu:Formalization rdf:type owl:NamedIndividual ,
                            edu:Ability ;
-                  edu:partOfAbility edu:Expression .
+                  edu:partOfAbility edu:Expression ;
+                  rdfs:isDefinedBy """Adhering to formal rules and conventions in communication. This involves using appropriate language, structure, and style for specific contexts, such as academic writing or professional correspondence.
+
+**Example from different subjects:** 
+
+* Language: Writing a formal letter using proper salutations, grammar, and formatting.
+* Mathematics: Using the correct formal language to define and manipulate sets.
+* Natural Science: Using the correct units of measurement expressing speed or weight.""" .
 
 
 ###  http://edugraph.io/edu#FourDimensional
@@ -1052,14 +1088,18 @@ edu:FractionAddition rdf:type owl:NamedIndividual ,
                               edu:Area ;
                      edu:expandsArea edu:IntegerAdditon ,
                                      edu:LowestCommonDenominator ;
-                     edu:partOfArea edu:FractionArithmetic .
+                     edu:partOfArea edu:FractionArithmetic ;
+                     rdfs:isDefinedBy """Adding two or more fractions, often requiring finding a common denominator.
+
+Example: 1/4 + 3/8 = 2/8 + 3/8 = 5/8""" .
 
 
 ###  http://edugraph.io/edu#FractionArithmetic
 edu:FractionArithmetic rdf:type owl:NamedIndividual ,
                                 edu:Area ;
                        edu:expandsArea edu:FractionNotation ;
-                       edu:partOfArea edu:RationalsArithmetic .
+                       edu:partOfArea edu:RationalsArithmetic ;
+                       rdfs:isDefinedBy "Arithmetic operations performed on fractions." .
 
 
 ###  http://edugraph.io/edu#FractionDivision
@@ -1067,7 +1107,10 @@ edu:FractionDivision rdf:type owl:NamedIndividual ,
                               edu:Area ;
                      edu:expandsArea edu:FractionMultiplication ,
                                      edu:IntegerDivision ;
-                     edu:partOfArea edu:FractionArithmetic .
+                     edu:partOfArea edu:FractionArithmetic ;
+                     rdfs:isDefinedBy """Dividing one fraction by another, which is equivalent to multiplying by the reciprocal of the second fraction.
+
+Example: (2/3) / (1/4) = (2/3) * (4/1) = 8/3""" .
 
 
 ###  http://edugraph.io/edu#FractionExponentiation
@@ -1075,7 +1118,10 @@ edu:FractionExponentiation rdf:type owl:NamedIndividual ,
                                     edu:Area ;
                            edu:expandsArea edu:FractionMultiplication ,
                                            edu:IntegerExponentiation ;
-                           edu:partOfArea edu:FractionArithmetic .
+                           edu:partOfArea edu:FractionArithmetic ;
+                           rdfs:isDefinedBy """Raising a fraction to a power.
+
+Example: (1/2) ^ 3 = (1/2) * (1/2) * (1/2) = 1/8""" .
 
 
 ###  http://edugraph.io/edu#FractionLogarithm
@@ -1083,7 +1129,8 @@ edu:FractionLogarithm rdf:type owl:NamedIndividual ,
                                edu:Area ;
                       edu:expandsArea edu:FractionExponentiation ,
                                       edu:IntegerLogarithm ;
-                      edu:partOfArea edu:FractionArithmetic .
+                      edu:partOfArea edu:FractionArithmetic ;
+                      rdfs:isDefinedBy "Finding the exponent to which a base (a fraction) must be raised to produce a given fraction." .
 
 
 ###  http://edugraph.io/edu#FractionMultiplication
@@ -1091,7 +1138,10 @@ edu:FractionMultiplication rdf:type owl:NamedIndividual ,
                                     edu:Area ;
                            edu:expandsArea edu:FractionAddition ,
                                            edu:IntegerMultiplication ;
-                           edu:partOfArea edu:FractionArithmetic .
+                           edu:partOfArea edu:FractionArithmetic ;
+                           rdfs:isDefinedBy """Multiplying two or more fractions by multiplying the numerators and the denominators.
+
+Example: (2/5) * (3/7) = 6/35""" .
 
 
 ###  http://edugraph.io/edu#FractionNotation
@@ -1102,7 +1152,8 @@ edu:FractionNotation rdf:type owl:NamedIndividual ,
                                      edu:NumerationWithRationals ,
                                      edu:ProportionAbstraction ;
                      edu:partOfArea edu:NumberNotation ,
-                                    edu:RationalsArithmetic .
+                                    edu:RationalsArithmetic ;
+                     rdfs:isDefinedBy "The system of symbols used to represent fractions, including the numerator and denominator." .
 
 
 ###  http://edugraph.io/edu#FractionRoot
@@ -1110,7 +1161,10 @@ edu:FractionRoot rdf:type owl:NamedIndividual ,
                           edu:Area ;
                  edu:expandsArea edu:FractionExponentiation ,
                                  edu:IntegerRoot ;
-                 edu:partOfArea edu:FractionArithmetic .
+                 edu:partOfArea edu:FractionArithmetic ;
+                 rdfs:isDefinedBy """Finding the fraction that, when raised to a certain power, produces a given fraction.
+
+Example: The square root of 9/16 is 3/4 because (3/4) ^ 2 = 9/16""" .
 
 
 ###  http://edugraph.io/edu#FractionSimplification
@@ -1118,7 +1172,10 @@ edu:FractionSimplification rdf:type owl:NamedIndividual ,
                                     edu:Area ;
                            edu:expandsArea edu:IntegerDivision ,
                                            edu:RatioEquivalence ;
-                           edu:partOfArea edu:FractionArithmetic .
+                           edu:partOfArea edu:FractionArithmetic ;
+                           rdfs:isDefinedBy """Reducing a fraction to its simplest form by dividing the numerator and denominator by their greatest common factor.
+
+Example: 12/18 simplifies to 2/3 by dividing both by 6""" .
 
 
 ###  http://edugraph.io/edu#FractionSubtraction
@@ -1127,7 +1184,10 @@ edu:FractionSubtraction rdf:type owl:NamedIndividual ,
                         edu:expandsArea edu:FractionAddition ,
                                         edu:IntegerSubtraction ,
                                         edu:LowestCommonDenominator ;
-                        edu:partOfArea edu:FractionArithmetic .
+                        edu:partOfArea edu:FractionArithmetic ;
+                        rdfs:isDefinedBy """Finding the difference between two fractions, often requiring finding a common denominator.
+
+Example: 3/4 - 1/8 = 6/8 - 1/8 = 5/8""" .
 
 
 ###  http://edugraph.io/edu#Geoboard
@@ -1140,7 +1200,8 @@ edu:Geoboard rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Geometry
 edu:Geometry rdf:type owl:NamedIndividual ,
                       edu:Area ;
-             edu:partOfArea edu:Mathematics .
+             edu:partOfArea edu:Mathematics ;
+             rdfs:isDefinedBy "The study of shapes, sizes, positions, and dimensions of things. It explores properties of points, lines, planes, and solids." .
 
 
 ###  http://edugraph.io/edu#GeometryRepresentation
@@ -1153,25 +1214,37 @@ edu:GeometryRepresentation rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#GesticArticulation
 edu:GesticArticulation rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
-                       edu:partOfAbility edu:Articulation .
+                       edu:partOfAbility edu:Articulation ;
+                       rdfs:isDefinedBy """Expressing oneself through deliberate physical gestures and body language. This involves using hand movements, facial expressions, and body posture to convey meaning.
+
+Example: Acting out a scene from a story, using gestures to portray the characters' personality.""" .
 
 
 ###  http://edugraph.io/edu#GesticReception
 edu:GesticReception rdf:type owl:NamedIndividual ,
                              edu:Ability ;
-                    edu:partOfAbility edu:Reception .
+                    edu:partOfAbility edu:Reception ;
+                    rdfs:isDefinedBy """Understanding and interpreting body language and gestures. This involves paying attention to nonverbal cues, such as facial expressions, hand movements, and body posture, to understand the meaning behind them.
+
+Example: Interpreting a classmate's nonverbal cues during a group discussion to understand their level of engagement and agreement.""" .
 
 
 ###  http://edugraph.io/edu#GrammaticalPrecision
 edu:GrammaticalPrecision rdf:type owl:NamedIndividual ,
                                   edu:Ability ;
-                         edu:partOfAbility edu:LingusticArticulation .
+                         edu:partOfAbility edu:LingusticArticulation ;
+                         rdfs:isDefinedBy """Using correct grammar in spoken and written communication. This involves applying grammatical rules accurately to ensure clear and understandable language.
+
+Example: Using proper verb tenses and subject-verb agreement in a research paper.""" .
 
 
 ###  http://edugraph.io/edu#GroupModeration
 edu:GroupModeration rdf:type owl:NamedIndividual ,
                              edu:Ability ;
-                    edu:partOfAbility edu:Facilitation .
+                    edu:partOfAbility edu:Facilitation ;
+                    rdfs:isDefinedBy """Facilitating interaction and collaboration within a group. This involves encouraging participation, managing group dynamics, and ensuring that the group stays on task and achieves its goals.
+
+Example: Leading a group project by assigning roles, keeping the group organized, and facilitating communication among members.""" .
 
 
 ###  http://edugraph.io/edu#Hearing
@@ -1183,7 +1256,10 @@ edu:Hearing rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#HumoristicInterpretation
 edu:HumoristicInterpretation rdf:type owl:NamedIndividual ,
                                       edu:Ability ;
-                             edu:partOfAbility edu:Interpretation .
+                             edu:partOfAbility edu:Interpretation ;
+                             rdfs:isDefinedBy """Understanding and appreciating humor. This involves recognizing the comedic elements in a joke, story, or situation, and understanding why it is funny.
+
+Example: Analyzing the use of satire or irony in a literary work.""" .
 
 
 ###  http://edugraph.io/edu#HyperDimensional
@@ -1250,7 +1326,8 @@ edu:HypothesisValidation rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Increment
 edu:Increment rdf:type owl:NamedIndividual ,
                        edu:Area ;
-              edu:partOfArea edu:BaseOperations .
+              edu:partOfArea edu:BaseOperations ;
+              rdfs:isDefinedBy "Increment involves raising a quantity by a certain amount." .
 
 
 ###  http://edugraph.io/edu#InductiveReasoning
@@ -1283,55 +1360,77 @@ edu:InductiveReasoning rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#InformationCompression
 edu:InformationCompression rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
-                           edu:partOfAbility edu:Interpretation .
+                           edu:partOfAbility edu:Interpretation ;
+                           rdfs:isDefinedBy """Summarizing information concisely and effectively. This involves condensing complex ideas or large amounts of information into a shorter, more manageable form while retaining the key message.
+
+Example: Writing a concise summary of a research article or a historical event.""" .
 
 
 ###  http://edugraph.io/edu#InformationExtraction
 edu:InformationExtraction rdf:type owl:NamedIndividual ,
                                    edu:Ability ;
-                          edu:partOfAbility edu:Extraction .
+                          edu:partOfAbility edu:Extraction ;
+                          rdfs:isDefinedBy """Identifying and gathering important facts and details from a source. This involves selectively choosing and organizing information that is relevant to a specific task or purpose.
+
+Example: Extracting key statistics and data from a scientific article to include in a research report.""" .
 
 
 ###  http://edugraph.io/edu#IntegerAdditon
 edu:IntegerAdditon rdf:type owl:NamedIndividual ,
                             edu:Area ;
                    edu:expandsArea edu:Sum ;
-                   edu:partOfArea edu:IntegerArithmetic .
+                   edu:partOfArea edu:IntegerArithmetic ;
+                   rdfs:isDefinedBy """Adding two or more integers together.
+
+Example: 5 + 3 = 8""" .
 
 
 ###  http://edugraph.io/edu#IntegerArithmetic
 edu:IntegerArithmetic rdf:type owl:NamedIndividual ,
                                edu:Area ;
                       edu:expandsArea edu:IntegerNotation ;
-                      edu:partOfArea edu:Arithmetic .
+                      edu:partOfArea edu:Arithmetic ;
+                      rdfs:isDefinedBy "Arithmetic operations performed on integers." .
 
 
 ###  http://edugraph.io/edu#IntegerDivision
 edu:IntegerDivision rdf:type owl:NamedIndividual ,
                              edu:Area ;
                     edu:expandsArea edu:IntegerMultiplication ;
-                    edu:partOfArea edu:IntegerArithmetic .
+                    edu:partOfArea edu:IntegerArithmetic ;
+                    rdfs:isDefinedBy """Dividing one integer by another, which may result in a quotient and a remainder.
+
+Example: 17 / 5 = 3 remainder 2""" .
 
 
 ###  http://edugraph.io/edu#IntegerExponentiation
 edu:IntegerExponentiation rdf:type owl:NamedIndividual ,
                                    edu:Area ;
                           edu:expandsArea edu:IntegerMultiplication ;
-                          edu:partOfArea edu:IntegerArithmetic .
+                          edu:partOfArea edu:IntegerArithmetic ;
+                          rdfs:isDefinedBy """Raising an integer to a power, meaning multiplying it by itself a certain number of times.
+
+Example: 2 ^ 4 = 2 * 2 * 2 * 2 = 16""" .
 
 
 ###  http://edugraph.io/edu#IntegerLogarithm
 edu:IntegerLogarithm rdf:type owl:NamedIndividual ,
                               edu:Area ;
                      edu:expandsArea edu:IntegerExponentiation ;
-                     edu:partOfArea edu:IntegerArithmetic .
+                     edu:partOfArea edu:IntegerArithmetic ;
+                     rdfs:isDefinedBy """Finding the exponent to which a base (an integer) must be raised to produce a given integer.
+
+Example: log₃ 81 = 4 because 3 ^ 4 = 81""" .
 
 
 ###  http://edugraph.io/edu#IntegerMultiplication
 edu:IntegerMultiplication rdf:type owl:NamedIndividual ,
                                    edu:Area ;
                           edu:expandsArea edu:IntegerAdditon ;
-                          edu:partOfArea edu:IntegerArithmetic .
+                          edu:partOfArea edu:IntegerArithmetic ;
+                          rdfs:isDefinedBy """Repeated addition of an integer.
+
+Example: 4 * 3 = 4 + 4 + 4 = 12""" .
 
 
 ###  http://edugraph.io/edu#IntegerNotation
@@ -1339,14 +1438,20 @@ edu:IntegerNotation rdf:type owl:NamedIndividual ,
                              edu:Area ;
                     edu:expandsArea edu:DigitNotation ;
                     edu:partOfArea edu:Arithmetic ,
-                                   edu:NumberNotation .
+                                   edu:NumberNotation ;
+                    rdfs:isDefinedBy """The system of symbols used to represent integers.
+
+Example: Using the symbols -3, 0, and 12 to represent integers.""" .
 
 
 ###  http://edugraph.io/edu#IntegerRoot
 edu:IntegerRoot rdf:type owl:NamedIndividual ,
                          edu:Area ;
                 edu:expandsArea edu:IntegerExponentiation ;
-                edu:partOfArea edu:IntegerArithmetic .
+                edu:partOfArea edu:IntegerArithmetic ;
+                rdfs:isDefinedBy """Finding the integer that, when raised to a certain power, produces a given integer.
+
+Example: The cube root of 64 is 4 because 4 ^ 3 = 64""" .
 
 
 ###  http://edugraph.io/edu#IntegerSubtraction
@@ -1354,19 +1459,28 @@ edu:IntegerSubtraction rdf:type owl:NamedIndividual ,
                                 edu:Area ;
                        edu:expandsArea edu:Difference ,
                                        edu:IntegerAdditon ;
-                       edu:partOfArea edu:IntegerArithmetic .
+                       edu:partOfArea edu:IntegerArithmetic ;
+                       rdfs:isDefinedBy """Finding the difference between two integers.
+
+Example: 10 - 6 = 4""" .
 
 
 ###  http://edugraph.io/edu#IntentIdentifcation
 edu:IntentIdentifcation rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
-                        edu:partOfAbility edu:Interpretation .
+                        edu:partOfAbility edu:Interpretation ;
+                        rdfs:isDefinedBy """Understanding the purpose or goal behind a communication. This involves recognizing the speaker's or writer's intentions and motivations for communicating.
+
+Example: Analyzing a political speech to understand the speaker's agenda and persuasive techniques.""" .
 
 
 ###  http://edugraph.io/edu#Interpretation
 edu:Interpretation rdf:type owl:NamedIndividual ,
                             edu:Ability ;
-                   edu:partOfAbility edu:Processing .
+                   edu:partOfAbility edu:Processing ;
+                   rdfs:isDefinedBy """Explaining or understanding the meaning of something. This involves making sense of information, ideas, or experiences by analyzing them and drawing conclusions.
+
+Example:  Interpreting the meaning of a poem.""" .
 
 
 ###  http://edugraph.io/edu#IntervalsWithInfitity
@@ -1384,7 +1498,8 @@ edu:Introspection rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#IntuitiveMathematics
 edu:IntuitiveMathematics rdf:type owl:NamedIndividual ,
                                   edu:Area ;
-                         edu:partOfArea edu:Mathematics .
+                         edu:partOfArea edu:Mathematics ;
+                         rdfs:isDefinedBy "Intuitive Mathematics focuses on understanding math concepts through direct experience and visualization, gradually familiarizing students with increasingly formal and abstract representations of mathematic concepts." .
 
 
 ###  http://edugraph.io/edu#LaserRuler
@@ -1407,23 +1522,21 @@ edu:LengthMeasurement rdf:type owl:NamedIndividual ,
                       rdfs:isDefinedBy "Involves length measurement." .
 
 
-###  http://edugraph.io/edu#LinearLineDrawing
-edu:LinearLineDrawing rdf:type owl:NamedIndividual ,
-                               edu:Area ;
-                      edu:partOfArea edu:SpatialModelling .
-
-
 ###  http://edugraph.io/edu#LinearShapeDrawing
 edu:LinearShapeDrawing rdf:type owl:NamedIndividual ,
                                 edu:Area ;
-                       edu:partOfArea edu:SpatialModelling .
+                       edu:partOfArea edu:SpatialModelling ;
+                       rdfs:isDefinedBy "Linear shape drawing is the ability to create drawings or models of shapes with straight sides." .
 
 
 ###  http://edugraph.io/edu#LingusticArticulation
 edu:LingusticArticulation rdf:type owl:NamedIndividual ,
                                    edu:Ability ;
                           edu:partOfAbility edu:Articulation ,
-                                            edu:LingusticCapability .
+                                            edu:LingusticCapability ;
+                          rdfs:isDefinedBy """Expressing oneself through spoken or written language. This involves using words, grammar, and syntax to convey meaning.
+
+Example: Expressing thoughts about someone's favorite animal, using complete sentences and appropriate vocabulary.""" .
 
 
 ###  http://edugraph.io/edu#LingusticCapability
@@ -1435,7 +1548,10 @@ edu:LingusticCapability rdf:type owl:NamedIndividual ,
 edu:LingusticReception rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
                        edu:partOfAbility edu:LingusticCapability ,
-                                         edu:Reception .
+                                         edu:Reception ;
+                       rdfs:isDefinedBy """Understanding spoken and written language. This involves comprehending the meaning of words, sentences, and texts, both spoken and written.
+
+Example: Listening attentively to a lecture and taking notes to understand the key concepts.""" .
 
 
 ###  http://edugraph.io/edu#LinkingCubes
@@ -1455,7 +1571,8 @@ edu:LiquidVolumes rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Logic
 edu:Logic rdf:type owl:NamedIndividual ,
                    edu:Area ;
-          edu:partOfArea edu:Mathematics .
+          edu:partOfArea edu:Mathematics ;
+          rdfs:isDefinedBy "The study of reasoning and valid arguments. It provides a framework for determining whether something is true or false based on given premises. It is the foundation for constructing proofs, ensuring that conclusions follow logically from their premises." .
 
 
 ###  http://edugraph.io/edu#LogicalInference
@@ -1531,7 +1648,10 @@ edu:LogicalThinking rdf:type owl:NamedIndividual ,
 edu:LowestCommonDenominator rdf:type owl:NamedIndividual ,
                                      edu:Area ;
                             edu:expandsArea edu:IntegerDivision ;
-                            edu:partOfArea edu:FractionArithmetic .
+                            edu:partOfArea edu:FractionArithmetic ;
+                            rdfs:isDefinedBy """The smallest common multiple of the denominators of two or more fractions.
+
+Example: The lowest common denominator of 1/4 and 1/6 is 12.""" .
 
 
 ###  http://edugraph.io/edu#Mathematics
@@ -1548,7 +1668,8 @@ edu:MaximumStrength rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Measurement
 edu:Measurement rdf:type owl:NamedIndividual ,
                          edu:Area ;
-                edu:partOfArea edu:SpatialSense .
+                edu:partOfArea edu:SpatialSense ;
+                rdfs:isDefinedBy "Measurement is the process of assigning numbers to describe the properties of objects, such as length, weight, or volume." .
 
 
 ###  http://edugraph.io/edu#MeasurementScope
@@ -1560,13 +1681,15 @@ edu:MeasurementScope rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#MeasuringObjects
 edu:MeasuringObjects rdf:type owl:NamedIndividual ,
                               edu:Area ;
-                     edu:partOfArea edu:Measurement .
+                     edu:partOfArea edu:Measurement ;
+                     rdfs:isDefinedBy "Measuring objects involves determining their physical dimensions using appropriate tools and units." .
 
 
 ###  http://edugraph.io/edu#MeasuringTime
 edu:MeasuringTime rdf:type owl:NamedIndividual ,
                            edu:Area ;
-                  edu:partOfArea edu:Measurement .
+                  edu:partOfArea edu:Measurement ;
+                  rdfs:isDefinedBy "Measuring time involves quantifying the duration of events or the intervals between them." .
 
 
 ###  http://edugraph.io/edu#MentalEndurance
@@ -1578,31 +1701,46 @@ edu:MentalEndurance rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#MessageExtraction
 edu:MessageExtraction rdf:type owl:NamedIndividual ,
                                edu:Ability ;
-                      edu:partOfAbility edu:Extraction .
+                      edu:partOfAbility edu:Extraction ;
+                      rdfs:isDefinedBy """Understanding the main point or message being communicated. This involves identifying the central idea or theme of a text, speech, or other form of communication.
+
+Example: Summarizing the main argument of a persuasive essay or the key findings of a scientific study.""" .
 
 
 ###  http://edugraph.io/edu#Messaging
 edu:Messaging rdf:type owl:NamedIndividual ,
                        edu:Ability ;
-              edu:partOfAbility edu:Expression .
+              edu:partOfAbility edu:Expression ;
+              rdfs:isDefinedBy """Communicating information or instructions clearly and concisely. This involves conveying messages effectively to ensure that the recipient understands the intended meaning.
+
+Example: Giving clear and concise instructions for completing a science experiment.""" .
 
 
 ###  http://edugraph.io/edu#MimicArticulation
 edu:MimicArticulation rdf:type owl:NamedIndividual ,
                                edu:Ability ;
-                      edu:partOfAbility edu:Articulation .
+                      edu:partOfAbility edu:Articulation ;
+                      rdfs:isDefinedBy """Expressing oneself through facial expressions. This involves using facial muscles to convey emotions, reactions, or attitudes.
+
+Example: Expressing emotions like sadness and happiness through mimic expression in a theatre play.""" .
 
 
 ###  http://edugraph.io/edu#MimicReception
 edu:MimicReception rdf:type owl:NamedIndividual ,
                             edu:Ability ;
-                   edu:partOfAbility edu:Reception .
+                   edu:partOfAbility edu:Reception ;
+                   rdfs:isDefinedBy """Understanding and interpreting facial expressions. This involves reading facial cues, such as smiles, frowns, and raised eyebrows, to understand the emotions and attitudes being expressed.
+
+Example: Recognizing a friend's facial expression to gauge their mood and offer support if needed.""" .
 
 
 ###  http://edugraph.io/edu#MoodIdentification
 edu:MoodIdentification rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
-                       edu:partOfAbility edu:Interpretation .
+                       edu:partOfAbility edu:Interpretation ;
+                       rdfs:isDefinedBy """Recognizing the emotional tone or atmosphere of a communication. This involves identifying the feelings or emotions that are conveyed through language, tone of voice, and other cues.
+
+Example: Analyzing the mood created by the author's use of language and imagery in a poem or short story.""" .
 
 
 ###  http://edugraph.io/edu#Motoric
@@ -1644,13 +1782,19 @@ edu:MuscularEndurance rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Narration
 edu:Narration rdf:type owl:NamedIndividual ,
                        edu:Ability ;
-              edu:partOfAbility edu:Expression .
+              edu:partOfAbility edu:Expression ;
+              rdfs:isDefinedBy """Telling stories or recounting events in an engaging manner. This involves organizing information chronologically and using descriptive language to create a compelling narrative.
+
+Example: Writing a personal narrative essay with vivid details and a clear storyline.""" .
 
 
 ###  http://edugraph.io/edu#NarrativeExtraction
 edu:NarrativeExtraction rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
-                        edu:partOfAbility edu:Extraction .
+                        edu:partOfAbility edu:Extraction ;
+                        rdfs:isDefinedBy """Identifying the underlying story or narrative in a piece of communication. This involves recognizing the sequence of events, characters, and plot elements that make up a story.
+
+Example: Analyzing the plot structure and character development in a novel.""" .
 
 
 ###  http://edugraph.io/edu#NonDeductiveReasoning
@@ -1683,7 +1827,8 @@ edu:NonDeductiveReasoning rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#NumberNotation
 edu:NumberNotation rdf:type owl:NamedIndividual ,
                             edu:Area ;
-                   edu:partOfArea edu:NumberSense .
+                   edu:partOfArea edu:NumberSense ;
+                   rdfs:isDefinedBy "Number notation is the system of symbols and rules used to express numerical values." .
 
 
 ###  http://edugraph.io/edu#NumberRepresentation
@@ -1696,13 +1841,15 @@ edu:NumberRepresentation rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#NumberSense
 edu:NumberSense rdf:type owl:NamedIndividual ,
                          edu:Area ;
-                edu:partOfArea edu:IntuitiveMathematics .
+                edu:partOfArea edu:IntuitiveMathematics ;
+                rdfs:isDefinedBy "Number sense is the intuitive understanding of numbers, their magnitudes, and how they relate to each other." .
 
 
 ###  http://edugraph.io/edu#NumberTheory
 edu:NumberTheory rdf:type owl:NamedIndividual ,
                           edu:Area ;
-                 edu:partOfArea edu:Mathematics .
+                 edu:partOfArea edu:Mathematics ;
+                 rdfs:isDefinedBy "The study of the properties of numbers, particularly integers (whole numbers). It explores things like prime numbers, divisibility, and number patterns." .
 
 
 ###  http://edugraph.io/edu#NumberTiles
@@ -1729,7 +1876,8 @@ edu:Numerals rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Numeration
 edu:Numeration rdf:type owl:NamedIndividual ,
                         edu:Area ;
-               edu:partOfArea edu:NumberSense .
+               edu:partOfArea edu:NumberSense ;
+               rdfs:isDefinedBy "Numeration encompasses counting, ordering, and grouping numbers." .
 
 
 ###  http://edugraph.io/edu#NumerationWithIntegers
@@ -1738,19 +1886,22 @@ edu:NumerationWithIntegers rdf:type owl:NamedIndividual ,
                            edu:expandsArea edu:Increment ,
                                            edu:IntegerNotation ,
                                            edu:NumericOrder ;
-                           edu:partOfArea edu:Numeration .
+                           edu:partOfArea edu:Numeration ;
+                           rdfs:isDefinedBy "Numeration with integers includes understanding the sequence and magnitude of whole numbers." .
 
 
 ###  http://edugraph.io/edu#NumerationWithIntervals
 edu:NumerationWithIntervals rdf:type owl:NamedIndividual ,
                                      edu:Area ;
-                            edu:partOfArea edu:Numeration .
+                            edu:partOfArea edu:Numeration ;
+                            rdfs:isDefinedBy "Numeration with intervals is used to represent sets of numbers with specific limits." .
 
 
 ###  http://edugraph.io/edu#NumerationWithRationals
 edu:NumerationWithRationals rdf:type owl:NamedIndividual ,
                                      edu:Area ;
-                            edu:partOfArea edu:Numeration .
+                            edu:partOfArea edu:Numeration ;
+                            rdfs:isDefinedBy "Numeration with rationals encompasses understanding the density of rational numbers on the number line." .
 
 
 ###  http://edugraph.io/edu#NumericAbstraction
@@ -1770,20 +1921,23 @@ edu:NumericBase rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#NumericComparison
 edu:NumericComparison rdf:type owl:NamedIndividual ,
                                edu:Area ;
-                      edu:partOfArea edu:NumberSense .
+                      edu:partOfArea edu:NumberSense ;
+                      rdfs:isDefinedBy "Numeric comparison involves evaluating whether one number is greater than, less than, or equal to another." .
 
 
 ###  http://edugraph.io/edu#NumericIdentity
 edu:NumericIdentity rdf:type owl:NamedIndividual ,
                              edu:Area ;
-                    edu:partOfArea edu:NumericComparison .
+                    edu:partOfArea edu:NumericComparison ;
+                    rdfs:isDefinedBy "Numeric identity refers to the understanding that a number remains the same regardless of its representation." .
 
 
 ###  http://edugraph.io/edu#NumericOrder
 edu:NumericOrder rdf:type owl:NamedIndividual ,
                           edu:Area ;
                  edu:expandsArea edu:NumericIdentity ;
-                 edu:partOfArea edu:NumericComparison .
+                 edu:partOfArea edu:NumericComparison ;
+                 rdfs:isDefinedBy "Numeric order refers to the arrangement of numbers in ascending or descending sequence based on their magnitude." .
 
 
 ###  http://edugraph.io/edu#NumericRange
@@ -1803,7 +1957,10 @@ edu:OneDimensional rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#PassiveVocabulary
 edu:PassiveVocabulary rdf:type owl:NamedIndividual ,
                                edu:Ability ;
-                      edu:partOfAbility edu:LingusticReception .
+                      edu:partOfAbility edu:LingusticReception ;
+                      rdfs:isDefinedBy """The words a person can understand but may not actively use in speaking or writing. This involves recognizing and comprehending a wide range of vocabulary when reading or listening.
+
+Example: Understanding the meaning of words from a specific subject like business administration in a foreign language.""" .
 
 
 ###  http://edugraph.io/edu#Patternbloks
@@ -1834,7 +1991,10 @@ edu:PeerSupport rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Performance
 edu:Performance rdf:type owl:NamedIndividual ,
                          edu:Ability ;
-                edu:partOfAbility edu:Expression .
+                edu:partOfAbility edu:Expression ;
+                rdfs:isDefinedBy """Presenting oneself or one's work effectively in public. This involves communicating confidently and engaging with the audience to deliver a successful performance.
+
+Example: Acting in a school play or delivering a presentation with poise and confidence.""" .
 
 
 ###  http://edugraph.io/edu#PhyiscalCapability
@@ -1866,7 +2026,10 @@ edu:PhysicalRuler rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#PlausabilityEvaluation
 edu:PlausabilityEvaluation rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
-                           edu:partOfAbility edu:Evaluation .
+                           edu:partOfAbility edu:Evaluation ;
+                           rdfs:isDefinedBy """Judging how likely something is to be true. This involves considering the evidence, logic, and context to determine whether a claim or statement is reasonable and believable.
+
+Example: Assessing the plausibility of a scientific theory based on available evidence and current understanding.""" .
 
 
 ###  http://edugraph.io/edu#PoliticalAwareness
@@ -1884,7 +2047,10 @@ edu:PosturalEndurance rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Presentation
 edu:Presentation rdf:type owl:NamedIndividual ,
                           edu:Ability ;
-                 edu:partOfAbility edu:Expression .
+                 edu:partOfAbility edu:Expression ;
+                 rdfs:isDefinedBy """Organizing and delivering information in a clear and structured manner. This involves presenting ideas logically, using visual aids effectively, and engaging the audience.
+
+Example: Creating and delivering a presentation on a historical event with visual aids and a clear narrative.""" .
 
 
 ###  http://edugraph.io/edu#ProcedureApplicability
@@ -2059,49 +2225,59 @@ edu:ProcedureUnderstanding rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Processing
 edu:Processing rdf:type owl:NamedIndividual ,
                         edu:Ability ;
-               edu:partOfAbility edu:CommunicationCapability .
+               edu:partOfAbility edu:CommunicationCapability ;
+               rdfs:isDefinedBy "The act of actively working with information to analyze it, understand it, and use it effectively." .
 
 
 ###  http://edugraph.io/edu#Pronunciation
 edu:Pronunciation rdf:type owl:NamedIndividual ,
                            edu:Ability ;
-                  edu:partOfAbility edu:VocalArticulation .
+                  edu:partOfAbility edu:VocalArticulation ;
+                  rdfs:isDefinedBy """Saying words correctly with accurate articulation and stress. This involves producing the sounds of a language clearly and accurately, paying attention to vowel and consonant sounds, syllable stress, and intonation patterns.
+
+Example: Learning to pronounce new vocabulary words correctly in a foreign language class.""" .
 
 
 ###  http://edugraph.io/edu#ProportionAbstraction
 edu:ProportionAbstraction rdf:type owl:NamedIndividual ,
                                    edu:Area ;
-                          edu:partOfArea edu:ProportionSense .
+                          edu:partOfArea edu:ProportionSense ;
+                          rdfs:isDefinedBy "Proportion abstraction is the ability to generalize proportional relationships and apply them to new situations." .
 
 
 ###  http://edugraph.io/edu#ProportionExpression
 edu:ProportionExpression rdf:type owl:NamedIndividual ,
                                   edu:Area ;
-                         edu:partOfArea edu:ProportionInteraction .
+                         edu:partOfArea edu:ProportionInteraction ;
+                         rdfs:isDefinedBy "Proportion expression is the ability to represent proportional relationships using mathematical symbols and equations." .
 
 
 ###  http://edugraph.io/edu#ProportionIdentification
 edu:ProportionIdentification rdf:type owl:NamedIndividual ,
                                       edu:Area ;
-                             edu:partOfArea edu:ProportionInteraction .
+                             edu:partOfArea edu:ProportionInteraction ;
+                             rdfs:isDefinedBy "Proportion identification is the ability to recognize situations where proportional relationships exist." .
 
 
 ###  http://edugraph.io/edu#ProportionInteraction
 edu:ProportionInteraction rdf:type owl:NamedIndividual ,
                                    edu:Area ;
-                          edu:partOfArea edu:ProportionSense .
+                          edu:partOfArea edu:ProportionSense ;
+                          rdfs:isDefinedBy "Proportion interaction is the ability to analyze and manipulate proportional relationships to solve problems." .
 
 
 ###  http://edugraph.io/edu#ProportionManipulation
 edu:ProportionManipulation rdf:type owl:NamedIndividual ,
                                     edu:Area ;
-                           edu:partOfArea edu:ProportionInteraction .
+                           edu:partOfArea edu:ProportionInteraction ;
+                           rdfs:isDefinedBy "Proportion manipulation is the ability to adjust or change the values in a proportion while maintaining the proportional relationship." .
 
 
 ###  http://edugraph.io/edu#ProportionSense
 edu:ProportionSense rdf:type owl:NamedIndividual ,
                              edu:Area ;
-                    edu:partOfArea edu:IntuitiveMathematics .
+                    edu:partOfArea edu:IntuitiveMathematics ;
+                    rdfs:isDefinedBy "Proportion sense is the ability to understand and reason about proportional relationships between quantities." .
 
 
 ###  http://edugraph.io/edu#Protractor
@@ -2121,55 +2297,72 @@ edu:QuantitiyMeasurement rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#RatioEquivalence
 edu:RatioEquivalence rdf:type owl:NamedIndividual ,
                               edu:Area ;
-                     edu:partOfArea edu:ProportionAbstraction .
+                     edu:partOfArea edu:ProportionAbstraction ;
+                     rdfs:isDefinedBy "Ratio equivalence is the understanding that different ratios can represent the same proportional relationship." .
 
 
 ###  http://edugraph.io/edu#RatioInterpretation
 edu:RatioInterpretation rdf:type owl:NamedIndividual ,
                                  edu:Area ;
-                        edu:partOfArea edu:ProportionAbstraction .
+                        edu:partOfArea edu:ProportionAbstraction ;
+                        rdfs:isDefinedBy "Ratio interpretation is the ability to understand the meaning of a ratio and its relationship to the quantities involved." .
 
 
 ###  http://edugraph.io/edu#RatioNotation
 edu:RatioNotation rdf:type owl:NamedIndividual ,
                            edu:Area ;
-                  edu:partOfArea edu:ProportionAbstraction .
+                  edu:partOfArea edu:ProportionAbstraction ;
+                  rdfs:isDefinedBy "Ratio notation is the system of symbols and conventions used to represent ratios." .
 
 
 ###  http://edugraph.io/edu#RationalsArithmetic
 edu:RationalsArithmetic rdf:type owl:NamedIndividual ,
                                  edu:Area ;
-                        edu:partOfArea edu:Arithmetic .
+                        edu:partOfArea edu:Arithmetic ;
+                        rdfs:isDefinedBy "Arithmetic operations performed on rational numbers (numbers that can be expressed as a fraction)." .
 
 
 ###  http://edugraph.io/edu#ReadingFluency
 edu:ReadingFluency rdf:type owl:NamedIndividual ,
                             edu:Ability ;
-                   edu:partOfAbility edu:TextualReception .
+                   edu:partOfAbility edu:TextualReception ;
+                   rdfs:isDefinedBy """Reading smoothly and effortlessly with good pacing and expression. This involves reading at a comfortable speed with accurate pronunciation and appropriate intonation.
+
+Example: Reading aloud a passage from a novel with fluency and expression.""" .
 
 
 ###  http://edugraph.io/edu#ReadingPrecision
 edu:ReadingPrecision rdf:type owl:NamedIndividual ,
                               edu:Ability ;
-                     edu:partOfAbility edu:TextualReception .
+                     edu:partOfAbility edu:TextualReception ;
+                     rdfs:isDefinedBy """Reading accurately and with attention to detail. This involves understanding the meaning of words, sentences, and paragraphs, and identifying key information in the text.
+
+Example: Carefully reading a historical document to understand the events and their significance.""" .
 
 
 ###  http://edugraph.io/edu#ReadingSpeed
 edu:ReadingSpeed rdf:type owl:NamedIndividual ,
                           edu:Ability ;
-                 edu:partOfAbility edu:TextualReception .
+                 edu:partOfAbility edu:TextualReception ;
+                 rdfs:isDefinedBy """Reading quickly and efficiently while still comprehending the text. This involves processing written information at a fast pace without sacrificing understanding.
+
+Example: Skimming a news article to quickly grasp the main points.""" .
 
 
 ###  http://edugraph.io/edu#Reception
 edu:Reception rdf:type owl:NamedIndividual ,
                        edu:Ability ;
-              edu:partOfAbility edu:Processing .
+              edu:partOfAbility edu:Processing ;
+              rdfs:isDefinedBy "The act of receiving and understanding information through various senses, such as listening, reading, and observing." .
 
 
 ###  http://edugraph.io/edu#RelevanceEvaluation
 edu:RelevanceEvaluation rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
-                        edu:partOfAbility edu:Evaluation .
+                        edu:partOfAbility edu:Evaluation ;
+                        rdfs:isDefinedBy """Determining how important or useful information is for a specific purpose. This involves identifying key information and filtering out irrelevant details to focus on what is most important.
+
+Example: Selecting the most relevant data from a research study to support a specific argument in an essay.""" .
 
 
 ###  http://edugraph.io/edu#RepresentationalScope
@@ -2303,31 +2496,29 @@ edu:ServiceOrientation rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#SetTheory
 edu:SetTheory rdf:type owl:NamedIndividual ,
                        edu:Area ;
-              edu:partOfArea edu:Mathematics .
+              edu:partOfArea edu:Mathematics ;
+              rdfs:isDefinedBy "The study of sets, which are collections of objects. It provides a fundamental language and tools for defining and working with mathematical objects." .
 
 
 ###  http://edugraph.io/edu#ShapeCongruence
 edu:ShapeCongruence rdf:type owl:NamedIndividual ,
                              edu:Area ;
-                    edu:partOfArea edu:ShapeRecognition .
-
-
-###  http://edugraph.io/edu#ShapeIdentity
-edu:ShapeIdentity rdf:type owl:NamedIndividual ,
-                           edu:Area ;
-                  edu:partOfArea edu:ShapeRecognition .
+                    edu:partOfArea edu:ShapeRecognition ;
+                    rdfs:isDefinedBy "Shape congruence is the understanding that two shapes are identical in size and shape, even if they are oriented differently." .
 
 
 ###  http://edugraph.io/edu#ShapeRecognition
 edu:ShapeRecognition rdf:type owl:NamedIndividual ,
                               edu:Area ;
-                     edu:partOfArea edu:SpatialSense .
+                     edu:partOfArea edu:SpatialSense ;
+                     rdfs:isDefinedBy "Shape recognition is the ability to identify and name different geometric shapes." .
 
 
 ###  http://edugraph.io/edu#ShapeSymmetry
 edu:ShapeSymmetry rdf:type owl:NamedIndividual ,
                            edu:Area ;
-                  edu:partOfArea edu:ShapeRecognition .
+                  edu:partOfArea edu:ShapeRecognition ;
+                  rdfs:isDefinedBy "Shape symmetry is the understanding that a shape can be divided into identical halves that mirror each other." .
 
 
 ###  http://edugraph.io/edu#Smaller10
@@ -2436,7 +2627,8 @@ edu:SpatialInterpretation rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#SpatialModelling
 edu:SpatialModelling rdf:type owl:NamedIndividual ,
                               edu:Area ;
-                     edu:partOfArea edu:SpatialSense .
+                     edu:partOfArea edu:SpatialSense ;
+                     rdfs:isDefinedBy "Spatial modeling is the ability to create mental or physical representations of objects and their spatial relationships." .
 
 
 ###  http://edugraph.io/edu#SpatialNavigation
@@ -2469,7 +2661,8 @@ edu:SpatialNumbers rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#SpatialSense
 edu:SpatialSense rdf:type owl:NamedIndividual ,
                           edu:Area ;
-                 edu:partOfArea edu:IntuitiveMathematics .
+                 edu:partOfArea edu:IntuitiveMathematics ;
+                 rdfs:isDefinedBy "Spatial sense involves understanding shapes, sizes, positions, and movements in two and three dimensions." .
 
 
 ###  http://edugraph.io/edu#SpatialThinking
@@ -2496,13 +2689,19 @@ edu:SpatialThinking rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#SpeakingFluency
 edu:SpeakingFluency rdf:type owl:NamedIndividual ,
                              edu:Ability ;
-                    edu:partOfAbility edu:VocalArticulation .
+                    edu:partOfAbility edu:VocalArticulation ;
+                    rdfs:isDefinedBy """Speaking smoothly and continuously without unnecessary pauses or hesitations. This involves expressing oneself in a fluid and natural manner, with good pacing and rhythm.
+
+Example: Delivering a presentation with confidence and fluency, maintaining a steady flow of speech.""" .
 
 
 ###  http://edugraph.io/edu#SpeakingSpeed
 edu:SpeakingSpeed rdf:type owl:NamedIndividual ,
                            edu:Ability ;
-                  edu:partOfAbility edu:VocalArticulation .
+                  edu:partOfAbility edu:VocalArticulation ;
+                  rdfs:isDefinedBy """Speaking at an appropriate pace, neither too fast nor too slow. This involves adjusting one's speaking rate to ensure clarity and allow the audience to comprehend the information being conveyed.
+
+Example: Pacing oneself during a speech to ensure that the audience can follow along and understand the message.""" .
 
 
 ###  http://edugraph.io/edu#StartingStrength
@@ -2520,7 +2719,8 @@ edu:StaticBalance rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Statistics
 edu:Statistics rdf:type owl:NamedIndividual ,
                         edu:Area ;
-               edu:partOfArea edu:Mathematics .
+               edu:partOfArea edu:Mathematics ;
+               rdfs:isDefinedBy "Statistics provides a framework for collecting, organizing, analyzing, and interpreting data. It provides tools for quantifying and modeling randomness, variability, and uncertainty in data." .
 
 
 ###  http://edugraph.io/edu#Stopwatch
@@ -2539,7 +2739,10 @@ edu:Strength rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#SubtextUnderstanding
 edu:SubtextUnderstanding rdf:type owl:NamedIndividual ,
                                   edu:Ability ;
-                         edu:partOfAbility edu:Understanding .
+                         edu:partOfAbility edu:Understanding ;
+                         rdfs:isDefinedBy """Understanding the implied or hidden meanings in communication. This involves reading between the lines and interpreting the underlying messages conveyed through tone, body language, and context.
+
+Example: Understanding the underlying themes and messages in a novel.""" .
 
 
 ###  http://edugraph.io/edu#SubtractiveCount
@@ -2553,7 +2756,8 @@ edu:SubtractiveCount rdf:type owl:NamedIndividual ,
 edu:Sum rdf:type owl:NamedIndividual ,
                  edu:Area ;
         edu:expandsArea edu:Increment ;
-        edu:partOfArea edu:BaseOperations .
+        edu:partOfArea edu:BaseOperations ;
+        rdfs:isDefinedBy "Sum represents the total amount obtained by combining quantities." .
 
 
 ###  http://edugraph.io/edu#Sunclock
@@ -2566,13 +2770,19 @@ edu:Sunclock rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#SupertextUnderstanding
 edu:SupertextUnderstanding rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
-                           edu:partOfAbility edu:Understanding .
+                           edu:partOfAbility edu:Understanding ;
+                           rdfs:isDefinedBy """Understanding the broader context and implications of information. This involves connecting information to prior knowledge, considering different perspectives, and understanding the significance of information in a larger context.
+
+Example: Understanding the historical context of a political speech and its impact on society.""" .
 
 
 ###  http://edugraph.io/edu#SyntacticalPrecision
 edu:SyntacticalPrecision rdf:type owl:NamedIndividual ,
                                   edu:Ability ;
-                         edu:partOfAbility edu:TextualArticulation .
+                         edu:partOfAbility edu:TextualArticulation ;
+                         rdfs:isDefinedBy """Constructing sentences with a clear and logical arrangement of words and phrases. This involves using proper syntax to ensure that sentences are grammatically correct and easy to understand.
+
+Example: Using correct word order and punctuation in a sentence.""" .
 
 
 ###  http://edugraph.io/edu#Tangrams
@@ -2612,13 +2822,19 @@ edu:Termometer rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#TextualArticulation
 edu:TextualArticulation rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
-                        edu:partOfAbility edu:LingusticArticulation .
+                        edu:partOfAbility edu:LingusticArticulation ;
+                        rdfs:isDefinedBy """Expressing oneself effectively through writing. This involves organizing ideas logically, using appropriate language and style, and adhering to conventions of written communication.
+
+Example: Writing a persuasive essay with a clear introduction, body, and conclusion.""" .
 
 
 ###  http://edugraph.io/edu#TextualReception
 edu:TextualReception rdf:type owl:NamedIndividual ,
                               edu:Ability ;
-                     edu:partOfAbility edu:LingusticReception .
+                     edu:partOfAbility edu:LingusticReception ;
+                     rdfs:isDefinedBy """Understanding and interpreting written text. This involves reading and comprehending various types of texts, such as books, articles, and online resources.
+
+Example: Reading a book about animals and understanding their differences and commonalities.""" .
 
 
 ###  http://edugraph.io/edu#ThreeDimensional
@@ -2638,13 +2854,19 @@ edu:TimeMeasurement rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#TonalArticulation
 edu:TonalArticulation rdf:type owl:NamedIndividual ,
                                edu:Ability ;
-                      edu:partOfAbility edu:Articulation .
+                      edu:partOfAbility edu:Articulation ;
+                      rdfs:isDefinedBy """Expressing oneself through vocal tone and inflection. This involves varying the pitch, volume, and rhythm of one's voice to convey meaning and emotion.
+
+Example: An individual sings a song with the intended tonality, volume, rythm and pitch.""" .
 
 
 ###  http://edugraph.io/edu#TonalReception
 edu:TonalReception rdf:type owl:NamedIndividual ,
                             edu:Ability ;
-                   edu:partOfAbility edu:Reception .
+                   edu:partOfAbility edu:Reception ;
+                   rdfs:isDefinedBy """Understanding and interpreting vocal tone and inflection. This involves paying attention to the nuances of a speaker's or singer's voice, such as pitch, volume, and rhythm.
+
+Example: Listening to a someone singing a song and identifying their exact mistakes during the reproduction of a song.""" .
 
 
 ###  http://edugraph.io/edu#Touching
@@ -2670,19 +2892,32 @@ edu:TwoDimensional rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#Understanding
 edu:Understanding rdf:type owl:NamedIndividual ,
                            edu:Ability ;
-                  edu:partOfAbility edu:Processing .
+                  edu:partOfAbility edu:Processing ;
+                  rdfs:isDefinedBy """The ability to grasp the meaning of information and make connections between ideas. This involves comprehending information at different levels, from the literal to the inferential, and applying knowledge to new situations.
+
+Example: Understanding the main ideas in a textbook chapter and how they relate to previously learned concepts.""" .
 
 
 ###  http://edugraph.io/edu#VisualArticulation
 edu:VisualArticulation rdf:type owl:NamedIndividual ,
                                 edu:Ability ;
-                       edu:partOfAbility edu:Articulation .
+                       edu:partOfAbility edu:Articulation ;
+                       rdfs:isDefinedBy """Expressing oneself through visual aids, such as drawings, diagrams, or images. This involves using visual elements to communicate information or ideas.
+
+**Examples from different subjects:**
+
+* Math: Creating a graph to represent the relationship between two variables.
+* Science: Drawing a diagram of the human circulatory system.
+* Social Science: Using a map to illustrate population density across different regions.""" .
 
 
 ###  http://edugraph.io/edu#VisualDecomposition
 edu:VisualDecomposition rdf:type owl:NamedIndividual ,
                                  edu:Ability ;
-                        edu:partOfAbility edu:VisualReception .
+                        edu:partOfAbility edu:VisualReception ;
+                        rdfs:isDefinedBy """Breaking down complex visual information into smaller, more manageable parts. This involves analyzing visual elements, such as shapes, colors, and patterns, to understand the overall composition.
+
+Example: Analyzing a complex diagram in a biology textbook to understand the different components of a cell.""" .
 
 
 ###  http://edugraph.io/edu#VisualGeometry
@@ -2702,49 +2937,73 @@ edu:VisualNumbers rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#VisualReception
 edu:VisualReception rdf:type owl:NamedIndividual ,
                              edu:Ability ;
-                    edu:partOfAbility edu:Reception .
+                    edu:partOfAbility edu:Reception ;
+                    rdfs:isDefinedBy """Understanding and interpreting visual information. This involves making sense of images, diagrams, charts, and other visual aids.
+
+Example: Interpreting a graph in a science textbook to understand the relationship between variables.""" .
 
 
 ###  http://edugraph.io/edu#VisualRecongition
 edu:VisualRecongition rdf:type owl:NamedIndividual ,
                                edu:Ability ;
-                      edu:partOfAbility edu:VisualReception .
+                      edu:partOfAbility edu:VisualReception ;
+                      rdfs:isDefinedBy """Identifying and recognizing familiar visual patterns and objects. This involves recalling previously learned visual information and matching it to new visual stimuli.
+
+Example: Recognizing different types of plants and animals in a nature documentary.""" .
 
 
 ###  http://edugraph.io/edu#Visualization
 edu:Visualization rdf:type owl:NamedIndividual ,
                            edu:Ability ;
-                  edu:partOfAbility edu:Expression .
+                  edu:partOfAbility edu:Expression ;
+                  rdfs:isDefinedBy """Creating mental images or representations to understand concepts. This involves using imagination and visual thinking to grasp complex ideas or solve problems.
+
+Example: Visualizing the steps in a mathematical problem or the structure of a molecule.""" .
 
 
 ###  http://edugraph.io/edu#VocalArticulation
 edu:VocalArticulation rdf:type owl:NamedIndividual ,
                                edu:Ability ;
-                      edu:partOfAbility edu:LingusticArticulation .
+                      edu:partOfAbility edu:LingusticArticulation ;
+                      rdfs:isDefinedBy """Expressing oneself through spoke word. This involves pronouncing words clearly and distinctly so that they are easily understood by others.
+
+Example: Reading out aloud a poem, focusing on enunciating each word clearly and maintaining the poem's intended rythm.""" .
 
 
 ###  http://edugraph.io/edu#VocalListeningCapacity
 edu:VocalListeningCapacity rdf:type owl:NamedIndividual ,
                                     edu:Ability ;
-                           edu:partOfAbility edu:VocalReception .
+                           edu:partOfAbility edu:VocalReception ;
+                           rdfs:isDefinedBy """The ability to listen and comprehend spoken language for extended periods. This involves maintaining focus and attention during lectures, presentations, and conversations.
+
+Example: Listening attentively to a speaker's presentation for an hour.""" .
 
 
 ###  http://edugraph.io/edu#VocalListeningFlexibility
 edu:VocalListeningFlexibility rdf:type owl:NamedIndividual ,
                                        edu:Ability ;
-                              edu:partOfAbility edu:VocalReception .
+                              edu:partOfAbility edu:VocalReception ;
+                              rdfs:isDefinedBy """The ability to adapt to different speaking styles and accents. This involves understanding spoken language even when it is delivered with varying speeds, accents, or levels of clarity.
+
+Example: Understanding a classmate's presentation even though they have an accent from another geographic region.""" .
 
 
 ###  http://edugraph.io/edu#VocalListeningPrecision
 edu:VocalListeningPrecision rdf:type owl:NamedIndividual ,
                                      edu:Ability ;
-                            edu:partOfAbility edu:VocalReception .
+                            edu:partOfAbility edu:VocalReception ;
+                            rdfs:isDefinedBy """The ability to listen carefully and accurately to spoken language. This involves paying attention to details, nuances, and subtle cues in speech to fully understand the message.
+
+Example: Listening attentively to a debate and identifying the key arguments presented by each speaker.""" .
 
 
 ###  http://edugraph.io/edu#VocalReception
 edu:VocalReception rdf:type owl:NamedIndividual ,
                             edu:Ability ;
-                   edu:partOfAbility edu:LingusticReception .
+                   edu:partOfAbility edu:LingusticReception ;
+                   rdfs:isDefinedBy """Understanding and interpreting spoken language. This involves listening attentively to speech and comprehending the meaning of words, phrases, and sentences.
+
+Example:  Following a teacher's instructions during a class activity.""" .
 
 
 ###  http://edugraph.io/edu#VolumeMeasurement
@@ -2778,13 +3037,19 @@ edu:WithoutZero rdf:type owl:NamedIndividual ,
 ###  http://edugraph.io/edu#WritingFluency
 edu:WritingFluency rdf:type owl:NamedIndividual ,
                             edu:Ability ;
-                   edu:partOfAbility edu:TextualArticulation .
+                   edu:partOfAbility edu:TextualArticulation ;
+                   rdfs:isDefinedBy """Writing smoothly and effortlessly. This involves expressing thoughts and ideas in a fluid manner without interruptions or hesitations.
+
+Example: Writing a creative story with a natural flow, minimizing pauses, revisions and corrections.""" .
 
 
 ###  http://edugraph.io/edu#WritingSpeed
 edu:WritingSpeed rdf:type owl:NamedIndividual ,
                           edu:Ability ;
-                 edu:partOfAbility edu:TextualArticulation .
+                 edu:partOfAbility edu:TextualArticulation ;
+                 rdfs:isDefinedBy """Writing quickly and efficiently. This involves being able to write at a pace that allows for timely completion of written tasks.
+
+Example: Keeping up to the pace of a dictate.""" .
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

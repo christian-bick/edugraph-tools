@@ -8,6 +8,7 @@ from google.generativeai import get_file
 
 from semantic.classifiers import SplitPromptClassifier
 from semantic.classifiers import SplitPromptStrategyGemini
+from semantic.gemini_context_cache import GeminiContextCache
 from semantic.gemini_file_storage import upload_file
 from semantic.ontology_loader import load_from_path
 from semantic.ontology_util import OntologyUtil
@@ -17,20 +18,20 @@ from .ontology_serializer import serialize_entity_tree, serialize_entities_with_
 
 app = Flask(__name__, static_folder=None)
 
-onto = load_from_path("./core-ontology.rdf")
+onto_path = "./core-ontology.rdf"
+onto = load_from_path(onto_path)
 onto_util = OntologyUtil(onto)
 
 classification_cache = ClassificationCache()
+gemini_context_cache = GeminiContextCache()
 
 root_areas = onto_util.list_root_entities(onto.Area)
 root_abilities = onto_util.list_root_entities(onto.Ability)
 root_scopes = onto_util.list_root_entities(onto.Scope)
 
-
 @app.route("/")
 def root():
     return "OK"
-
 
 @app.route("/classify", methods=["POST"])
 def classify():
@@ -49,6 +50,8 @@ def classify():
     if result is not None:
         app.logger.info('classification used from cache')
     else:
+        cache = gemini_context_cache.get()
+
         app.logger.info('classification starting')
         mime_type = request_file.mimetype
 
@@ -62,6 +65,8 @@ def classify():
         if file is None:
             file = upload_file(name, mime_type, BytesIO(request_file.stream.read()))
             app.logger.info('file %s added to gemini', name)
+
+
 
         classifier = SplitPromptClassifier(onto, SplitPromptStrategyGemini)
         classification = classifier.classify_content(file)
