@@ -17,7 +17,7 @@ concurrency:
 jobs:
   docker:
     defaults:
-    run:
+      run:
         working-directory: ./app
     runs-on: ubuntu-latest
     steps:
