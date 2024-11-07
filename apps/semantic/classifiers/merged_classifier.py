@@ -1,8 +1,4 @@
-from semantic.classifiers.strategies.classifier_split_gemini_with_serialized_taxonomies_v1 import \
-    ClassifierSplitGeminiWithSerializedTaxonomiesV1
-
-
-class ClassifierSplit:
+class MergedClassifier:
 
     def __init__(self, classifier):
         self.classifier = classifier

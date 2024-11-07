@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from google.generativeai import get_file
 
-from semantic.classifiers.classifier_split import ClassifierSplit
+from semantic.classifiers.merged_classifier import MergedClassifier
 from semantic.classifiers.strategies.classifier_split_gemini_with_serialized_taxonomies_v1 import \
     ClassifierSplitGeminiWithSerializedTaxonomiesV1
 from semantic.gemini_file_storage import upload_file
@@ -65,7 +65,7 @@ def classify():
             file = upload_file(name, mime_type, BytesIO(request_file.stream.read()))
             app.logger.info('file %s added to gemini', name)
 
-        classifier = ClassifierSplit(ClassifierSplitGeminiWithSerializedTaxonomiesV1(onto))
+        classifier = MergedClassifier(ClassifierSplitGeminiWithSerializedTaxonomiesV1(onto))
         classification = classifier.classify_content(file)
         classified_area = getattr(onto, classification["Area"][0])
 
