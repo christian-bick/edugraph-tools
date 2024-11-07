@@ -36,4 +36,4 @@ jobs:
         with:
           context: "{{defaultContext}}:apps"
           push: true
-          tags: christian-bick/edugraph-api:latest
+          tags: christianbick/edugraph-api:latest
