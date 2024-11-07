@@ -34,6 +34,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v6
         with:
-          file: ./app/Dockerfile
+          file: {context}/app/Dockerfile
           push: true
           tags: christian-bick/edugraph-api:latest
