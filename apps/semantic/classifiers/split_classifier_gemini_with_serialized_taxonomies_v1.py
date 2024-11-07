@@ -1,7 +1,10 @@
+import json
 import typing
 
 import google.generativeai as gemini
-import json
+
+from semantic.ontology_util import entity_name_of_natural_name, OntologyUtil
+from .context_builder import build_taxonomy
 
 system_instruction = """
 You are presented with learning material that you shall classify using a given taxonomy.
@@ -44,7 +47,7 @@ Further, the index in the outline express a parent-child relationship, consequen
 * "1.2.1" and "1.2.2" are children of "1.2"
 * "Alcoholic" is a child element of "Drinks". 
 * "Food" is a parent element of "Italian" and "French"
-* "Drinks" and "Food" root elements
+* "Drinks" and "Food" are root elements
 * "Beer", "Wine", "Italian" and "French" are leaf elements
 
 Between the "---" is an example of definitions for gastronomic terms :
@@ -125,23 +128,23 @@ class PromptMultiResponse(typing.TypedDict):
     step_1: str
     step_3: list[str]
 
-class SplitPromptStrategyGemini:
+class SplitClassifierGeminiWithSerializedTaxonomiesV1:
 
-    def __init__(self, gemini_file):
-        self.gemini_file = gemini_file
-
-    def find_best_match(self, taxonomy, priming_instruction, matching_instruction):
-        model = gemini.GenerativeModel(
+    def __init__(self, onto):
+        onto_util = OntologyUtil(onto)
+        self.area_taxonomy = build_taxonomy("Areas", onto_util.list_root_entities(onto.Area))
+        self.ability_taxonomy = build_taxonomy("Abilities", onto_util.list_root_entities(onto.Ability))
+        self.scope_taxonomy = build_taxonomy("Scopes", onto_util.list_root_entities(onto.Scope))
+        self.model = gemini.GenerativeModel(
             model_name="gemini-1.5-flash",
             system_instruction=system_instruction
         )
 
+    def __find_best_match(self, taxonomy, priming_instruction, matching_instruction, gemini_file):
         prompt = single_prompt.format(taxonomy, priming_instruction, matching_instruction)
-
-        result = model.generate_content(
-            [self.gemini_file, prompt], generation_config=gemini.types.GenerationConfig(
+        result = self.model.generate_content(
+            [gemini_file, prompt], generation_config=gemini.types.GenerationConfig(
                 candidate_count=1,
-                max_output_tokens=250,
                 response_mime_type="application/json",
                 temperature=0,
                 response_schema=PromptSingleResponse
@@ -149,21 +152,42 @@ class SplitPromptStrategyGemini:
         result_obj = json.loads(result.text)
         return [ result_obj['step_3'] ]
 
-    def find_matches(self, taxonomy, priming_instruction, matching_instruction):
-        model = gemini.GenerativeModel(
-            model_name="gemini-1.5-flash",
-            system_instruction=system_instruction
-        )
-
+    def __find_matches(self, taxonomy, priming_instruction, matching_instruction, gemini_file):
         prompt = multi_prompt.format(taxonomy, priming_instruction, matching_instruction)
-
-        result = model.generate_content(
-            [self.gemini_file, prompt], generation_config=gemini.types.GenerationConfig(
+        result = self.model.generate_content(
+            [gemini_file, prompt], generation_config=gemini.types.GenerationConfig(
                 candidate_count=1,
-                max_output_tokens=250,
                 response_mime_type="application/json",
                 temperature=0,
                 response_schema=PromptMultiResponse
             ))
         result_obj = json.loads(result.text)
         return result_obj['step_3']
+
+    def classify_area(self, gemini_file):
+        matched_areas = self.__find_best_match(
+            taxonomy=self.area_taxonomy,
+            priming_instruction="Describe the precise area of learning covered by the provided learning material in one sentence.",
+            matching_instruction="find the term that best matches the description provided in step 1",
+            gemini_file=gemini_file
+        )
+        return [entity_name_of_natural_name(natural_name) for natural_name in matched_areas]
+
+    def classify_ability(self, gemini_file):
+
+        matched_abilities = self.__find_matches(
+            taxonomy=self.ability_taxonomy,
+            priming_instruction="Describe the student abilities challenged by the provided learning material in one sentence.",
+            matching_instruction="find the terms that best match the description provided in step 1",
+            gemini_file=gemini_file
+        )
+        return [entity_name_of_natural_name(natural_name) for natural_name in matched_abilities]
+
+    def classify_scope(self, gemini_file):
+        matched_scopes = self.__find_matches(
+            taxonomy=self.scope_taxonomy,
+            priming_instruction="Describe the representative aspects of the learning material in up tp 200 words.",
+            matching_instruction="find the terms that best match the description of the learning material",
+            gemini_file=gemini_file
+        )
+        return [entity_name_of_natural_name(natural_name) for natural_name in matched_scopes]

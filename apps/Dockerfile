@@ -29,7 +29,7 @@ COPY poetry.lock pyproject.toml ${APP_DIR}
 RUN poetry install --only=main --no-interaction --no-ansi
 
 # Creating folders, and files for a project:
-COPY app.py .env core-ontology.rdf core-ontology.ttl ${APP_DIR}
+COPY app.py core-ontology.rdf core-ontology.ttl ${APP_DIR}
 COPY /api ${APP_DIR}/api/
 COPY /semantic ${APP_DIR}/semantic/
 
