@@ -1,5 +1,3 @@
-from pyparsing import empty
-
 from semantic.ontology_util import *
 
 

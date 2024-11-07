@@ -1,11 +1,11 @@
-from semantic.classifiers.split_classifier_gemini_with_serialized_taxonomies_v1 import \
-    SplitClassifierGeminiWithSerializedTaxonomiesV1
+from semantic.classifiers.strategies.classifier_split_gemini_with_serialized_taxonomies_v1 import \
+    ClassifierSplitGeminiWithSerializedTaxonomiesV1
 
 
-class SplitClassifier:
+class ClassifierSplit:
 
-    def __init__(self, onto):
-        self.classifier = SplitClassifierGeminiWithSerializedTaxonomiesV1(onto)
+    def __init__(self, classifier):
+        self.classifier = classifier
 
     def classify_content(self, file):
         classification = {

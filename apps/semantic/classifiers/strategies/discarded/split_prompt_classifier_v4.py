@@ -8,7 +8,6 @@ class PromptResponse(typing.TypedDict):
     Ability: list[str]
     Scope: list[str]
 
-
 prompt = """
 Classify the learning material in the given image file and return the matching descriptors:
 

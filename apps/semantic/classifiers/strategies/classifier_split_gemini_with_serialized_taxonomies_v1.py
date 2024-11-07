@@ -4,7 +4,7 @@ import typing
 import google.generativeai as gemini
 
 from semantic.ontology_util import entity_name_of_natural_name, OntologyUtil
-from .context_builder import build_taxonomy
+from semantic.classifiers.context_builder import build_taxonomy
 
 system_instruction = """
 You are presented with learning material that you shall classify using a given taxonomy.
@@ -128,7 +128,7 @@ class PromptMultiResponse(typing.TypedDict):
     step_1: str
     step_3: list[str]
 
-class SplitClassifierGeminiWithSerializedTaxonomiesV1:
+class ClassifierSplitGeminiWithSerializedTaxonomiesV1:
 
     def __init__(self, onto):
         onto_util = OntologyUtil(onto)
