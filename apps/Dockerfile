@@ -3,6 +3,7 @@ FROM python:3.12.6
 ARG APP_DIR="/usr/src/app"
 ARG PORT=8080
 ENV PORT=${PORT}
+ARG ONTOLOGY_VERSION=0.1.0
 
 ENV PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
@@ -29,9 +30,12 @@ COPY poetry.lock pyproject.toml ${APP_DIR}
 RUN poetry install --only=main --no-interaction --no-ansi
 
 # Creating folders, and files for a project:
-COPY app.py core-ontology.rdf core-ontology.ttl ${APP_DIR}
+COPY app.py .env* ${APP_DIR}
 COPY /api ${APP_DIR}/api/
 COPY /semantic ${APP_DIR}/semantic/
+
+RUN wget https://github.com/christian-bick/edugraph-ontology/releases/download/${ONTOLOGY_VERSION}/core-ontology.rdf
+RUN wget https://github.com/christian-bick/edugraph-ontology/releases/download/${ONTOLOGY_VERSION}/core-ontology.ttl
 
 EXPOSE ${PORT}
 
