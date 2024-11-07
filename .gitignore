@@ -12,7 +12,7 @@
 # Ontology
 *.properties
 core-ontology.rdf
-apps/core-ontology.ttl
+core-ontology.ttl
 
 #Python
 __pycache__
