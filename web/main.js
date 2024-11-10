@@ -1,6 +1,6 @@
 import "./style.scss";
 import * as echarts from 'echarts';
-import {initExampleUpload, initFileUpload} from "./scripts/file-upload.js";
+import {initClassification} from "./scripts/file-upload.js";
 import initChartNavigation from "./scripts/chart-navigation.js";
 import {ONTOLOGY_URL} from "./scripts/api.js";
 
@@ -47,8 +47,7 @@ function init() {
         switchView(viewUploadProgress, viewUploadStart)
     };
 
-    initFileUpload({ handelUploadProgress, handleUploadSuccess, handleUploadError });
-    initExampleUpload({ handelUploadProgress, handleUploadSuccess, handleUploadError })
+    initClassification({ handelClassificationProgress, handleClassificationSuccess, handleClassificationError })
     initOntology()
 }
 
@@ -95,11 +94,11 @@ function previewFile(file) {
     reader.readAsDataURL(file);
 }
 
-function handelUploadProgress() {
+function handelClassificationProgress() {
     switchView(viewUploadStart, viewUploadProgress)
 }
 
-function handleUploadSuccess(file, json) {
+function handleClassificationSuccess(file, json) {
     const result = {
         classifiedEntities: json["classification"],
         areaExtension: json["expansion"]["areas"]
@@ -109,7 +108,7 @@ function handleUploadSuccess(file, json) {
     previewFile(file)
 }
 
-function handleUploadError(err) {
+function handleClassificationError(err) {
     console.error('Error:', err);
     switchView(viewUploadProgress, viewUploadError);
 

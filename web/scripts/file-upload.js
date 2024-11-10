@@ -1,6 +1,12 @@
 import {CLASSIFY_URL} from "./api.js";
 
-export function initFileUpload(handlers) {
+export function initClassification(handlers) {
+    const classify = classifyFile(handlers)
+    initUploadClassification(classify)
+    initExampleClassification(classify, handlers.handleClassificationError)
+}
+
+export function initUploadClassification(classify) {
     const uploadDropzone = document.getElementById('upload-dropzone');
     const uploadInput = document.getElementById('upload-input');
 
@@ -45,11 +51,11 @@ export function initFileUpload(handlers) {
     uploadInput.addEventListener('change', handleFiles, false);
 
     function handleFiles(files) {
-        return classifyFile({file: files[0], ...handlers});
+        return classify(files[0]);
     }
 }
 
-export function initExampleUpload(handlers) {
+export function initExampleClassification(classify, handleClassificationError) {
     const uploadExample = document.getElementById('upload-example');
     const imageElements = uploadExample.getElementsByTagName('img');
     for (let imageEl of imageElements) {
@@ -62,26 +68,29 @@ export function initExampleUpload(handlers) {
             fetch(url)
                 .then(response => response.blob())
                 .then(blob => new File([blob], name, {type}))
-                .catch(handlers.handleUploadError)
-                .then(file => classifyFile({file, ...handlers}))
+                .catch(handleClassificationError)
+                .then(classify)
             ;
         }
     }
 }
 
-function classifyFile({file, handelUploadProgress, handleUploadSuccess, handleUploadError}) {
-    const name = file.name;
-    let formData = new FormData();
-    formData.append('file', file);
-    formData.append('name', name);
+function classifyFile({handelClassificationProgress, handleClassificationSuccess, handleClassificationError}) {
+    function classify (file)  {
+        const name = file.name;
+        let formData = new FormData();
+        formData.append('file', file);
+        formData.append('name', name);
 
-    handelUploadProgress()
+        handelClassificationProgress()
 
-    return fetch(CLASSIFY_URL, {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.json())
-        .then((json) => handleUploadSuccess(file, json))
-        .catch(handleUploadError);
+        return fetch(CLASSIFY_URL, {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then((json) => handleClassificationSuccess(file, json))
+            .catch(handleClassificationError);
+    }
+    return classify;
 }
