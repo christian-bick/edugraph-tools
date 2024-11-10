@@ -1,9 +1,7 @@
 import "./style.scss";
 import * as echarts from 'echarts';
-import updateTaxonomyChart from "./scripts/charts/taxonomy-chart.js";
-import updateClassificationChart from "./scripts/charts/classification-chart.js";
-import updateTreeChart from "./scripts/charts/tree-chart.js";
 import {initExampleUpload, initFileUpload} from "./scripts/classify-file.js";
+import initChartNavigation from "./scripts/chart-navigation.js";
 
 const API_URL = import.meta.env.PROD ? "https://edu-graph-api-575953891979.europe-west3.run.app" : "http://localhost:8080"
 
@@ -29,90 +27,10 @@ let filePreviewMore;
 let previousChartButton;
 let nextChartButton;
 
-const chartMap = {
-    classification: {
-        switch: () => {
-            updateClassificationChart({
-                visual: visualClassification,
-                entities: classifiedEntities || classifiedEntitiesDefault
-            })
-        },
-        previous: 'abilityExtension',
-        next: 'areaTaxonomy',
-    },
-    areaTaxonomy: {
-        switch: () => {
-            updateTaxonomyChart({
-                name: 'Areas',
-                entities: onto.taxonomy.areas,
-                visual: visualClassification,
-                color: "#ffb703",
-                color2: "#60181A",
-                highlighted: classifiedEntities.areas
-            });
-        },
-        previous: 'classification',
-        next: 'abilityTaxonomy',
-    },
-    abilityTaxonomy: {
-        switch: () => {
-            updateTaxonomyChart({
-                name: 'Abilities',
-                entities: onto.taxonomy.abilities,
-                visual: visualClassification,
-                color: "#8acae6",
-                color2: "#023047",
-                highlighted: classifiedEntities.abilities
-            });
-        },
-        previous: 'areaTaxonomy',
-        next: 'scopeTaxonomy',
-    },
-    scopeTaxonomy: {
-        switch: () => {
-            updateTaxonomyChart({
-                name: 'Scopes',
-                entities: onto.taxonomy.scopes,
-                visual: visualClassification,
-                color: "#87d387",
-                color2: "#28603b",
-                highlighted: classifiedEntities.scopes
-            });
-        },
-        previous: 'abilityTaxonomy',
-        next: 'abilityExtension',
-    },
-    abilityExtension: {
-        switch: () => {
-            updateTreeChart({
-                visual: visualClassification,
-                entities: areaExtension,
-            })
-        },
-        previous: 'scopeTaxonomy',
-        next: 'classification',
-    }
-}
-
-const classifiedEntitiesDefault = {
-    areas: [{natural_name: "Area"}],
-    abilities: [{natural_name: "Abilities"}],
-    scopes: [{natural_name: "Scopes"}],
-}
-
 let classifiedEntities = null;
 let areaExtension = null;
 
-function switchChart(name) {
-    const chartNavigation = chartMap[name]
-    chartNavigation.switch();
-    previousChartButton.onclick = () => {
-        switchChart(chartNavigation.previous)
-    };
-    nextChartButton.onclick = () => {
-        switchChart(chartNavigation.next)
-    };
-}
+let chartNavigation;
 
 function switchView(oldEl, newEl) {
     activateView(newEl);
@@ -147,9 +65,6 @@ function init() {
         classifiedEntities = null
     };
 
-    previousChartButton = document.getElementById('previous-chart-button');
-    nextChartButton = document.getElementById('next-chart-button');
-
     initFileUpload(uploadFile)
     initExampleUpload(uploadFile)
     initOntology()
@@ -173,6 +88,13 @@ function initVisuals() {
     if (!visualClassification) {
         visualClassification = echarts.init(visualContainer);
     }
+
+    const switchChart = initChartNavigation({
+        onto,
+        visual: visualClassification,
+        classifiedEntities,
+        areaExtension
+    })
 
     window.addEventListener('resize', function () {
         visualClassification.resize({
