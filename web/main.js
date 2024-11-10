@@ -2,11 +2,7 @@ import "./style.scss";
 import * as echarts from 'echarts';
 import {initExampleUpload, initFileUpload} from "./scripts/file-upload.js";
 import initChartNavigation from "./scripts/chart-navigation.js";
-
-const API_URL = import.meta.env.PROD ? "https://edu-graph-api-575953891979.europe-west3.run.app" : "http://localhost:8080"
-
-const UPLOAD_URL = `${API_URL}/classify`
-const ONTOLOGY_URL = `${API_URL}/ontology`
+import {ONTOLOGY_URL} from "./scripts/api.js";
 
 let onto;
 
@@ -51,8 +47,8 @@ function init() {
         switchView(viewUploadProgress, viewUploadStart)
     };
 
-    initFileUpload(uploadFile)
-    initExampleUpload(uploadFile)
+    initFileUpload({ handelUploadProgress, handleUploadSuccess, handleUploadError });
+    initExampleUpload({ handelUploadProgress, handleUploadSuccess, handleUploadError })
     initOntology()
 }
 
@@ -69,7 +65,7 @@ function initOntology() {
         });
 }
 
-function initVisual({ classifiedEntities, areaExtension }) {
+function initVisual({classifiedEntities, areaExtension}) {
 
     const visualContainer = document.getElementById('visual-container');
     const visual = echarts.init(visualContainer);
@@ -91,19 +87,6 @@ function initVisual({ classifiedEntities, areaExtension }) {
     switchChart('classification')
 }
 
-function showUploadError() {
-    switchView(viewUploadProgress, viewUploadError);
-
-    setTimeout(() => {
-        switchView(viewUploadError, viewUploadStart);
-    }, 3000)
-}
-
-function showClassification({ classifiedEntities, areaExtension }) {
-    switchView(viewClassificationInput, viewClassificationResult)
-    initVisual({ classifiedEntities, areaExtension })
-}
-
 function previewFile(file) {
     const reader = new FileReader();
     reader.onload = function (e) {
@@ -112,29 +95,27 @@ function previewFile(file) {
     reader.readAsDataURL(file);
 }
 
-function uploadFile(file) {
-    const name = file.name;
-    let formData = new FormData();
-    formData.append('file', file);
-    formData.append('name', name);
-
+function handelUploadProgress() {
     switchView(viewUploadStart, viewUploadProgress)
+}
 
-    return fetch(UPLOAD_URL, {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            const classifiedEntities = data["classification"];
-            const areaExtension = data["expansion"]["areas"]
-            previewFile(file)
-            showClassification({ classifiedEntities, areaExtension })
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showUploadError()
-        });
+function handleUploadSuccess(file, json) {
+    const result = {
+        classifiedEntities: json["classification"],
+        areaExtension: json["expansion"]["areas"]
+    };
+    switchView(viewClassificationInput, viewClassificationResult)
+    initVisual(result)
+    previewFile(file)
+}
+
+function handleUploadError(err) {
+    console.error('Error:', err);
+    switchView(viewUploadProgress, viewUploadError);
+
+    setTimeout(() => {
+        switchView(viewUploadError, viewUploadStart);
+    }, 3000)
 }
 
 document.addEventListener("DOMContentLoaded", init);

@@ -1,4 +1,6 @@
-export function initFileUpload(uploadFile) {
+import {CLASSIFY_URL} from "./api.js";
+
+export function initFileUpload(handlers) {
     const uploadDropzone = document.getElementById('upload-dropzone');
     const uploadInput = document.getElementById('upload-input');
 
@@ -43,11 +45,11 @@ export function initFileUpload(uploadFile) {
     uploadInput.addEventListener('change', handleFiles, false);
 
     function handleFiles(files) {
-        return uploadFile(files[0]);
+        return classifyFile({file: files[0], ...handlers});
     }
 }
 
-export function initExampleUpload(uploadFile) {
+export function initExampleUpload(handlers) {
     const uploadExample = document.getElementById('upload-example');
     const imageElements = uploadExample.getElementsByTagName('img');
     for (let imageEl of imageElements) {
@@ -60,8 +62,26 @@ export function initExampleUpload(uploadFile) {
             fetch(url)
                 .then(response => response.blob())
                 .then(blob => new File([blob], name, {type}))
-                .then(file => uploadFile(file))
+                .catch(handlers.handleUploadError)
+                .then(file => classifyFile({file, ...handlers}))
             ;
         }
     }
+}
+
+function classifyFile({file, handelUploadProgress, handleUploadSuccess, handleUploadError}) {
+    const name = file.name;
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('name', name);
+
+    handelUploadProgress()
+
+    return fetch(CLASSIFY_URL, {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then((json) => handleUploadSuccess(file, json))
+        .catch(handleUploadError);
 }
