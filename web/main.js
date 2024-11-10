@@ -1,6 +1,6 @@
 import "./style.scss";
 import * as echarts from 'echarts';
-import {initClassification} from "./scripts/file-upload.js";
+import {initClassification} from "./scripts/file-classification.js";
 import initChartNavigation from "./scripts/chart-navigation.js";
 import {ONTOLOGY_URL} from "./scripts/api.js";
 
