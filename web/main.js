@@ -69,7 +69,7 @@ function initOntology() {
         });
 }
 
-function initVisuals({ classifiedEntities, areaExtension }) {
+function initVisual({ classifiedEntities, areaExtension }) {
 
     const visualContainer = document.getElementById('visual-container');
     const visual = echarts.init(visualContainer);
@@ -101,7 +101,7 @@ function showUploadError() {
 
 function showClassification({ classifiedEntities, areaExtension }) {
     switchView(viewClassificationInput, viewClassificationResult)
-    initVisuals({ classifiedEntities, areaExtension })
+    initVisual({ classifiedEntities, areaExtension })
 }
 
 function previewFile(file) {
