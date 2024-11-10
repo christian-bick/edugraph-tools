@@ -55,6 +55,18 @@ export default function initChartNavigation({onto, visual, classifiedEntities, a
     const previousChartButton = document.getElementById('previous-chart-button');
     const nextChartButton = document.getElementById('next-chart-button');
 
+    visual.on('click', (source) => {
+        if (source.seriesName === 'Area') {
+            switchChart('areaTaxonomy')
+        } else if (source.seriesName === 'Ability') {
+            switchChart('abilityTaxonomy')
+        } else if (source.seriesName === 'Scope') {
+            switchChart('scopeTaxonomy')
+        } else if (source.name === 'Areas' || source.name === 'Abilities' || source.name === 'Scopes') {
+            switchChart('classification')
+        }
+    })
+
     const switchChart = (name) => {
         const chart = chartNavigation[name]
         chart.activate();

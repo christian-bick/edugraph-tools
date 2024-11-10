@@ -18,9 +18,6 @@ let viewClassificationResult;
 let viewClassificationInput;
 let viewUploadError;
 
-let visualContainer;
-let visualClassification;
-
 let filePreview;
 let filePreviewMore;
 
@@ -41,8 +38,6 @@ function init() {
     viewInit = document.getElementById('view-init')
     viewClassification = document.getElementById('view-classification')
     viewClassificationResult = document.getElementById('view-classification-result');
-
-    visualContainer = document.getElementById('visual-container');
 
     viewUploadStart = document.getElementById('view-upload-start');
     viewUploadProgress = document.getElementById('view-upload-progress');
@@ -76,37 +71,24 @@ function initOntology() {
 
 function initVisuals({ classifiedEntities, areaExtension }) {
 
-    if (!visualClassification) {
-        visualClassification = echarts.init(visualContainer);
-    }
+    const visualContainer = document.getElementById('visual-container');
+    const visual = echarts.init(visualContainer);
 
     const switchChart = initChartNavigation({
         onto,
-        visual: visualClassification,
+        visual,
         classifiedEntities,
         areaExtension
     })
 
     window.addEventListener('resize', function () {
-        visualClassification.resize({
+        visual.resize({
             width: 'auto',
             height: 'auto'
         });
     });
 
     switchChart('classification')
-
-    visualClassification.on('click', (source) => {
-        if (source.seriesName === 'Area') {
-            switchChart('areaTaxonomy')
-        } else if (source.seriesName === 'Ability') {
-            switchChart('abilityTaxonomy')
-        } else if (source.seriesName === 'Scope') {
-            switchChart('scopeTaxonomy')
-        } else if (source.name === 'Areas' || source.name === 'Abilities' || source.name === 'Scopes') {
-            switchChart('classification')
-        }
-    })
 }
 
 function showUploadError() {
