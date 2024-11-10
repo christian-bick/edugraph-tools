@@ -1,6 +1,6 @@
 import "./style.scss";
 import * as echarts from 'echarts';
-import {initExampleUpload, initFileUpload} from "./scripts/classify-file.js";
+import {initExampleUpload, initFileUpload} from "./scripts/file-upload.js";
 import initChartNavigation from "./scripts/chart-navigation.js";
 
 const API_URL = import.meta.env.PROD ? "https://edu-graph-api-575953891979.europe-west3.run.app" : "http://localhost:8080"
