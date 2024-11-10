@@ -1,8 +1,8 @@
 import "./style.scss";
 import * as echarts from 'echarts';
-import {initClassification} from "./scripts/file-classification.js";
+import initClassification from "./scripts/file-classification.js";
 import initChartNavigation from "./scripts/chart-navigation.js";
-import {ONTOLOGY_URL} from "./scripts/api.js";
+import initOntology from "./scripts/ontology.js";
 
 let onto;
 
@@ -47,21 +47,44 @@ function init() {
         switchView(viewUploadProgress, viewUploadStart)
     };
 
+    initOntology({ handelOntologyProgress, handelOntologySuccess, handelOntologyError })
     initClassification({ handelClassificationProgress, handleClassificationSuccess, handleClassificationError })
-    initOntology()
 }
 
-function initOntology() {
-    fetch(ONTOLOGY_URL, {
-        method: 'GET',
-    })
-        .then(response => response.json())
-        .then(data => {
-            onto = data
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+function handelOntologyProgress() {
+    switchView(viewUploadStart, viewUploadProgress)
+}
+
+function handelOntologySuccess(json) {
+    onto = json
+    switchView(viewUploadProgress, viewUploadStart)
+}
+
+function handelOntologyError(err) {
+    console.error('Ontology Error:', err);
+}
+
+function handelClassificationProgress() {
+    switchView(viewUploadStart, viewUploadProgress)
+}
+
+function handleClassificationSuccess(file, json) {
+    const result = {
+        classifiedEntities: json["classification"],
+        areaExtension: json["expansion"]["areas"]
+    };
+    switchView(viewClassificationInput, viewClassificationResult)
+    initVisual(result)
+    previewFile(file)
+}
+
+function handleClassificationError(err) {
+    console.error('Classification Error:', err);
+    switchView(viewUploadProgress, viewUploadError);
+
+    setTimeout(() => {
+        switchView(viewUploadError, viewUploadStart);
+    }, 3000)
 }
 
 function initVisual({classifiedEntities, areaExtension}) {
@@ -92,29 +115,6 @@ function previewFile(file) {
         viewClassificationResult.style['background-image'] = `url(${e.target.result})`;
     }
     reader.readAsDataURL(file);
-}
-
-function handelClassificationProgress() {
-    switchView(viewUploadStart, viewUploadProgress)
-}
-
-function handleClassificationSuccess(file, json) {
-    const result = {
-        classifiedEntities: json["classification"],
-        areaExtension: json["expansion"]["areas"]
-    };
-    switchView(viewClassificationInput, viewClassificationResult)
-    initVisual(result)
-    previewFile(file)
-}
-
-function handleClassificationError(err) {
-    console.error('Error:', err);
-    switchView(viewUploadProgress, viewUploadError);
-
-    setTimeout(() => {
-        switchView(viewUploadError, viewUploadStart);
-    }, 3000)
 }
 
 document.addEventListener("DOMContentLoaded", init);

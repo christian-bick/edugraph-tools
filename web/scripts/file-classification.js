@@ -1,12 +1,12 @@
 import {CLASSIFY_URL} from "./api.js";
 
-export function initClassification(handlers) {
+export default function initClassification(handlers) {
     const classify = classifyFile(handlers)
     initUploadClassification(classify)
     initExampleClassification(classify, handlers.handleClassificationError)
 }
 
-export function initUploadClassification(classify) {
+function initUploadClassification(classify) {
     const uploadDropzone = document.getElementById('upload-dropzone');
     const uploadInput = document.getElementById('upload-input');
 
@@ -55,7 +55,7 @@ export function initUploadClassification(classify) {
     }
 }
 
-export function initExampleClassification(classify, handleClassificationError) {
+function initExampleClassification(classify, handleClassificationError) {
     const uploadExample = document.getElementById('upload-example');
     const imageElements = uploadExample.getElementsByTagName('img');
     for (let imageEl of imageElements) {
