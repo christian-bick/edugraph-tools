@@ -164,7 +164,7 @@ function initOntology() {
         });
 }
 
-function updateTreeChart({ visual, entities }) {
+function updateTreeChart({visual, entities}) {
     const mapEntity = (entity) => {
         return {
             name: entity.natural_name,

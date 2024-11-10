@@ -3,54 +3,55 @@ import pytest
 from semantic.classifiers.context_builder import *
 
 expected_outline = (
-"""1 e1
-1.1 e1-e1
-1.1.1 e1-e1-e1
-1.1.2 e1-e1-e2
-1.2 e1-e2
-"""
+    """1 e1
+    1.1 e1-e1
+    1.1.1 e1-e1-e1
+    1.1.2 e1-e1-e2
+    1.2 e1-e2
+    """
 )
 
 expected_definitions = (
-"""1 e1
-
-e1-def
-
-1.1 e1-e1
-
-e1-e1-def
-
-1.1.1 e1-e1-e1
-
-e1-e1-e1-def
-
-1.1.2 e1-e1-e2
-
-e1-e1-e2-def
-
-1.2 e1-e2
-
-e1-e2-def
-
-"""
+    """1 e1
+    
+    e1-def
+    
+    1.1 e1-e1
+    
+    e1-e1-def
+    
+    1.1.1 e1-e1-e1
+    
+    e1-e1-e1-def
+    
+    1.1.2 e1-e1-e2
+    
+    e1-e1-e2-def
+    
+    1.2 e1-e2
+    
+    e1-e2-def
+    
+    """
 )
 
 expected_taxonomy = (
-"""Taxonomy of Areas
-
-A) Outline of Areas
-
-{0}
-
-B) Definitions of Areas
-
-{1}"""
+    """Taxonomy of Areas
+    
+    A) Outline of Areas
+    
+    {0}
+    
+    B) Definitions of Areas
+    
+    {1}"""
 ).format(expected_outline, expected_definitions)
+
 
 class EntityMock:
     def __init__(self, name, parts=None):
         self.name = name
-        self.isDefinedBy = [ name + "-def"]
+        self.isDefinedBy = [name + "-def"]
         self.INDIRECT_hasPart = parts
 
 

@@ -3,8 +3,8 @@ import typing
 
 import google.generativeai as gemini
 
-from semantic.ontology_util import entity_name_of_natural_name, OntologyUtil
 from semantic.classifiers.context_builder import build_taxonomy
+from semantic.ontology_util import entity_name_of_natural_name, OntologyUtil
 
 system_instruction = """
 You are presented with learning material that you shall classify using a given taxonomy.
@@ -120,13 +120,16 @@ Step 2: Consider the following taxonomy within "---" for classification:
 Step 3: Only using terms from the taxonomy, {2}. When responding the matched terms, respond without their index and description.
 """
 
+
 class PromptSingleResponse(typing.TypedDict):
     step_1: str
     step_3: str
 
+
 class PromptMultiResponse(typing.TypedDict):
     step_1: str
     step_3: list[str]
+
 
 class ClassifierSplitGeminiWithSerializedTaxonomiesV1:
 
@@ -150,7 +153,7 @@ class ClassifierSplitGeminiWithSerializedTaxonomiesV1:
                 response_schema=PromptSingleResponse
             ))
         result_obj = json.loads(result.text)
-        return [ result_obj['step_3'] ]
+        return [result_obj['step_3']]
 
     def __find_matches(self, taxonomy, priming_instruction, matching_instruction, gemini_file):
         prompt = multi_prompt.format(taxonomy, priming_instruction, matching_instruction)
@@ -174,7 +177,6 @@ class ClassifierSplitGeminiWithSerializedTaxonomiesV1:
         return [entity_name_of_natural_name(natural_name) for natural_name in matched_areas]
 
     def classify_ability(self, gemini_file):
-
         matched_abilities = self.__find_matches(
             taxonomy=self.ability_taxonomy,
             priming_instruction="Describe the student abilities challenged by the provided learning material in one sentence.",

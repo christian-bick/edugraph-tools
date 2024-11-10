@@ -1,6 +1,7 @@
 # Vanilla JS and Sass Boilerplate with Vite
 
-This is a simple boilerplate project for getting started with a web development project using Vanilla JavaScript and Sass, powered by Vite.
+This is a simple boilerplate project for getting started with a web development project using Vanilla JavaScript and
+Sass, powered by Vite.
 
 ## Features
 

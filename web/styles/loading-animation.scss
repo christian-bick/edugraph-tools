@@ -1,41 +1,43 @@
 @import 'color-palette';
 
 .loader {
-  width: 48px;
-  height: 48px;
-  display: inline-block;
-  position: relative;
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    position: relative;
 }
 
 .loader svg {
-  animation: rotate 2s linear infinite;
+    animation: rotate 2s linear infinite;
 }
 
 .loader circle {
-  fill: none;
-  stroke: $color-2;
-  stroke-width: 4;
-  stroke-dasharray: 1, 200; /* Adjust values to change the dashed effect */
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  animation: dash 1.5s ease-in-out infinite;
+    fill: none;
+    stroke: $color-2;
+    stroke-width: 4;
+    stroke-dasharray: 1, 200; /* Adjust values to change the dashed effect */
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
 }
 
 @keyframes rotate {
-  100% { transform: rotate(360deg); }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes dash {
-  0% {
-    stroke-dasharray: 1, 200;
-    stroke-dashoffset: 0;
-  }
-  50% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -35px;
-  }
-  100% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -124px;
-  }
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35px;
+    }
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124px;
+    }
 }

@@ -3,6 +3,7 @@ import datetime
 import google.generativeai as gemini
 from google.generativeai import caching
 
+
 class GeminiContextCache:
     def __init__(self, name, model, system_instruction, content):
         self.name = name
@@ -27,5 +28,3 @@ class GeminiContextCache:
             contents=self.content,
             ttl=datetime.timedelta(minutes=60),
         )
-
-

@@ -2,9 +2,10 @@ import time
 
 ONE_HOUR = 60 * 60.0
 
+
 class ClassificationCache:
 
-    def __init__(self, expires = ONE_HOUR):
+    def __init__(self, expires=ONE_HOUR):
         self.cached_results = {}
         self.expires = expires
 

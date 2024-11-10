@@ -1,19 +1,22 @@
+import json
 import typing
 
 import google.generativeai as gemini
-import json
 
 from semantic.gemini_context_cache import GeminiContextCache
 
+
 def read_file_as_string(file_path):
-  with open(file_path, 'r') as file:
-    file_content = file.read()
-  return file_content
+    with open(file_path, 'r') as file:
+        file_content = file.read()
+    return file_content
+
 
 class PromptResponse(typing.TypedDict):
     Area: list[str]
     Ability: list[str]
     Scope: list[str]
+
 
 onto_path = "./core-ontology.ttl"
 name = "core-ontology-9"
@@ -50,6 +53,7 @@ Step 4: Return the result as follows
 - Return all terms without the "edu:" prefix
 """
 
+
 class ClassifierUnifiedGeminiWithTurtleTaxonomyV1:
 
     def __init__(self):
@@ -57,7 +61,7 @@ class ClassifierUnifiedGeminiWithTurtleTaxonomyV1:
             name='ontology-1',
             model='models/gemini-1.5-flash-001',
             system_instruction=system_instruction,
-            content=[ read_file_as_string(onto_path) ]
+            content=[read_file_as_string(onto_path)]
         )
 
     def classify_content(self, file):

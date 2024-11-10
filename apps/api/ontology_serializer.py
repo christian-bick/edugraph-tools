@@ -7,14 +7,17 @@ def serialize_entity(entity):
         "natural_name": natural_name_of_entity(entity)
     }
 
+
 def serialize_entity_with_name(entity_name):
     return {
         "name": entity_name,
         "natural_name": natural_name_of_entity_name(entity_name)
     }
 
+
 def serialize_entities_with_names(entity_name_list):
-    return [ serialize_entity_with_name(name) for name in entity_name_list ]
+    return [serialize_entity_with_name(name) for name in entity_name_list]
+
 
 def serialize_entity_tree(entities, relationName):
     def serialize_with_children(entity):
@@ -41,13 +44,15 @@ def get_related_entities(entity, relationName):
         related_entities = getattr(entity, relationName)
     return related_entities
 
+
 def get_parent_related_entities(entity, relationName, parentRelationName):
-    parents =  get_related_entities(entity, parentRelationName)
+    parents = get_related_entities(entity, parentRelationName)
     related_entities = []
     for parent in parents:
         related_entities += get_related_entities(parent, relationName)
         related_entities += get_parent_related_entities(parent, relationName, parentRelationName)
     return related_entities
+
 
 def serialize_entity_tree_with_parent_relations(entities, relationName, parentRelationName):
     def serialize_with_children(entity):
@@ -65,4 +70,3 @@ def serialize_entity_tree_with_parent_relations(entities, relationName, parentRe
 
     serialized_entities = map(serialize_with_children, entities)
     return list(serialized_entities)
-

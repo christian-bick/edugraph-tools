@@ -50,6 +50,7 @@ def build_definitions(hierarchy, entities):
 def __build_outline_item(hierarchy, entity):
     return __build_outline_index(hierarchy) + ' ' + natural_name_of_entity(entity) + '\n'
 
+
 def __build_definition_item(hierarchy, entity):
     annotated_definitions = entity.isDefinedBy
     definition = ""

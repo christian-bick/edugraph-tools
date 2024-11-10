@@ -18,7 +18,6 @@ from .ontology_serializer import serialize_entity_tree, serialize_entities_with_
 
 app = Flask(__name__, static_folder=None)
 
-
 onto_ttl = "./core-ontology.ttl"
 onto_path = "./core-ontology.rdf"
 onto = load_from_path(onto_path)
@@ -30,9 +29,11 @@ root_areas = onto_util.list_root_entities(onto.Area)
 root_abilities = onto_util.list_root_entities(onto.Ability)
 root_scopes = onto_util.list_root_entities(onto.Scope)
 
+
 @app.route("/")
 def root():
     return "OK"
+
 
 @app.route("/classify", methods=["POST"])
 def classify():
@@ -76,7 +77,7 @@ def classify():
                 "scopes": serialize_entities_with_names(classification["Scope"]),
             },
             "expansion": {
-                "areas": serialize_entity_tree_with_parent_relations([ classified_area ], "expandsArea", "partOfArea"),
+                "areas": serialize_entity_tree_with_parent_relations([classified_area], "expandsArea", "partOfArea"),
             }
         })
 

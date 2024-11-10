@@ -15,7 +15,7 @@ class TestClassificationTest:
     def test_update_get(self, cache):
         cache.update('test', {'x': 'y'})
         result = cache.get('test')
-        assert_that(result).is_equal_to({ 'x': 'y' })
+        assert_that(result).is_equal_to({'x': 'y'})
 
     def test_timeout(self, cache):
         cache.update('test', 'value')
