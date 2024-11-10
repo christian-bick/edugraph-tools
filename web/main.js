@@ -24,14 +24,6 @@ let visualClassification;
 let filePreview;
 let filePreviewMore;
 
-let previousChartButton;
-let nextChartButton;
-
-let classifiedEntities = null;
-let areaExtension = null;
-
-let chartNavigation;
-
 function switchView(oldEl, newEl) {
     activateView(newEl);
     deactivateView(oldEl);
@@ -62,7 +54,6 @@ function init() {
     filePreviewMore.onclick = () => {
         switchView(viewClassificationResult, viewClassificationInput)
         switchView(viewUploadProgress, viewUploadStart)
-        classifiedEntities = null
     };
 
     initFileUpload(uploadFile)
@@ -83,7 +74,7 @@ function initOntology() {
         });
 }
 
-function initVisuals() {
+function initVisuals({ classifiedEntities, areaExtension }) {
 
     if (!visualClassification) {
         visualClassification = echarts.init(visualContainer);
@@ -126,9 +117,9 @@ function showUploadError() {
     }, 3000)
 }
 
-function showClassification() {
+function showClassification({ classifiedEntities, areaExtension }) {
     switchView(viewClassificationInput, viewClassificationResult)
-    initVisuals()
+    initVisuals({ classifiedEntities, areaExtension })
 }
 
 function previewFile(file) {
@@ -153,10 +144,10 @@ function uploadFile(file) {
     })
         .then(response => response.json())
         .then(data => {
-            classifiedEntities = data["classification"];
-            areaExtension = data["expansion"]["areas"]
+            const classifiedEntities = data["classification"];
+            const areaExtension = data["expansion"]["areas"]
             previewFile(file)
-            showClassification()
+            showClassification({ classifiedEntities, areaExtension })
         })
         .catch(error => {
             console.error('Error:', error);
