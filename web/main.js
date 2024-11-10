@@ -3,6 +3,7 @@ import * as echarts from 'echarts';
 import updateTaxonomyChart from "./scripts/charts/taxonomy-chart.js";
 import updateClassificationChart from "./scripts/charts/classification-chart.js";
 import updateTreeChart from "./scripts/charts/tree-chart.js";
+import {initExampleUpload, initFileUpload} from "./scripts/classify-file.js";
 
 const API_URL = import.meta.env.PROD ? "https://edu-graph-api-575953891979.europe-west3.run.app" : "http://localhost:8080"
 
@@ -149,8 +150,8 @@ function init() {
     previousChartButton = document.getElementById('previous-chart-button');
     nextChartButton = document.getElementById('next-chart-button');
 
-    initFileUpload()
-    initExampleUpload()
+    initFileUpload(uploadFile)
+    initExampleUpload(uploadFile)
     initOntology()
 }
 
@@ -208,25 +209,6 @@ function showClassification() {
     initVisuals()
 }
 
-function initExampleUpload() {
-    const uploadExample = document.getElementById('upload-example');
-    const imageElements = uploadExample.getElementsByTagName('img');
-    for (let imageEl of imageElements) {
-        imageEl.onclick = (e) => {
-            const url = e.target.currentSrc
-            const name = url.split('/').pop()
-            const ending = name.split('.').pop()
-            const fixed_ending = ending === 'jpg' ? 'jpeg' : ending
-            const type = 'image/' + fixed_ending
-            fetch(url)
-                .then(response => response.blob())
-                .then(blob => new File([blob], name, {type}))
-                .then(file => uploadFile(file))
-            ;
-        }
-    }
-}
-
 function previewFile(file) {
     const reader = new FileReader();
     reader.onload = function (e) {
@@ -258,55 +240,6 @@ function uploadFile(file) {
             console.error('Error:', error);
             showUploadError()
         });
-}
-
-function initFileUpload() {
-    const uploadDropzone = document.getElementById('upload-dropzone');
-    const uploadInput = document.getElementById('upload-input');
-
-    // Prevent default drag behaviors
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        uploadDropzone.addEventListener(eventName, preventDefaults, false);
-    });
-
-    function preventDefaults(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-
-    // Highlight drop area when item is dragged over it
-    ['dragenter', 'dragover'].forEach(eventName => {
-        uploadDropzone.addEventListener(eventName, highlight, false);
-    });
-
-    ['dragleave', 'drop'].forEach(eventName => {
-        uploadDropzone.addEventListener(eventName, unhighlight,
-            false);
-    });
-
-    function highlight() {
-        uploadDropzone.classList.add('highlight');
-    }
-
-    function unhighlight() {
-        uploadDropzone.classList.remove('highlight');
-    }
-
-    // Handle dropped files
-    uploadDropzone.addEventListener('drop', handleDrop, false);
-
-    function handleDrop(e) {
-        let dt = e.dataTransfer;
-        let files = dt.files;
-        return handleFiles(files);
-    }
-
-    // Handle files from input element
-    uploadInput.addEventListener('change', handleFiles, false);
-
-    function handleFiles(files) {
-        return uploadFile(files[0]);
-    }
 }
 
 document.addEventListener("DOMContentLoaded", init);
