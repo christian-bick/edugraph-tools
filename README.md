@@ -15,9 +15,28 @@ We use Docker for setting up the development environment:
 
 [Latest version of Docker](https://docs.docker.com/engine/install/) installed on your machine
 
-### Docker Setup
+### Credential Setup
 
-After cloning the repository use the following command in the project root folder:
+Before starting, we need to set up our private credentials for GenAI tasks.
+
+At the moment, we are only using Gemini for that purpose. You can get a Gemini API key with a free usage tier
+[here](https://ai.google.dev/gemini-api/docs/api-key).
+
+**After cloning the repository:**
+
+In ``apps/`` make a copy of ``.env.example`` and name it ``.env``.
+
+Then add your Gemini API Key to the ``.env`` file:
+
+```
+API_KEY_GEMINI=AIxu7A76...
+```
+
+The environment variables in the ``.env`` file are automatically used by the python apps. 
+
+The ``.env`` file is excluded from git tracking to avoid accidental credential exposure.
+
+### Docker Setup
 
 ```
 docker-compose watch
@@ -47,7 +66,7 @@ docker-compose watch
 
 ### Manual Setup
 
-If you cannot use Docker for some reason or want to make changes to the Docker setup then you 
+If you cannot use Docker for some reason or want to make changes to the Docker setup then you
 will want to make yourself familiar with the following development tools:
 
 #### Web module
@@ -79,31 +98,23 @@ poetry install
 flask --debug run --host=0.0.0.0 --port=8080
 ```
 
-Requires _pipx_ to be installed already. 
+Requires _pipx_ to be installed already.
 
-Requires _copying the files_ from [ontology releases](https://github.com/christian-bick/edugraph-ontology/releases) 
+Requires _copying the files_ from [ontology releases](https://github.com/christian-bick/edugraph-ontology/releases)
 into the _apps_ root folder (automated in the docker setup).
 
 ## Deployment
 
-See Github actions (.github/workflows) for an example of an automated building and deployment process.
+See Github actions ``.github/workflows/`` for an example of an automated building and deployment process.
 
 #### Web App
 
-Use 
-``
-vite build
-``
-_from web/_ for a production ready web app bundle.
+Run ``vite build`` from ``web/`` for building a production ready web app bundle.
 
-Deploy on Github Pages, Gitlab Pages, Netlify, Heroku, Google Firebase, Azure Static Web Apps, etc.
+Deploy on ``Github Pages, Gitlab Pages, Netlify, Heroku, Google Firebase, Azure Static Web Apps`` ...
 
 #### API App
 
-Use 
-``
-docker build .
-``
-_from apps/_ for an optimized python container.
+Run ``docker build .``from ``apps/`` for building an optimized python container.
 
-Deploy on AWS ECS, Google Cloud Run, Azure Container Apps, Kubernetes, etc.
+Deploy on ``AWS ECS, Google Cloud Run, Azure Container Apps, Kubernetes`` ...
