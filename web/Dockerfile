@@ -14,6 +14,8 @@ ENV PATH=$APP_DIR/node_modules/.bin:$PATH
 
 COPY *.js *.html *.scss *.json $APP_DIR/
 COPY /styles $APP_DIR/styles/
+COPY /scripts $APP_DIR/scripts/
+COPY /public $APP_DIR/public/
 
 EXPOSE 3000
 

@@ -5,7 +5,34 @@ services:
       - api
     ports:
       - "3000:3000"
+    develop:
+      watch:
+        - action: sync
+          path: ./web
+          target: /usr/src/app
+          ignore:
+            - package.json
+            - package-lock.json
+            - Dockerfile
+        - action: rebuild
+          path: ./web/package.json
+        - action: rebuild
+          path: ./web/Dockerfile
   api:
     build: ./apps
     ports:
       - "8080:8080"
+    command: ["sh", "-c", "flask --debug run --host=0.0.0.0 --port=8080"]
+    develop:
+      watch:
+        - action: sync
+          path: ./apps
+          target: /usr/src/app
+          ignore:
+            - pyproject.toml
+            - poetry.lock
+            - Dockerfile
+        - action: rebuild
+          path: ./apps/pyproject.toml
+        - action: rebuild
+          path: ./apps/Dockerfile

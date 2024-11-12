@@ -39,4 +39,5 @@ RUN wget https://github.com/christian-bick/edugraph-ontology/releases/download/$
 
 EXPOSE ${PORT}
 
+
 CMD ["sh", "-c", "flask run --host=0.0.0.0 --port=$PORT"]
