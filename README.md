@@ -116,7 +116,7 @@ Run `vite build` from `web/` for building a production ready web app bundle.
 
 Deploy on `Github Pages` `Gitlab Pages` `Netlify` `Heroku` `Google Firebase` `Azure Static Web Apps` ...
 
-### API Module
+### Apps Module
 
 Run ``docker build .``from ``apps/`` for building an optimized python container.
 
