@@ -17,13 +17,13 @@ We use Docker for setting up the development environment:
 
 ## Credential Setup
 
-### Creating Credentials
+#### Creating Credentials:
 
 You need to provide your own credentials for GenAI tasks: At the moment, we are only using Gemini.
 
 You can get a Gemini API key with a free usage tier [here](https://ai.google.dev/gemini-api/docs/api-key).
 
-### After cloning the Repository
+#### Configuring Credentials:
 
 In ``apps/`` create a copy of ``.env.example`` and name it ``.env``.
 
@@ -110,13 +110,13 @@ into ``apps/`` (automated in the docker setup)_
 
 See Github actions in `.github/workflows/` for an example of an automated building and deployment process.
 
-#### Web App
+### Web Module
 
 Run `vite build` from `web/` for building a production ready web app bundle.
 
 Deploy on `Github Pages` `Gitlab Pages` `Netlify` `Heroku` `Google Firebase` `Azure Static Web Apps` ...
 
-#### API App
+### API Module
 
 Run ``docker build .``from ``apps/`` for building an optimized python container.
 
