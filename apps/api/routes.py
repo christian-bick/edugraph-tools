@@ -2,10 +2,10 @@ import ctypes
 from io import BytesIO
 from uuid import uuid4
 
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask import request, jsonify
 from google.generativeai import get_file
 
+from api import app
 from semantic.classifiers.merged_classifier import MergedClassifier
 from semantic.classifiers.strategies.classifier_split_gemini_with_serialized_taxonomies_v1 import \
     ClassifierSplitGeminiWithSerializedTaxonomiesV1
@@ -15,8 +15,6 @@ from semantic.ontology_util import OntologyUtil
 from .classification_cache import ClassificationCache
 from .ontology_serializer import serialize_entity_tree, serialize_entities_with_names, \
     serialize_entity_tree_with_parent_relations
-
-app = Flask(__name__, static_folder=None)
 
 onto_ttl = "./core-ontology.ttl"
 onto_path = "./core-ontology.rdf"
@@ -96,6 +94,3 @@ def ontology():
         }})
 
 
-def create_app():
-    CORS(app)
-    return app

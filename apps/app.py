@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from google import generativeai as gemini
 
-from api.routes import create_app
+from api import create_app
 
 load_dotenv()
 
