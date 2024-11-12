@@ -106,7 +106,7 @@ _Requires copying [ontology files](https://github.com/christian-bick/edugraph-on
 into ``apps/`` (automated in the docker setup)_
 
 
-## Deployment
+# Deployment
 
 See Github actions in `.github/workflows/` for an example of an automated building and deployment process.
 
