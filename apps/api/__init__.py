@@ -12,6 +12,5 @@ from api import routes
 
 def create_app():
     load_dotenv()
-    gemini.configure(api_key=os.environ["API_KEY_GEMINI"])
     CORS(app)
     return app

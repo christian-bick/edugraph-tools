@@ -30,7 +30,7 @@ In ``apps/`` create a copy of ``.env.example`` and name it ``.env``.
 Then add your Gemini API Key to the ``.env`` file:
 
 ```
-API_KEY_GEMINI=AIxu7A76...
+GOOGLE_API_KEY=AIxu7A76...
 ```
 
 The environment variables in the ``.env`` file are automatically used by the python apps. 
