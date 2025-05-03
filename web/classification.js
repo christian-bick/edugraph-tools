@@ -47,24 +47,24 @@ function init() {
         switchView(viewUploadProgress, viewUploadStart)
     };
 
-    initOntology({ handelOntologyProgress, handelOntologySuccess, handelOntologyError })
-    initClassification({ handelClassificationProgress, handleClassificationSuccess, handleClassificationError })
+    initOntology({ handleOntologyProgress, handleOntologySuccess, handleOntologyError })
+    initClassification({ handleClassificationProgress, handleClassificationSuccess, handleClassificationError })
 }
 
-function handelOntologyProgress() {
+function handleOntologyProgress() {
     switchView(viewUploadStart, viewUploadProgress)
 }
 
-function handelOntologySuccess(json) {
+function handleOntologySuccess(json) {
     onto = json
     switchView(viewUploadProgress, viewUploadStart)
 }
 
-function handelOntologyError(err) {
+function handleOntologyError(err) {
     console.error('Ontology Error:', err);
 }
 
-function handelClassificationProgress() {
+function handleClassificationProgress() {
     switchView(viewUploadStart, viewUploadProgress)
 }
 

@@ -1,11 +1,11 @@
 import {ONTOLOGY_URL} from "./api.js";
 
-export default function initOntology({ handelOntologyProgress, handelOntologySuccess, handelOntologyError }) {
-    handelOntologyProgress()
+export default function initOntology({ handleOntologyProgress, handleOntologySuccess, handleOntologyError }) {
+    handleOntologyProgress()
     fetch(ONTOLOGY_URL, {
         method: 'GET',
     })
         .then(response => response.json())
-        .then(handelOntologySuccess)
-        .catch(handelOntologyError);
+        .then(handleOntologySuccess)
+        .catch(handleOntologyError);
 }

@@ -75,14 +75,14 @@ function initExampleClassification(classify, handleClassificationError) {
     }
 }
 
-function classifyFile({handelClassificationProgress, handleClassificationSuccess, handleClassificationError}) {
+function classifyFile({handleClassificationProgress, handleClassificationSuccess, handleClassificationError}) {
     function classify (file)  {
         const name = file.name;
         let formData = new FormData();
         formData.append('file', file);
         formData.append('name', name);
 
-        handelClassificationProgress()
+        handleClassificationProgress()
 
         return fetch(CLASSIFY_URL, {
             method: 'POST',

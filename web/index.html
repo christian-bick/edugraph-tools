@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>EduGraph</title>
-    <script type="module" src="main.js" defer></script>
+    <script type="module" src="index.js" defer></script>
 </head>
 <body>
 <nav>
@@ -13,64 +13,6 @@
 <main>
     <div id="view-init" class="center-full" style="display: none">
         <h1>Welcome to EduGraph</h1>
-    </div>
-    <div id="view-classification" class="center-horizontal">
-        <div id="view-classification-input">
-            <div id="view-upload-start" class="input-container">
-                <p class="title">Start Classification</p>
-                <input type="file" id="upload-input" multiple accept="image/*">
-                <label for="upload-input" id="upload-dropzone">
-                    Upload a file
-                </label>
-                <p>or use an example</p>
-                <div id="upload-example">
-                    <div class="example-container">
-                        <img src="/examples/long-multiplication-01.png" alt="Long Multiplication">
-                    </div>
-                    <div class="example-container">
-                        <img src="/examples/long-addition-01.png" alt="Long Multiplication">
-                    </div>
-                    <div class="example-container">
-                        <img src="/examples/fraction-division-02.jpg" alt="Long Multiplication">
-                    </div>
-                    <div class="example-container">
-                        <img src="/examples/square-root-01.jpg" alt="Long Multiplication">
-                    </div>
-                </div>
-            </div>
-            <div id="view-upload-progress" class="input-container" style="display: none">
-                <div class="loader">
-                    <svg viewBox="0 0 48 48">
-                        <circle cx="24" cy="24" r="20"/>
-                    </svg>
-                </div>
-            </div>
-            <div id="view-upload-error" class="input-container" style="display: none; text-align: center">
-                Sorry, this classification failed.<br>
-                <br>
-                Please try with another file.
-            </div>
-        </div>
-        <div id="view-classification-result" style="display: none">
-            <div class="classification-wrapper">
-                <div class="visual-wrapper">
-                    <div id="visual-container"></div>
-                </div>
-                <div class="more-wrapper">
-                    <div id="previous-chart-button" class="svg-container button">
-                        <svg viewBox="0 0 40 50" preserveAspectRatio="xMidYMid meet">
-                            <polygon points="0,25 40,50 40,0" fill="gray"/>
-                        </svg>
-                    </div>
-                    <div id="file-preview-more" class="button">Classify More</div>
-                    <div id="next-chart-button" class="svg-container button">
-                        <svg viewBox="0 0 40 50" preserveAspectRatio="xMidYMid meet">
-                            <polygon points="40,25 0,0 0,50" fill="gray"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </main>
 <footer>
