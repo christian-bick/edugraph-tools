@@ -51,13 +51,6 @@ main {
     .absolute {
         position: absolute;
         inset: 0;
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.5;
-        }
     }
 
     .container {
@@ -66,14 +59,18 @@ main {
         z-index: 10;
         width: 100%;
 
+        padding: 1rem 2rem;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+
         h1 {
-            font-size: 2.25rem;
+            font-size: 3rem;
             font-weight: 600;
             color: #374151;
         }
 
         p {
-            font-size: 1.125rem;
+            font-size: 2rem;
             color: #4b5563;
             margin-top: 1rem;
         }
@@ -146,6 +143,7 @@ section {
 
 .container {
     max-width: 1200px;
+    width: 100%;
     display: flex;
     padding: 2rem 2rem;
     flex-direction: column;
@@ -155,7 +153,11 @@ section {
     background-color: #6366f1;
     padding-top: 3rem;
     padding-bottom: 3rem;
-    text-align: center;
+
+    .container {
+        justify-content: center;
+        align-items: center;
+    }
 
     h2 {
         font-size: 1.875rem;
@@ -165,6 +167,7 @@ section {
     }
 
     button {
+        width: fit-content;
         background-color: #fff;
         color: #6366f1;
         padding: 0.75rem 1.5rem;
@@ -207,10 +210,8 @@ section {
 }
 
 footer {
-    background-color: #f3f4f6;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
     text-align: center;
     color: #6b7280;
-    margin-top: 4rem;
 }
