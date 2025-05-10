@@ -1,19 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>EduGraph</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One-Page Marketing Website</title>
     <script type="module" src="index.js" defer></script>
 </head>
 <body>
-<nav>
-    Elementary Math Classifier
-</nav>
-<main id="main">
+
+<main class="flex bg-black">
+    <div class="absolute inset-0" id="graph-container">
+    </div>
+    <div id="graph-loader" class="loader"></div>
+    <div class="container bg-white">
+        <h1 class="">EduGraph</h1>
+        <p class="">Develop modern learning features within days</p>
+    </div>
 </main>
-<footer>
-    <a href="https://github.com/christian-bick/edugraph-ontology" target="_blank">Visit Github Project</a>
+
+<section>
+    <div class="container bg-white">
+        <div class="grid grid-md-3">
+            <div class="flex-column">
+                <img src="https://placehold.co/400x300/EEE/31343C?text=Tracking&font=Roboto" alt="Feature 1"
+                     class="w-full  ">
+                <h3 class="">Track Learning</h3>
+                <p class="">Capture learning activities in both physical and digital spaces</p>
+            </div>
+            <div class="flex-column">
+                <img src="https://placehold.co/400x300/EEE/31343C?text=Material&font=Roboto" alt="Feature 2"
+                     class="w-full  ">
+                <h3 class="">Monitor Material</h3>
+                <p class="">Find gaps, ensure consistency and match levels</p>
+            </div>
+            <div class="flex-column">
+                <img src="https://placehold.co/400x300/EEE/31343C?text=Content&font=Roboto" alt="Feature 3"
+                     class="w-full  ">
+                <h3 class="">Suggest Content</h3>
+                <p class="">Enable, diversify and personalize self-directed learning</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="call-to-action">
+    <div class="container">
+        <h2 class="">Want to learn how?</h2>
+        <button class="bg-white text-indigo-500 transition duration-300">Book a Demo</button>
+    </div>
+</section>
+
+<section>
+    <div class="container bg-white">
+        <h2 class="">Based on Open Standards</h2>
+        <div class="grid grid-md-2">
+            <div class="flex-row">
+                <div class="flex-small">
+                    <img src="https://placehold.co/400x400/EEE/31343C?text=ThirdParty&font=Roboto" alt="Inclusive">
+                </div>
+                <div class="flex-full">
+                    <h3 class="">Inclusive</h3>
+                    <p class="">Usable with third-party solutions</p>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-small">
+                    <img src="https://placehold.co/400x400/EEE/31343C?text=DataExchange&font=Roboto"
+                         alt="Interoperable">
+                </div>
+                <div class="flex-full">
+                    <h3 class="">Interoperable</h3>
+                    <p class="">Sharable insights for usage with partners and tools</p>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-small">
+                    <img src="https://placehold.co/400x400/EEE/31343C?text=Extensions&font=Roboto" alt="Customizable">
+                </div>
+                <div class="flex-full">
+                    <h3 class="">Customizable</h3>
+                    <p class="">Open to individual extensions and modifications</p>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-small">
+                    <img src="https://placehold.co/400x400/EEE/31343C?text=BaseModel&font=Roboto" alt="Flexible">
+                </div>
+                <div class="flex-full">
+                    <h3 class="">Flexible</h3>
+                    <p class="">Adoptable to any base model and content storage solutions</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="">
+    <p>&copy; 2024 My Company. All rights reserved.</p>
 </footer>
 </body>
 </html>

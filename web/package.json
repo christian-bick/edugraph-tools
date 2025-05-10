@@ -13,8 +13,11 @@
         "vite": "^5.4.8"
     },
     "dependencies": {
+        "@tailwindcss/postcss": "^4.1.6",
+        "@tailwindcss/vite": "^4.1.6",
         "3d-force-graph": "^1.77.0",
         "echarts": "^5.5.1",
+        "tailwindcss": "^4.1.6",
         "three-spritetext": "^1.9.6"
     }
 }

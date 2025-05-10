@@ -1,4 +1,5 @@
 import {defineConfig} from "vite";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig(({command}) => {
     return {
@@ -11,6 +12,9 @@ export default defineConfig(({command}) => {
                     rewrite: (path) => path.replace(/^\/api/, ''),
                 },
             },
-        }
+        },
+        plugins: [
+            tailwindcss(),
+        ],
     }
 })
