@@ -19,6 +19,24 @@ function handleOntologyError(err) {
 
 function init() {
     initOntology({handleOntologyProgress, handleOntologySuccess, handleOntologyError})
+    const scrollTo = document.getElementById('scroll-to')
+    const main = document.getElementById('header')
+    scrollTo.addEventListener('click', () => scrollToElementTop(main))
+}
+
+function scrollToElementTop(element) {
+    if (!element) {
+        console.error('Element is null or undefined');
+        return;
+    }
+
+    const elementRect = element.getBoundingClientRect();
+    const absoluteElementTop = elementRect.top + window.pageYOffset;
+
+    window.scrollTo({
+        top: absoluteElementTop,
+        behavior: 'smooth' // Optional: smooth scrolling animation
+    });
 }
 
 init()
