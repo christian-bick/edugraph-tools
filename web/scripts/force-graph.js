@@ -1,6 +1,14 @@
 import ForceGraph3D from "3d-force-graph";
 import SpriteText from "three-spritetext";
 
+function eliminateDuplicates(list) {
+    const uniqueObjectsMap = new Map();
+    for (const obj of list) {
+        uniqueObjectsMap.set(obj.id, obj); // Store the original object to preserve order if needed
+    }
+    return Array.from(uniqueObjectsMap.values());
+}
+
 function taxonomyToGraph(name, taxonomy, { color = '#ffffff' }) {
     let nodes = [{id: name, label: name}]
     let links = []
@@ -9,6 +17,7 @@ function taxonomyToGraph(name, taxonomy, { color = '#ffffff' }) {
         links = links.concat({ source: name, target: root.name})
         links = links.concat(collectLinks(root))
     }
+    nodes = eliminateDuplicates(nodes)
     return {
         nodes: nodes.map(node => ({...node, color})),
         links
