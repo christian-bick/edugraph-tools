@@ -19,9 +19,16 @@ function handleOntologyError(err) {
 
 function init() {
     initOntology({handleOntologyProgress, handleOntologySuccess, handleOntologyError})
-    const scrollTo = document.getElementById('scroll-to')
+    const scrollTo = document.getElementById('scroll-button')
     const main = document.getElementById('header')
     scrollTo.addEventListener('click', () => scrollToElementTop(main))
+
+    const onScroll = (listener) => {
+        const element = document.getElementById('scroll-button')
+        element.style.opacity = '0'
+        removeEventListener('scroll', onScroll)
+    }
+     window.addEventListener('scroll', onScroll)
 }
 
 function scrollToElementTop(element) {
