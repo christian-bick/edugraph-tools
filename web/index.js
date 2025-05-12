@@ -28,7 +28,7 @@ function init() {
         element.style.opacity = '0'
         removeEventListener('scroll', onScroll)
     }
-     window.addEventListener('scroll', onScroll)
+     // window.addEventListener('scroll', onScroll)
 }
 
 function scrollToElementTop(element) {
