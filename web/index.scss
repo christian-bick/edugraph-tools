@@ -127,7 +127,7 @@ section {
     .grid {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 4rem;
 
         &.grid-md-2 {
             @media (min-width: 768px) {
@@ -193,6 +193,7 @@ section {
     display: flex;
     flex-direction: column;
     padding: 2rem 1.5rem;
+    align-items: center;
 
     @media (min-width: 768px) {
         padding: 4rem 3rem;
@@ -203,12 +204,27 @@ section {
     }
 }
 
+.bg-1 {
+    background-color: $color-1;
+
+    button {
+        background-color: $color-1-dark;
+    }
+}
+
+.bg-2 {
+    background-color: $color-2;
+
+    button {
+        background-color: $color-2-dark;
+    }
+}
+
 .call-to-action {
 
     .container {
         justify-content: center;
         align-items: center;
-        background-color: $color-2;
     }
 
     h2 {
@@ -230,7 +246,6 @@ section {
 
     button {
         width: fit-content;
-        background-color: $color-2-dark;
         color: white;
         padding: 0.75rem 1.5rem;
         border-radius: 1rem;
@@ -241,6 +256,7 @@ section {
         transition: background-color 0.3s ease;
         margin-top: 2rem;
         font-size: 1.1rem;
+        cursor: pointer;
 
         &:hover {
             background-color: #e0e7ff;
@@ -288,7 +304,7 @@ footer {
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: #6b7280;
+    color: white;
     background-color: black;
 
     .container {
