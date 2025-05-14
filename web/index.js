@@ -6,29 +6,56 @@ function handleOntologyProgress() {
     console.log('Ontology Progress');
 }
 
-function handleOntologySuccess(json) {
-    const graphContainer = document.getElementById("graph-container")
-    renderOntology(graphContainer, json)
-    const graphLoader = document.getElementById("graph-loader")
-    graphLoader.style.display = 'none'
-    }
+let graphContainer;
+let graphLoader;
+let heroTitle;
+let scrollContainer;
+let scrollButton;
 
-function handleOntologyError(err) {
-    console.error('Ontology Error:', err);
+let minInitTimePassed = false;
+
+function switchHeroView(json) {
+    renderOntology(graphContainer, json)
+    graphLoader.style.display = 'none'
+    heroTitle.style.display = 'none'
+    scrollContainer.style.display = 'flex'
+}
+
+function handleOntologySuccess(json) {
+    if (minInitTimePassed) {
+        switchHeroView(json)
+    } else {
+        setTimeout(() => handleOntologySuccess(json), 10)
+    }
+}
+
+function handleOntologyError() {
+    graphLoader.style.display = 'none'
+    scrollContainer.style.display = 'flex'
+}
+
+function setInitTime() {
+    setTimeout(() => minInitTimePassed = true, 1500)
+    setTimeout(handleOntologyError, 15000)
 }
 
 function init() {
-    initOntology({handleOntologyProgress, handleOntologySuccess, handleOntologyError})
-    const scrollTo = document.getElementById('scroll-button')
-    const main = document.getElementById('header')
-    scrollTo.addEventListener('click', () => scrollToElementTop(main))
+    setInitTime()
+    graphContainer = document.getElementById("graph-container")
+    graphLoader = document.getElementById("graph-loader")
+    heroTitle = document.getElementById("hero-title")
+    scrollContainer = document.getElementById("scroll-container")
+    scrollButton = document.getElementById('scroll-button')
 
-    const onScroll = (listener) => {
-        const element = document.getElementById('scroll-button')
-        element.style.opacity = '0'
+    initOntology({handleOntologyProgress, handleOntologySuccess, handleOntologyError})
+    const main = document.getElementById('header')
+    scrollButton.addEventListener('click', () => scrollToElementTop(main))
+
+    const onScroll = () => {
+        scrollButton.style.opacity = 0
         removeEventListener('scroll', onScroll)
     }
-     // window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll)
 }
 
 function scrollToElementTop(element) {
