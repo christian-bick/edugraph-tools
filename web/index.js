@@ -50,12 +50,6 @@ function init() {
     initOntology({handleOntologyProgress, handleOntologySuccess, handleOntologyError})
     const main = document.getElementById('header')
     scrollButton.addEventListener('click', () => scrollToElementTop(main))
-
-    const onScroll = () => {
-        scrollButton.style.opacity = 0
-        removeEventListener('scroll', onScroll)
-    }
-    window.addEventListener('scroll', onScroll)
 }
 
 function scrollToElementTop(element) {

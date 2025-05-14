@@ -252,6 +252,20 @@ section {
     }
 }
 
+.bg-3 {
+    background-color: $color-3;
+
+    button {
+        background-color: $color-3-dark;
+    }
+}
+
+.schematic {
+    filter: invert(100%);
+    width: 100%;
+    max-width: 800px;
+}
+
 .call-to-action {
 
     .container {
