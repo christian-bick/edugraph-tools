@@ -258,7 +258,6 @@ section {
         padding-right: 2rem;
 
         @media (min-width: 768px) {
-
             padding-left: 3rem;
             padding-right: 3rem;
         }
@@ -343,15 +342,21 @@ footer {
     text-align: center;
     color: white;
     background-color: black;
+    margin: 0;
+    padding: 0;
 
     .container {
         height: 20px;
         margin: 0;
-        padding-top: 0;
-        padding-bottom: 0;
+        padding: 0;
         color: darkslategray;
         border-bottom-left-radius: 1rem;
         border-bottom-right-radius: 1rem;
+
+        @media (min-width: 768px) {
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
     };
 }
 
