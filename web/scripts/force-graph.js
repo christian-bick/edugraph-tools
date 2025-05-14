@@ -10,7 +10,7 @@ function eliminateDuplicates(list) {
 }
 
 function taxonomyToGraph(name, taxonomy, { color = '#ffffff' }) {
-    let nodes = [{id: name, label: name}]
+    let nodes = [{id: name, label: name, emphasize: true }]
     let links = []
     for (const root of taxonomy) {
         nodes = nodes.concat(collectNodes(root))
@@ -59,14 +59,20 @@ export default function renderOntology(domElement, json) {
     const graphData2 = taxonomyToGraph("Abilities", json.taxonomy.abilities, { color: '#219ebc' })
     const graphData3 = taxonomyToGraph("Scopes", json.taxonomy.scopes, { color: '#5cb85c' })
     const graph = new ForceGraph3D(domElement)
-        .graphData(concatGraphs([graphData1, graphData2, graphData3]))
+        .graphData(concatGraphs([graphData2, graphData1, graphData3]))
         .nodeAutoColorBy('group')
+        .d3AlphaDecay(0.012)
+        .enableNodeDrag(false)
         .nodeThreeObject(node => {
             const sprite = new SpriteText(node.label);
             sprite.material.depthWrite = false; // make sprite background transparent
             sprite.color = node.color;
             sprite.textHeight = 8;
+            if (node.emphasize) {
+                sprite.textHeight = 18;
+            }
             return sprite;
         });
-    graph.d3Force('charge').strength(-120);
+    graph.d3Force('charge').strength(-75)
+    graph.cameraPosition({z: 1700}, {x: -100, y: 0, z: 0}, 3000)
 }
