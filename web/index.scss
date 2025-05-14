@@ -26,7 +26,8 @@ main {
     margin: 0;
 
     position: relative;
-    height: 100vh;
+    height: 100vh; // backwards compatibility
+    height: 100dvh; // needed for dynamic nav bar in mobile browsers
     background-color: black;
     display: flex;
     flex-direction: column;
