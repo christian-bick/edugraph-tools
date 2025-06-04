@@ -59,7 +59,7 @@ class ClassifierUnifiedGeminiWithTurtleTaxonomyV1:
     def __init__(self):
         self.cache = GeminiContextCache(
             name='ontology-1',
-            model='models/gemini-1.5-flash-001',
+            model='gemini-2.0-flash',
             system_instruction=system_instruction,
             content=[read_file_as_string(onto_path)]
         )

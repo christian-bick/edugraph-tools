@@ -139,7 +139,7 @@ class ClassifierSplitGeminiWithSerializedTaxonomiesV1:
         self.ability_taxonomy = build_taxonomy("Abilities", onto_util.list_root_entities(onto.Ability))
         self.scope_taxonomy = build_taxonomy("Scopes", onto_util.list_root_entities(onto.Scope))
         self.model = gemini.GenerativeModel(
-            model_name="gemini-1.5-flash",
+            model_name="gemini-2.0-flash",
             system_instruction=system_instruction
         )
 
