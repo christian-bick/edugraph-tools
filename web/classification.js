@@ -1,4 +1,4 @@
-import "./style.scss";
+import "./classification.scss";
 import * as echarts from 'echarts';
 import initClassification from "./scripts/file-classification.js";
 import initChartNavigation from "./scripts/chart-navigation.js";
