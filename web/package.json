@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "sass": "^1.79.5",
-        "vite": "^5.4.8"
+        "vite": "^6.3.5"
     },
     "dependencies": {
         "@tailwindcss/postcss": "^4.1.6",
