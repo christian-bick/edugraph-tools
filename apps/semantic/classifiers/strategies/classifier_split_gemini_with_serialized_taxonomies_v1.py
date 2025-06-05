@@ -1,7 +1,10 @@
 import json
 import typing
 
-import google.generativeai as gemini
+from certifi import contents
+
+from google import genai
+from google.genai import types
 
 from semantic.classifiers.context_builder import build_taxonomy
 from semantic.ontology_util import entity_name_of_natural_name, OntologyUtil
@@ -135,34 +138,37 @@ class ClassifierSplitGeminiWithSerializedTaxonomiesV1:
 
     def __init__(self, onto):
         onto_util = OntologyUtil(onto)
+        self.model = 'gemini-2.0-flash'
+        self.client = genai.Client()
         self.area_taxonomy = build_taxonomy("Areas", onto_util.list_root_entities(onto.Area))
         self.ability_taxonomy = build_taxonomy("Abilities", onto_util.list_root_entities(onto.Ability))
         self.scope_taxonomy = build_taxonomy("Scopes", onto_util.list_root_entities(onto.Scope))
-        self.model = gemini.GenerativeModel(
-            model_name="gemini-2.0-flash",
-            system_instruction=system_instruction
-        )
 
     def __find_best_match(self, taxonomy, priming_instruction, matching_instruction, gemini_file):
         prompt = single_prompt.format(taxonomy, priming_instruction, matching_instruction)
-        result = self.model.generate_content(
-            [gemini_file, prompt], generation_config=gemini.types.GenerationConfig(
+        result = self.client.models.generate_content(
+            model=self.model,
+            contents=[gemini_file, prompt],
+            config=types.GenerateContentConfig(
                 candidate_count=1,
-                response_mime_type="application/json",
                 temperature=0,
-                response_schema=PromptSingleResponse
-            ))
+                response_mime_type="application/json",
+                response_schema=PromptSingleResponse,
+            )
+        )
         result_obj = json.loads(result.text)
         return [result_obj['step_3']]
 
     def __find_matches(self, taxonomy, priming_instruction, matching_instruction, gemini_file):
         prompt = multi_prompt.format(taxonomy, priming_instruction, matching_instruction)
-        result = self.model.generate_content(
-            [gemini_file, prompt], generation_config=gemini.types.GenerationConfig(
+        result = self.client.models.generate_content(
+            model=self.model,
+            contents=[gemini_file, prompt],
+            config=types.GenerateContentConfig(
                 candidate_count=1,
-                response_mime_type="application/json",
                 temperature=0,
-                response_schema=PromptMultiResponse
+                response_mime_type="application/json",
+                response_schema=PromptMultiResponse,
             ))
         result_obj = json.loads(result.text)
         return result_obj['step_3']
