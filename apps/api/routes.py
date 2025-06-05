@@ -12,8 +12,8 @@ from semantic.classifiers.strategies.classifier_split_gemini_with_serialized_tax
 from semantic.gemini_file_storage import upload_file
 from semantic.ontology_loader import load_from_path
 from semantic.ontology_util import OntologyUtil
-from .classification_cache import ClassificationCache
-from .ontology_serializer import serialize_entity_tree, serialize_entities_with_names, \
+from semantic.classification_cache import ClassificationCache
+from semantic.ontology_serializer import serialize_entity_tree, serialize_entities_with_names, \
     serialize_entity_tree_with_parent_relations
 
 onto_ttl = "./core-ontology.ttl"

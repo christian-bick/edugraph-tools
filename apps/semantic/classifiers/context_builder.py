@@ -24,7 +24,7 @@ def build_outline(hierarchy, entities):
         content += __build_outline_item(hierarchy, entity)
 
         if not is_leaf_entity(entity):
-            entity_parts = entity.INDIRECT_hasPart
+            entity_parts = parts_of_entity(entity)
             new_hierarchy = hierarchy + [1]
             content += build_outline(new_hierarchy, entity_parts)
 
@@ -40,7 +40,7 @@ def build_definitions(hierarchy, entities):
         content += __build_definition_item(hierarchy, entity)
 
         if not is_leaf_entity(entity):
-            entity_parts = entity.INDIRECT_hasPart
+            entity_parts = parts_of_entity(entity)
             new_hierarchy = hierarchy + [1]
             content += build_definitions(new_hierarchy, entity_parts)
 
@@ -52,12 +52,12 @@ def __build_outline_item(hierarchy, entity):
 
 
 def __build_definition_item(hierarchy, entity):
-    annotated_definitions = entity.isDefinedBy
+    entity_definition = definition_of_entity(entity)
     definition = ""
 
-    if isinstance(annotated_definitions, list) and len(annotated_definitions) > 0:
+    if len(entity_definition) > 0:
         definition += __build_outline_item(hierarchy, entity)
-        definition += "\n{0}\n\n".format(annotated_definitions[0])
+        definition += "\n{0}\n\n".format(entity_definition)
 
     return definition
 

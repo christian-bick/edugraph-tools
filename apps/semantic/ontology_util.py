@@ -26,6 +26,15 @@ def is_leaf_entity(entity):
     children = entity.INDIRECT_hasPart
     return children is None or len(children) == 0
 
+def parts_of_entity(entity):
+    return entity.INDIRECT_hasPart
+
+def definition_of_entity(entity):
+    definition_annotations = entity.isDefinedBy
+    if isinstance(definition_annotations, list) and len(definition_annotations) > 0:
+        return definition_annotations[0]
+    else:
+        return ""
 
 def is_root_entity(entity):
     parents = entity.INDIRECT_partOf

@@ -1,58 +1,52 @@
 import pytest
 
 from semantic.classifiers.context_builder import *
+from tests.entity_mock import EntityMock
 
 expected_outline = (
-    """1 e1
-    1.1 e1-e1
-    1.1.1 e1-e1-e1
-    1.1.2 e1-e1-e2
-    1.2 e1-e2
-    """
+"""1 e1
+1.1 e1-e1
+1.1.1 e1-e1-e1
+1.1.2 e1-e1-e2
+1.2 e1-e2
+"""
 )
 
 expected_definitions = (
-    """1 e1
-    
-    e1-def
-    
-    1.1 e1-e1
-    
-    e1-e1-def
-    
-    1.1.1 e1-e1-e1
-    
-    e1-e1-e1-def
-    
-    1.1.2 e1-e1-e2
-    
-    e1-e1-e2-def
-    
-    1.2 e1-e2
-    
-    e1-e2-def
-    
-    """
+"""1 e1
+
+e1-def
+
+1.1 e1-e1
+
+e1-e1-def
+
+1.1.1 e1-e1-e1
+
+e1-e1-e1-def
+
+1.1.2 e1-e1-e2
+
+e1-e1-e2-def
+
+1.2 e1-e2
+
+e1-e2-def
+
+"""
 )
 
 expected_taxonomy = (
-    """Taxonomy of Areas
-    
-    A) Outline of Areas
-    
-    {0}
-    
-    B) Definitions of Areas
-    
-    {1}"""
+"""Taxonomy of Areas
+
+A) Outline of Areas
+
+{0}
+
+B) Definitions of Areas
+
+{1}"""
 ).format(expected_outline, expected_definitions)
-
-
-class EntityMock:
-    def __init__(self, name, parts=None):
-        self.name = name
-        self.isDefinedBy = [name + "-def"]
-        self.INDIRECT_hasPart = parts
 
 
 class TestContextBuilders:
@@ -74,6 +68,9 @@ class TestContextBuilders:
 
     def test_build_definitions(self, entities):
         outline = build_definitions([1], entities)
+        print(outline)
+        print("-------")
+        print(expected_definitions)
         assert outline == expected_definitions
 
     def test_build_taxonomy(self, entities):

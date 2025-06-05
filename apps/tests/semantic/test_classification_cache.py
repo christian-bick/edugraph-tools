@@ -3,7 +3,7 @@ import time
 import pytest
 from assertpy import assert_that
 
-from api.classification_cache import ClassificationCache
+from semantic.classification_cache import ClassificationCache
 
 
 class TestClassificationTest:
