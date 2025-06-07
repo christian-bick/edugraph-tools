@@ -25,14 +25,20 @@ class TestEmbeddingBuilder:
             )]
         )]
 
-    def test_generate_embedding_input(self):
-        entities_x = onto_util.list_root_entities(onto.Scope)
-        input_map = generate_embedding_input(entities_x)
-        print(input_map)
+    def test_generate_embedding_input(self, entities):
+        input_map = generate_embedding_input(entities)
+        assert input_map == {
+            'e1': 'e1-def',
+            'e1-e1': 'e1-e1-def',
+            'e1-e2': 'e1-e2-def',
+            'e1-e1-e1': 'e1-e1-e1-def',
+            'e1-e1-e2': 'e1-e1-e2-def'
+        }
 
-    def test_embed_taxonomy(self):
-        entities_x = onto_util.list_root_entities(onto.Scope)
-        embedding_map = embed_taxonomy(entities_x, GeminiEmbeddingStrategy())
-        for [key, value] in embedding_map.items():
-            print(key)
-            print(value)
+    def test_embed_taxonomy(self, entities):
+        embedding_map = embed_taxonomy(entities, GeminiEmbeddingStrategy())
+        assert type(embedding_map['e1']) is list
+        assert type(embedding_map['e1-e1']) is list
+        assert type(embedding_map['e1-e2']) is list
+        assert type(embedding_map['e1-e1-e1']) is list
+        assert type(embedding_map['e1-e1-e2']) is list

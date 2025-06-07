@@ -24,7 +24,7 @@ class GeminiEmbeddingStrategy(EmbeddingStrategy):
 
         # We want to make sure that we preserve order this is why we work with tuples
 
-        entry_tuples = list(entry_map.items())[:3]
+        entry_tuples = list(entry_map.items())
         entry_keys = [item[0] for item in entry_tuples]
         entry_values = [item[1] for item in entry_tuples]
 
