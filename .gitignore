@@ -30,5 +30,6 @@ pnpm-debug.log*
 lerna-debug.log*
 
 #Environment
+**/temp/
 *.env
 *-credentials.json
