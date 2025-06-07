@@ -22,7 +22,7 @@ services:
     build: ./apps
     ports:
       - "8080:8080"
-    command: ["sh", "-c", "flask --debug run --host=0.0.0.0 --port=8080"]
+    command: ["sh", "-c", "uv run flask --debug run --host=0.0.0.0 --port=8080"]
     develop:
       watch:
         - action: sync

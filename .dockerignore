@@ -16,6 +16,7 @@ core-ontology.ttl
 
 #Python
 __pycache__
+.venv
 
 #Web
 node_modules

@@ -1,4 +1,4 @@
-FROM python:3.12.6
+FROM ghcr.io/astral-sh/uv:python3.13-alpine
 
 ARG APP_DIR="/usr/src/app"
 ARG PORT=8080
@@ -19,15 +19,12 @@ ENV PYTHONFAULTHANDLER=1 \
     POETRY_HOME='/usr/local' \
     POETRY_VERSION=1.8.3
 
-# System deps:
-RUN curl -sSL https://install.python-poetry.org | python3 -
-
 # Copy only requirements to cache them in docker layer
 WORKDIR ${APP_DIR}
-COPY poetry.lock pyproject.toml ${APP_DIR}
+COPY uv.lock pyproject.toml ${APP_DIR}
 
 # Project initialization:
-RUN poetry install --only=main --no-interaction --no-ansi
+RUN uv sync --locked
 
 # Creating folders, and files for a project:
 COPY app.py .env* ${APP_DIR}
@@ -39,5 +36,4 @@ RUN wget https://github.com/christian-bick/edugraph-ontology/releases/download/$
 
 EXPOSE ${PORT}
 
-
-CMD ["sh", "-c", "waitress-serve --port=$PORT --call 'api:create_app'"]
+CMD ["sh", "-c", "uv run waitress-serve --port=$PORT --call 'api:create_app'"]
