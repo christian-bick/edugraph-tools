@@ -30,7 +30,6 @@ services:
           target: /usr/src/app
           ignore:
             - pyproject.toml
-            - poetry.lock
             - Dockerfile
         - action: rebuild
           path: ./apps/pyproject.toml

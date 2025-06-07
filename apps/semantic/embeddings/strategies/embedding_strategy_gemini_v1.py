@@ -7,13 +7,13 @@ from semantic.embeddings.embedding_strategy import EmbeddingStrategy
 
 
 class GeminiEmbeddingStrategy(EmbeddingStrategy):
-    def __init__(self):
-        self.client = genai.Client()
+    def __init__(self, client: genai.Client()):
+        self.client = client
 
     def embed_entry(self, entry) -> list:
 
         response = self.client.models.embed_content(
-            model="gemini-embedding-exp-03-07",
+            model="embedding-001",
             contents=entry,
             config=types.EmbedContentConfig(task_type="CLASSIFICATION")
         )

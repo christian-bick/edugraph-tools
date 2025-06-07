@@ -9,6 +9,7 @@ from google.genai.types import UploadFileConfig
 from api import app
 from semantic.classification_cache import ClassificationCache
 from semantic.classifiers.merged_classifier import MergedClassifier
+from semantic.classifiers.strategies.classifier_embeddings_gemini_v1 import ClassifierEmbeddingsGemini
 from semantic.classifiers.strategies.classifier_split_gemini_with_serialized_taxonomies_v1 import \
     ClassifierSplitGeminiWithSerializedTaxonomiesV1
 from semantic.ontology_loader import load_from_path
@@ -70,9 +71,13 @@ def classify():
             )
             app.logger.info('file %s added to gemini', name)
 
-        classifier = MergedClassifier(ClassifierSplitGeminiWithSerializedTaxonomiesV1(onto))
-        classification = classifier.classify_content(file)
+        other_classifier = ClassifierEmbeddingsGemini(onto)
+        classification = other_classifier.classify_content(file)
         classified_area = getattr(onto, classification["Area"][0])
+
+        #classifier = MergedClassifier(ClassifierSplitGeminiWithSerializedTaxonomiesV1(onto))
+        #classification = classifier.classify_content(file)
+        #classified_area = getattr(onto, classification["Area"][0])
 
         result = jsonify({
             "classification": {
