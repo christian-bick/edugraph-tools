@@ -11,6 +11,7 @@ from pydantic import BaseModel
 from google import genai
 from google.genai import types
 
+from semantic.classifiers.context_builder import build_taxonomy
 from semantic.embeddings.strategies.embedding_strategy_gemini_v1 import GeminiEmbeddingStrategy
 from semantic.ontology_util import OntologyUtil
 
@@ -126,15 +127,34 @@ def find_closest_embeddings(target_embedding, candidate_embeddings_dict):
 
     return results
 
+system_instruction = """
+You are presented with learning material that you shall describe using terms a provided taxonomy:
+
+"""
 
 prompt = """
-Describe the provided learning material using the following aspects:
+
+Consider the following taxonomy before describing the provided learning material:
+
+Chapter I: Areas
+
+{}
+
+Chapter II: Abilities
+
+{}
+
+Chapter III: Scopes
+
+{}
+
+Describe the provided learning material using the following 3 aspects:
 
 area_description: Describe the area of learning which is covered by the learning material in 2-3 sentences
-ability_description: Identify up to 5 cognitive abilities challenged by the learning material and describe each in 2-3 sentences
-scope_description: Identify up to 10 pedagogic characteristics about the learning material you haven't mentioned yet and describe each in 2-3 sentences
+ability_description: Identify up to 5 abilities challenged by the learning material and describe each in 2-3 sentences
+scope_description: Identify up to 10 scopes in the learning material and describe each in 2-3 sentences
 
-Make sure to not repeat yourself in your answers.
+Make sure to not repeat yourself in your answers and primarily use terminology from the provided taxonomy.
 """
 
 class PromptResponse(BaseModel):
@@ -153,6 +173,13 @@ class ClassifierEmbeddingsGemini:
 
         self.embedding_strategy = GeminiEmbeddingStrategy(self.client)
 
+        self.prompt = prompt.format(
+            build_taxonomy("Areas", self.onto_util.list_root_entities(onto.Area)),
+            build_taxonomy("Abilities", self.onto_util.list_root_entities(onto.Ability)),
+            build_taxonomy("Scopes", self.onto_util.list_root_entities(onto.Scope)),
+        )
+
+        self.system_instruction = system_instruction
 
         self.embedding_map_area = load_taxonomy_embeddings("Area")
         self.embedding_map_ability = load_taxonomy_embeddings("Ability")
@@ -163,12 +190,13 @@ class ClassifierEmbeddingsGemini:
 
         result = self.client.models.generate_content(
             model=self.model,
-            contents=[gemini_file, prompt],
+            contents=[gemini_file, self.prompt],
             config=types.GenerateContentConfig(
                 candidate_count=1,
                 temperature=0,
                 response_mime_type="application/json",
                 response_schema=PromptResponse,
+                system_instruction=self.system_instruction,
             )
         )
         result_obj = json.loads(result.text)
