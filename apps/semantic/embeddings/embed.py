@@ -70,6 +70,6 @@ load_dotenv()
 
 onto_path = "https://github.com/christian-bick/edugraph-ontology/releases/download/0.1.0/core-ontology.rdf"
 ontology = load_from_path(onto_path)
-#generate_taxonomy_embeddings('Area', ontology)
-#generate_taxonomy_embeddings('Scope', ontology)
+generate_taxonomy_embeddings('Area', ontology)
+generate_taxonomy_embeddings('Scope', ontology)
 generate_taxonomy_embeddings('Ability', ontology)

@@ -7,15 +7,18 @@ from semantic.embeddings.embedding_strategy import EmbeddingStrategy
 
 
 class GeminiEmbeddingStrategy(EmbeddingStrategy):
-    def __init__(self, client: genai.Client()):
-        self.client = client
+    def __init__(self, client=None):
+        if client is None:
+            self.client = genai.Client()
+        else:
+            self.client = client
 
     def embed_entry(self, entry) -> list:
 
         response = self.client.models.embed_content(
             model="embedding-001",
             contents=entry,
-            config=types.EmbedContentConfig(task_type="CLASSIFICATION")
+            config=types.EmbedContentConfig(task_type="SEMANTIC_SIMILARITY")
         )
 
         return response.embeddings[0].values
@@ -42,7 +45,7 @@ class GeminiEmbeddingStrategy(EmbeddingStrategy):
             response = self.client.models.embed_content(
                 model="embedding-001",
                 contents=entry_value_chunk,
-                config=types.EmbedContentConfig(task_type="CLASSIFICATION")
+                config=types.EmbedContentConfig(task_type="SEMANTIC_SIMILARITY")
             )
             embeddings.extend(response.embeddings)
 
