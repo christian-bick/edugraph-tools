@@ -71,8 +71,8 @@ def classify():
             )
             app.logger.info('file %s added to gemini', name)
 
-        #classifier = MergedClassifier(ClassifierSplitGeminiWithSerializedTaxonomiesV1(onto))
-        classifier = ClassifierEmbeddingsGemini(onto)
+        classifier = MergedClassifier(ClassifierSplitGeminiWithSerializedTaxonomiesV1(onto))
+        #classifier = ClassifierEmbeddingsGemini(onto)
         classification = classifier.classify_content(file)
         classified_area = getattr(onto, classification["Area"][0])
 
