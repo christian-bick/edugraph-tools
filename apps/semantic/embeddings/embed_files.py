@@ -66,7 +66,7 @@ def generate_jsonl_from_embeddings(embeddings_data: List[Tuple[str, List[float]]
                                    ) -> str:
     json_lines = []
     for name, embedding in embeddings_data:
-        json_record = {"name": name, "embedding": embedding}
+        json_record = {"id": name, "embedding": embedding}
         json_lines.append(json.dumps(json_record))
     return "\n".join(json_lines)
 
@@ -193,24 +193,26 @@ class GoogleFileEmbedder:
             print(f"Error initializing Vertex AI: {e}")
             return  # Stop execution if Vertex AI can't be initialized
 
-        bucket_path = self.bucket_path + "/raw"
+        bucket_path_raw = self.bucket_path + "/raw"
+        bucket_path_normalized = self.bucket_path + "/normalized"
+        bucket_path_embedded = self.bucket_path + "/embedded"
 
         try:
             storage_client = storage.Client()
             bucket = storage_client.bucket(self.bucket_name)
 
-            prefix = bucket_path
+            prefix = bucket_path_raw
             if prefix and not prefix.endswith('/'):
                 prefix += '/'
 
             blobs = bucket.list_blobs(prefix=prefix)
 
-            print(f"Scanning folder '{bucket_path if bucket_path else 'root'}' in bucket '{self.bucket_name}'...")
+            print(f"Scanning folder '{bucket_path_raw if bucket_path_raw else 'root'}' in bucket '{self.bucket_name}'...")
             file_count = 0
             for blob in blobs:
                 # Skip objects that represent folders (common convention is ending with '/')
-                filename = blob.name
-                if filename.endswith('/'):
+                filename = os.path.basename(blob.name)
+                if blob.name.endswith('/'):
                     continue
 
                 file_count += 1
@@ -221,14 +223,14 @@ class GoogleFileEmbedder:
                     normalized_images = list(map(lambda x: (x["name"], x["image_data"]), embedding_results))
                     embeddings_data = list(map(lambda x: (x["name"], x["embedding"]), embedding_results))
                     embeddings_json = generate_jsonl_from_embeddings(embeddings_data)
-                    self.upload_blobs_as_new_files(self.bucket_path + "/normalized", normalized_images)
-                    self.upload_blobs_as_new_files(self.bucket_path + "/embedded", [(filename, embeddings_json.encode('utf-8'))])
+                    self.upload_blobs_as_new_files(bucket_path_normalized, normalized_images)
+                    self.upload_blobs_as_new_files(bucket_path_embedded, [(filename + ".json", embeddings_json.encode('utf-8'))])
 
                 except Exception as e:
                     print(f"Error processing file {filename}: {e}")
 
             if file_count == 0:
-                print(f"No files found in '{bucket_path if bucket_path else 'root'}' of bucket '{self.bucket_name}'.")
+                print(f"No files found in '{bucket_path_raw if bucket_path_raw else 'root'}' of bucket '{self.bucket_name}'.")
             else:
                 print(f"Finished processing {file_count} file(s).")
 
