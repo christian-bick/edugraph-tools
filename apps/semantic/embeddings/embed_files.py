@@ -1,3 +1,4 @@
+import json
 import os
 from typing import Callable, Tuple, Dict
 from typing import List, Optional
@@ -11,21 +12,6 @@ from vertexai.vision_models import MultiModalEmbeddingModel, Image
 
 def convert_pdf_blob_to_image_blobs(filename: str, pdf_blob: bytes, dpi: int = 300) -> Optional[
     List[Tuple[str, bytes]]]:
-    """
-    Converts each page of a PDF (provided as a byte blob) into an image (PNG format)
-    and returns a list of image byte blobs.
-
-    Args:
-        filename (str): The corresponding filename
-        pdf_blob (bytes): The content of the PDF file as bytes.
-        dpi (int): Dots per inch for rendering the PDF pages to images.
-                     Higher DPI results in larger and higher-quality images.
-
-    Returns:
-        Optional[List[bytes]]: A list of byte blobs, where each blob is the
-                               content of a generated PNG image for a page.
-                               Returns None if an error occurs during PDF processing.
-    """
     image_blobs: List[(str, bytes)] = []
     try:
         # Open the PDF from the byte stream
@@ -54,16 +40,7 @@ def convert_pdf_blob_to_image_blobs(filename: str, pdf_blob: bytes, dpi: int = 3
         print(f"Error converting PDF to images: {e}")
         return None
 
-def save_images_to_temp_directory(self, image_data_list: List[Tuple[str, bytes]]) -> None:
-    """
-    Saves a list of images to a 'temp' directory relative to the current working directory.
-
-    Each item in the list should be a tuple containing the desired filename (str)
-    and the image data (bytes).
-
-    Args:
-        image_data_list (List[Tuple[str, bytes]]): A list of (filename, image_bytes) tuples.
-    """
+def save_images_to_temp_directory(image_data_list: List[Tuple[str, bytes]]) -> None:
     temp_dir = "temp"
     try:
         # Create the 'temp' directory if it doesn't exist
@@ -87,21 +64,6 @@ def save_images_to_temp_directory(self, image_data_list: List[Tuple[str, bytes]]
 
 def generate_jsonl_from_embeddings(embeddings_data: List[Tuple[str, List[float]]]
                                    ) -> str:
-    """
-    Generates a JSON Lines (JSONL) formatted string from a list of (name, embedding) tuples.
-
-    Each line in the output string will be a JSON object of the form:
-    {"name": "some_name", "embedding": [0.1, 0.2, ...]}
-
-    Args:
-        embeddings_data (List[Tuple[str, List[float]]]): A list of tuples,
-            where each tuple contains:
-            - A name (str) for the item.
-            - An embedding vector (List[float]).
-
-    Returns:
-        str: A string where each line is a JSON object representing an embedding.
-    """
     json_lines = []
     for name, embedding in embeddings_data:
         json_record = {"name": name, "embedding": embedding}
@@ -121,17 +83,6 @@ class GoogleFileEmbedder:
     def generate_multimodal_embedding_from_image_blob(self,
                                                       image_blob: bytes,
                                                       ) -> Optional[List[float]]:
-        """
-        Generates a multimodal embedding for an image provided as a byte blob
-        using an already initialized Vertex AI client.
-    
-        Args:
-            image_blob (bytes): The content of the image file as bytes.
-    
-        Returns:
-            Optional[List[float]]: A list of floats representing the embedding vector,
-                                   or None if an error occurs.
-        """
         try:
             # Load the multimodal embedding model
             # vertexai.init() is assumed to have been called externally
@@ -159,20 +110,6 @@ class GoogleFileEmbedder:
                                   bucket_path: str,
                                   files_data: List[Tuple[str, bytes]]
                                   ) -> None:
-        """
-        Uploads a list of (filename, blob_content) tuples as new, separate files
-        to a specified folder path within the Google Cloud Storage bucket.
-        If a file with the same name already exists at the target path, it will be overwritten.
-
-        Args:
-            bucket_path (str): The destination folder path within the bucket
-                                          (e.g., "output/images" or "" for the root).
-                                          This path is relative to the bucket root.
-            files_data (List[Tuple[str, bytes]]): A list of tuples, where each
-                tuple contains:
-                - filename (str): The desired name for the file in GCS.
-                - blob_content (bytes): The content of the file.
-        """
         try:
             storage_client = storage.Client()
             bucket = storage_client.bucket(self.bucket_name)
@@ -235,10 +172,10 @@ class GoogleFileEmbedder:
             embedding = self.generate_multimodal_embedding_from_image_blob(image_data)
             if embedding:
                 embedding_results.append({
-                    name: name,
-                    mime_type: mime_type,
-                    embedding: embedding,
-                    image_data: image_data
+                    "name": name,
+                    "mime_type": mime_type,
+                    "embedding": embedding,
+                    "image_data": image_data
                 })
                 print(f"Embedding for {name} (MIME: {mime_type}): {len(embedding)} dimensions")
             else:
@@ -258,19 +195,6 @@ class GoogleFileEmbedder:
 
         bucket_path = self.bucket_path + "/raw"
 
-        """
-        Downloads all files within a specified folder of a Google Cloud Storage bucket
-        and calls a provided function with each file's name and content.
-
-        Args:
-            bucket_path (str): The path to the folder within the bucket (e.g., "path/to/your/folder").
-                               Use an empty string "" for the root of the bucket.
-                               The path should not start with a '/'.
-            callback (Callable[[str, bytes], None]): A function to be called
-                               for each downloaded file. It will receive two arguments:
-                               - blob_name (str): The full GCS path of the file (e.g., "path/to/your/folder/file.txt").
-                               - file_content (bytes): The content of the file as bytes.
-        """
         try:
             storage_client = storage.Client()
             bucket = storage_client.bucket(self.bucket_name)
@@ -294,13 +218,11 @@ class GoogleFileEmbedder:
                 try:
                     file_content_bytes = blob.download_as_bytes()
                     embedding_results = self.embed_blob(filename, file_content_bytes)
-                    print(embedding_results)
-
-                    normalized_images = list(map(lambda x: (x.name, x.image_data), embedding_results))
-                    embeddings_data = list(map(lambda x: (x.name, x.embedding), embedding_results))
+                    normalized_images = list(map(lambda x: (x["name"], x["image_data"]), embedding_results))
+                    embeddings_data = list(map(lambda x: (x["name"], x["embedding"]), embedding_results))
                     embeddings_json = generate_jsonl_from_embeddings(embeddings_data)
                     self.upload_blobs_as_new_files(self.bucket_path + "/normalized", normalized_images)
-                    self.upload_blobs_as_new_files(self.bucket_path + "/embedded", [filename, embeddings_json])
+                    self.upload_blobs_as_new_files(self.bucket_path + "/embedded", [(filename, embeddings_json.encode('utf-8'))])
 
                 except Exception as e:
                     print(f"Error processing file {filename}: {e}")
