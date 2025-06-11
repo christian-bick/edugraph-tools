@@ -35,7 +35,7 @@ def query_vector_search_index(
     deployed_index: str, # The ID of the deployed index on the endpoint
     query_embedding: List[float],
     num_neighbors: int = 5,
-    content_type="material"
+    filter: Optional[List[Namespace]] = None,
 ) -> Optional[List[MatchNeighbor]]:
     try:
         # Initialize the AI Platform client
@@ -59,10 +59,7 @@ def query_vector_search_index(
         response = endpoint.find_neighbors(
             deployed_index_id=deployed_index,
             queries=[query_embedding], # Expects a list of queries
-            filter=[Namespace(
-                name="type",
-                allow_tokens=[content_type]
-            )],
+            filter=filter,
             num_neighbors=num_neighbors
         )
 
@@ -91,14 +88,18 @@ if __name__ == "__main__":
         model_name="multimodalembedding@001"
     )
 
-    query_embeddings = embedder.embed_blob("query_file", query_blob)
+    query_embeddings = embedder.embed_document("query_file", query_blob)
 
     neighbors = query_vector_search_index(
         project=project,
         location=location,
         index_endpoint="projects/575953891979/locations/europe-west3/indexEndpoints/6601907617818214400",
-        deployed_index="example_deplyoment_1749586210849",
+        deployed_index="example_deploy_1749682778003",
         query_embedding=query_embeddings[0]["embedding"],
+        filter=[Namespace(
+            name="type",
+            allow_tokens=["taxonomy"]
+        )]
     )
 
     neighbor_ids = [(neighbor.id, neighbor.distance) for neighbor in neighbors]
