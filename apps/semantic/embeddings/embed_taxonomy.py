@@ -3,7 +3,7 @@ from typing import Tuple, List
 import vertexai  # Only for type hinting if GenerativeModel is not directly imported
 from dotenv import load_dotenv
 
-from semantic.embeddings.embed_files import GoogleMultiModalEmbedder, generate_jsonl_from_embeddings, \
+from semantic.embeddings.embedder_google import GoogleMultiModalEmbedder, generate_jsonl_from_embeddings, \
     upload_blobs_as_new_files
 
 from semantic.ontology_loader import load_from_path

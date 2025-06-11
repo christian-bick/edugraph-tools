@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from google.cloud import aiplatform
 import os
 
-from semantic.embeddings.embed_files import GoogleMultiModalEmbedder
+from semantic.embeddings.embedder_google import GoogleMultiModalEmbedder
 from google.cloud.aiplatform.matching_engine.matching_engine_index_endpoint import MatchNeighbor, Namespace
 
 
