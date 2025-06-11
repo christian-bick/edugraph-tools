@@ -9,7 +9,6 @@ from dotenv import load_dotenv
 from google.cloud import storage
 from vertexai.vision_models import MultiModalEmbeddingModel, Image
 
-
 def convert_pdf_blob_to_image_blobs(filename: str, pdf_blob: bytes, dpi: int = 300) -> Optional[
     List[Tuple[str, bytes]]]:
     image_blobs: List[(str, bytes)] = []
@@ -40,28 +39,6 @@ def convert_pdf_blob_to_image_blobs(filename: str, pdf_blob: bytes, dpi: int = 3
         print(f"Error converting PDF to images: {e}")
         return None
 
-def save_images_to_temp_directory(image_data_list: List[Tuple[str, bytes]]) -> None:
-    temp_dir = "temp"
-    try:
-        # Create the 'temp' directory if it doesn't exist
-        os.makedirs(temp_dir, exist_ok=True)
-        print(f"Ensured directory '{temp_dir}' exists or was created.")
-
-        for filename, image_blob in image_data_list:
-            file_path = os.path.join(temp_dir, filename)
-            try:
-                with open(file_path, "wb") as f:
-                    f.write(image_blob)
-                print(f"Successfully saved: {file_path}")
-            except IOError as e:
-                print(f"Error saving file {filename} to {file_path}: {e}")
-    except OSError as e:
-        print(f"Error creating directory {temp_dir}: {e}")
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
-
-
-
 def generate_jsonl_from_embeddings(embeddings_data: List[Tuple[str, List[float]]]
                                    ) -> str:
     json_lines = []
@@ -70,41 +47,69 @@ def generate_jsonl_from_embeddings(embeddings_data: List[Tuple[str, List[float]]
         json_lines.append(json.dumps(json_record))
     return "\n".join(json_lines)
 
-
-class GoogleFileEmbedder:
-
-    def __init__(self, project, location, bucket_name, bucket_path, model_name):
+class GoogleMultiModalBatchEmbedder:
+    def __init__(self, project, location, bucket_name, bucket_path, embedder):
         self.project = project
         self.location = location
         self.bucket_name = bucket_name
         self.bucket_path = bucket_path
-        self.model = MultiModalEmbeddingModel.from_pretrained(model_name)
+        self.embedder = embedder
 
-    def generate_multimodal_embedding_from_image_blob(self,
-                                                      image_blob: bytes,
-                                                      ) -> Optional[List[float]]:
+    def embed_files(self):
+        # Initialize Vertex AI *before* it's needed by the callback
+        print(f"Initializing Vertex AI for project: {self.project}, location: {self.location}")
         try:
-            # Load the multimodal embedding model
-            # vertexai.init() is assumed to have been called externally
+            vertexai.init(project=self.project, location=self.location)
+            print("Vertex AI initialized successfully.")
+        except Exception as e:
+            print(f"Error initializing Vertex AI: {e}")
+            return  # Stop execution if Vertex AI can't be initialized
 
-            # Create a Part object from the image bytes
-            image = Image(image_blob)
+        bucket_path_raw = self.bucket_path + "/raw"
+        bucket_path_normalized = self.bucket_path + "/normalized"
+        bucket_path_embedded = self.bucket_path + "/embedded"
 
-            # Generate the embedding
-            # For "multimodalembedding@001", the API expects a list of parts.
-            embeddings = self.model.get_embeddings(image=image)
+        try:
+            storage_client = storage.Client()
+            bucket = storage_client.bucket(self.bucket_name)
 
-            # Extract the embedding vector
-            if embeddings and embeddings.image_embedding:
-                return embeddings.image_embedding  # Ensure it's a Python list
+            prefix = bucket_path_raw
+            if prefix and not prefix.endswith('/'):
+                prefix += '/'
+
+            blobs = bucket.list_blobs(prefix=prefix)
+
+            print(f"Scanning folder '{bucket_path_raw if bucket_path_raw else 'root'}' in bucket '{self.bucket_name}'...")
+            file_count = 0
+            for blob in blobs:
+                # Skip objects that represent folders (common convention is ending with '/')
+                filename = os.path.basename(blob.name)
+                if blob.name.endswith('/'):
+                    continue
+
+                file_count += 1
+                print(f"Downloading and processing: {filename}")
+                try:
+                    file_content_bytes = blob.download_as_bytes()
+                    embedding_results = self.embedder.embed_blob(filename, file_content_bytes)
+                    normalized_images = list(map(lambda x: (x["name"], x["image_data"]), embedding_results))
+                    embeddings_data = list(map(lambda x: (x["name"], x["embedding"]), embedding_results))
+                    embeddings_json = generate_jsonl_from_embeddings(embeddings_data)
+                    self.upload_blobs_as_new_files(bucket_path_normalized, normalized_images)
+
+                    json_filename = f"{filename.replace(".", "-")}.json"
+                    self.upload_blobs_as_new_files(bucket_path_embedded, [(json_filename, embeddings_json.encode('utf-8'))])
+
+                except Exception as e:
+                    print(f"Error processing file {filename}: {e}")
+
+            if file_count == 0:
+                print(f"No files found in '{bucket_path_raw if bucket_path_raw else 'root'}' of bucket '{self.bucket_name}'.")
             else:
-                print(
-                    "Error: Could not extract embedding from Vertex AI response. Response structure might be unexpected.")
-                return None
+                print(f"Finished processing {file_count} file(s).")
 
         except Exception as e:
-            print(f"An error occurred during Vertex AI embedding generation: {e}")
-            return None
+            print(f"An error occurred: {e}")
 
     def upload_blobs_as_new_files(self,
                                   bucket_path: str,
@@ -146,6 +151,37 @@ class GoogleFileEmbedder:
         except Exception as e_client:
             print(f"An error occurred during GCS operation for bucket '{self.bucket_name}': {e_client}")
 
+class GoogleMultiModalEmbedder:
+
+    def __init__(self, model_name):
+        self.model = MultiModalEmbeddingModel.from_pretrained(model_name)
+
+    def generate_multimodal_embedding_from_image_blob(self,
+                                                      image_blob: bytes,
+                                                      ) -> Optional[List[float]]:
+        try:
+            # Load the multimodal embedding model
+            # vertexai.init() is assumed to have been called externally
+
+            # Create a Part object from the image bytes
+            image = Image(image_blob)
+
+            # Generate the embedding
+            # For "multimodalembedding@001", the API expects a list of parts.
+            embeddings = self.model.get_embeddings(image=image)
+
+            # Extract the embedding vector
+            if embeddings and embeddings.image_embedding:
+                return embeddings.image_embedding  # Ensure it's a Python list
+            else:
+                print(
+                    "Error: Could not extract embedding from Vertex AI response. Response structure might be unexpected.")
+                return None
+
+        except Exception as e:
+            print(f"An error occurred during Vertex AI embedding generation: {e}")
+            return None
+
     def embed_blob(self, filename, blob) -> List[Dict]:
         # Initialize image_blobs as a list to handle single non-PDFs and multiple PDF pages
         processed_image_blobs_with_names = []
@@ -158,8 +194,6 @@ class GoogleFileEmbedder:
             # For non-PDFs, treat the blob as a single image
             # Ensure the filename for non-PDFs is correctly passed if needed for naming
             processed_image_blobs_with_names.append((filename, blob))
-
-            # save_images_to_temp_directory(processed_image_blobs_with_names)
 
         embedding_results: List[Dict] = []
 
@@ -183,68 +217,13 @@ class GoogleFileEmbedder:
 
         return embedding_results
 
-    def embed_files(self):
-        # Initialize Vertex AI *before* it's needed by the callback
-        print(f"Initializing Vertex AI for project: {self.project}, location: {self.location}")
-        try:
-            vertexai.init(project=self.project, location=self.location)
-            print("Vertex AI initialized successfully.")
-        except Exception as e:
-            print(f"Error initializing Vertex AI: {e}")
-            return  # Stop execution if Vertex AI can't be initialized
-
-        bucket_path_raw = self.bucket_path + "/raw"
-        bucket_path_normalized = self.bucket_path + "/normalized"
-        bucket_path_embedded = self.bucket_path + "/embedded"
-
-        try:
-            storage_client = storage.Client()
-            bucket = storage_client.bucket(self.bucket_name)
-
-            prefix = bucket_path_raw
-            if prefix and not prefix.endswith('/'):
-                prefix += '/'
-
-            blobs = bucket.list_blobs(prefix=prefix)
-
-            print(f"Scanning folder '{bucket_path_raw if bucket_path_raw else 'root'}' in bucket '{self.bucket_name}'...")
-            file_count = 0
-            for blob in blobs:
-                # Skip objects that represent folders (common convention is ending with '/')
-                filename = os.path.basename(blob.name)
-                if blob.name.endswith('/'):
-                    continue
-
-                file_count += 1
-                print(f"Downloading and processing: {filename}")
-                try:
-                    file_content_bytes = blob.download_as_bytes()
-                    embedding_results = self.embed_blob(filename, file_content_bytes)
-                    normalized_images = list(map(lambda x: (x["name"], x["image_data"]), embedding_results))
-                    embeddings_data = list(map(lambda x: (x["name"], x["embedding"]), embedding_results))
-                    embeddings_json = generate_jsonl_from_embeddings(embeddings_data)
-                    self.upload_blobs_as_new_files(bucket_path_normalized, normalized_images)
-                    self.upload_blobs_as_new_files(bucket_path_embedded, [(filename + ".json", embeddings_json.encode('utf-8'))])
-
-                except Exception as e:
-                    print(f"Error processing file {filename}: {e}")
-
-            if file_count == 0:
-                print(f"No files found in '{bucket_path_raw if bucket_path_raw else 'root'}' of bucket '{self.bucket_name}'.")
-            else:
-                print(f"Finished processing {file_count} file(s).")
-
-        except Exception as e:
-            print(f"An error occurred: {e}")
-
-
 if __name__ == "__main__":
     load_dotenv()
-    embedder = GoogleFileEmbedder(
+    embedder = GoogleMultiModalBatchEmbedder(
         project="edugraph-438718",
         location="europe-west3",
-        bucket_name="edugraph-material",
+        bucket_name="edugraph-embed",
         bucket_path="examples",
-        model_name="multimodalembedding@001",
+        embedder=GoogleMultiModalEmbedder(model_name="multimodalembedding@001"),
     )
     embedder.embed_files()
