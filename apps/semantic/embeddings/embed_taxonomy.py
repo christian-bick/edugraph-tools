@@ -8,7 +8,7 @@ from semantic.embeddings.embedder_google import GoogleMultiModalEmbedder, genera
 
 from semantic.ontology_loader import load_from_path
 from semantic.ontology_util import natural_name_of_entity, definition_of_entity, parts_of_entity, is_leaf_entity, \
-    OntologyUtil
+    OntologyUtil, natural_name_of_entity_name
 
 
 def generate_embedding_input(entities) -> List[Tuple[str, str]]:
@@ -38,18 +38,29 @@ class GoogleMultiModalTaxonomyEmbedder:
 
         vertexai.init(project=self.project, location=self.location)
 
-    def embed_taxonomy(self, taxonomy_name: str, taxonomy_entities: List[Tuple[str, str]]):
+    def embed_taxonomy(self, taxonomy_name: str, name_template: str, definition_template: str, taxonomy_entities: List[Tuple[str, str]]):
 
         bucket_path_embedded = "examples/embedded-taxonomy"
         embedding_results = []
 
         for entity in taxonomy_entities:
             name = entity[0]
-            description = entity[1]
+            definition = entity[1]
+
+            intro = name_template.format(natural_name_of_entity_name(name))
+
+            if definition is None or "":
+                description = ""
+            else:
+                description = definition_template.format(definition.lower())
+
+            embedded_text = f"{intro} {description}"
 
             print(f"Processing entity: {entity[0]}")
+            print(f"Embedded text: {embedded_text}")
+
             try:
-                embedding_result = self.embedder.embed_text(description)
+                embedding_result = self.embedder.embed_text(embedded_text)
                 embedding_results.append((name, embedding_result))
 
             except Exception as e:
@@ -79,7 +90,7 @@ class GoogleMultiModalTaxonomyEmbedder:
 
 if __name__ == "__main__":
     load_dotenv()
-    onto_path = "https://github.com/christian-bick/edugraph-ontology/releases/download/0.1.0/core-ontology.rdf"
+    onto_path = "https://github.com/christian-bick/edugraph-ontology/releases/download/0.1.2/core-ontology.rdf"
 
     print("Loading ontology")
     ontology = load_from_path(onto_path)
@@ -94,15 +105,23 @@ if __name__ == "__main__":
         embedder=GoogleMultiModalEmbedder(model_name="multimodalembedding@001"),
     )
 
-    taxonomies = [
-        "Area",
-        #"Ability",
-        #"Scope"
-    ]
+    taxonomies = {
+        "Area": [
+            "Learning material that focuses on the study of {}.",
+            "More precisely the study of {}"
+        ],
+        #"Ability": "Learning material that primarily involves the ability of {}. {}",
+        #"Scope": "Learning material that clearly involves {}. {}"
+    }
 
-    for taxonomy in taxonomies:
-        print(f"Embedding taxonomy for {taxonomy}")
+    for taxonomy_name, entity_template in taxonomies.items():
+        print(f"Embedding taxonomy for {taxonomy_name}")
 
-        root_entities = onto_util.list_root_entities(getattr(ontology, taxonomy))
+        root_entities = onto_util.list_root_entities(getattr(ontology, taxonomy_name))
         input_entities = generate_embedding_input(root_entities)
-        embedder.embed_taxonomy(taxonomy, input_entities)
+        embedder.embed_taxonomy(
+            taxonomy_name=taxonomy_name,
+            taxonomy_entities=input_entities,
+            name_template=entity_template[0],
+            definition_template=entity_template[1]
+        )
